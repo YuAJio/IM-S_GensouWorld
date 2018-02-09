@@ -23,16 +23,20 @@ namespace IMAS.LocalDBManager.Models
         /// </summary>
         public int CostSp { get; set; }
         /// <summary>
-        /// 物理伤害
+        /// 伤害
         /// </summary>
-        public int ArmorDamage { get; set; }
-        /// <summary>
-        /// 魔法伤害
-        /// </summary>
-        public int MagicDamage { get; set; }
-        /// <summary>
-        /// 精神伤害
-        /// </summary>
-        public int MindDamage { get; set; }
+        public int Damage { get; set; }
+        ///// <summary>
+        ///// 物理伤害
+        ///// </summary>
+        //public int ArmorDamage { get; set; }
+        ///// <summary>
+        ///// 魔法伤害
+        ///// </summary>
+        //public int MagicDamage { get; set; }
+        ///// <summary>
+        ///// 精神伤害
+        ///// </summary>
+        //public int MindDamage { get; set; }
     }
 }

@@ -155,13 +155,13 @@ namespace IdoMaster_GensouWorld.Utils
 
         public override void ShowAsDropDown(View anchor, int xoff, int yoff)
         {
-            if (Build.VERSION.SdkInt == BuildVersionCodes.N)
-            {
-                Rect rect = new Rect();
-                anchor.GetGlobalVisibleRect(rect);
-                int h = anchor.Resources.DisplayMetrics.HeightPixels - rect.Bottom;
-                Height = h;
-            }
+            //if (Build.VERSION.SdkInt == BuildVersionCodes.Cupcake)
+            //{
+            //    Rect rect = new Rect();
+            //    anchor.GetGlobalVisibleRect(rect);
+            //    int h = anchor.Resources.DisplayMetrics.HeightPixels - rect.Bottom;
+            //    Height = h;
+            //}
             base.ShowAsDropDown(anchor, xoff, yoff);
         }
     }

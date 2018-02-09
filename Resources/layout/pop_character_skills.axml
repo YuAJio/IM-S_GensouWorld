@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/snow"
     android:orientation="vertical">
-
 
   <RelativeLayout
       android:layout_width="match_parent"
@@ -54,13 +54,47 @@
     <ListView
         android:id="@+id/lv_skills"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="160dp"
         android:layout_below="@id/ll_non"
         android:clipToPadding="true"
+        android:divider="#00FFFFFF"
+        android:dividerHeight="3dp"
         android:overScrollMode="never"
         android:paddingTop="10dp"
         android:scrollbars="none" />
 
-  </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lv_skills"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/bg_box_skill_introduce"
+        android:orientation="vertical"
+        android:padding="16dp">
 
+      <TextView
+          android:id="@+id/tv_skill_name"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textColor="@color/black"
+          android:textSize="16sp" />
+
+      <TextView
+          android:id="@+id/tv_skill_introduce"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="5dp"
+          android:textColor="@color/dimgray"
+          android:textSize="16sp" />
+
+      <TextView
+          android:id="@+id/tv_cost_point"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="end"
+          android:layout_marginEnd="10dp"
+          android:layout_marginTop="8dp"
+          android:textColor="@color/grey" />
+    </LinearLayout>
+  </RelativeLayout>
 </LinearLayout>

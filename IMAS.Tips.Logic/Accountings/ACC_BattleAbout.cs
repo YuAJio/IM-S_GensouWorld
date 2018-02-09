@@ -64,17 +64,17 @@ namespace IMAS.Tips.Logic.Accountings
             {
                 case Enums.SkillsMode.Attack:
                     guard = m_Data.DefencePoint * 0.8;
-                    damage = skills.ArmorDamage;
+                    damage = skills.Damage;
                     damage += CharacterSTR * 0.6;
                     break;
                 case Enums.SkillsMode.Mana:
                     guard = m_Data.DefencePoint * 0.5;
-                    damage = skills.MagicDamage;
+                    damage = skills.Damage;
                     damage += CharacterINI * 1.0;
                     break;
                 case Enums.SkillsMode.Mind:
                     guard = m_Data.DefencePoint * 0.1;
-                    damage = skills.MindDamage;
+                    damage = skills.Damage;
 
                     break;
             }

@@ -22,7 +22,7 @@ using CustomControl;
 using IdoMaster_GensouWorld.Adapters;
 using IMAS.Accounting;
 using Android.Support.Percent;
-
+using Android.Support.V4.Content;
 
 namespace IdoMaster_GensouWorld.Activitys.CharacterPage
 {
@@ -110,7 +110,6 @@ namespace IdoMaster_GensouWorld.Activitys.CharacterPage
 
         public override void B_BeforeInitView()
         {
-
         }
 
         public override void C_InitView()
@@ -174,12 +173,22 @@ namespace IdoMaster_GensouWorld.Activitys.CharacterPage
                     break;
                 case Resource.Id.bt_skill_List:
                     {//角色技能列表
-
+                        ShowCharacterSkillsDialog();
                     }
                     break;
                 case Resource.Id.iv_char_body:
                     {//角色立绘
 
+                    }
+                    break;
+                case Resource.Id.tv_skill:
+                    {
+                        ChoseSkillList();
+                    }
+                    break;
+                case Resource.Id.tv_magic:
+                    {
+                        ChoseMagicList();
                     }
                     break;
 
@@ -188,7 +197,37 @@ namespace IdoMaster_GensouWorld.Activitys.CharacterPage
 
         public override void G_OnAdapterItemClickListener(View v, AdapterView.ItemClickEventArgs e)
         {
+            switch (v.Id)
+            {
+                case Resource.Id.lv_skills:
+                    {
+                        var choseSkills = adapter_Skills[e.Position];
 
+                        tv_skillName.Text = choseSkills.Name;
+                        tv_skillIntroduce.Text = $"”{choseSkills.SkillIllustrate}”\n敵に{choseSkills.Damage}の{EnumDescription.GetFieldText(choseSkills.SkillMode)}ダメージをあげる,{EnumDescription.GetFieldText(choseSkills.SkillType)}属性";
+
+                        var sb = new StringBuilder();
+                        if (choseSkills.CostHp > 0)
+                            sb.Append($"CostHp:{choseSkills.CostHp}\t");
+                        if (choseSkills.CostMp > 0)
+                            sb.Append($"CostMp:{choseSkills.CostMp}\t");
+                        if (choseSkills.CostSp > 0)
+                            sb.Append($"CostSp:{choseSkills.CostSp}\t");
+                        tv_skillCost.Text = sb.ToString();
+                        if (!choseSkills.IsSelect)
+                        {
+                            list_Skills.ForEach(r => r.IsSelect = false);
+                            var list = new List<Model_Skills>();
+                            if (skillIndext == 1)
+                                list = list_Skills.Where(r => r.SkillMode == SkillsMode.Attack).ToList();
+                            else if (skillIndext == 2)
+                                list = list_Skills.Where(r => r.SkillMode == SkillsMode.Mana || r.SkillMode == SkillsMode.Mind).ToList();
+                            list[e.Position].IsSelect = true;
+                            adapter_Skills.SetDataList(list);
+                        }
+                    }
+                    break;
+            }
         }
 
         private void OnItemLongPressListener(object sender, AdapterView.ItemLongClickEventArgs e)
@@ -197,6 +236,109 @@ namespace IdoMaster_GensouWorld.Activitys.CharacterPage
 
             ShowItemIllustratePopWindow(e.View, clickItem.ItemIllustrate);
         }
+
+        #region  查看角色技能
+        private int skillIndext = 1;
+        private void ChoseSkillList()
+        {
+            if (skillIndext != 1)
+            {
+                skillIndext = 1;
+                var senki = list_Skills.Where(r => r.SkillMode == SkillsMode.Attack).ToList(); ;
+                adapter_Skills.SetDataList(senki);
+                tv_Skill.SetTextColor(ContextCompat.GetColorStateList(this, Resource.Color.skyblue));
+                tv_Magic.SetTextColor(ContextCompat.GetColorStateList(this, Resource.Color.dimgrey));
+            }
+        }
+        private void ChoseMagicList()
+        {
+            if (skillIndext != 2)
+            {
+                skillIndext = 2;
+                var maho = list_Skills.Where(r => r.SkillMode == SkillsMode.Mana || r.SkillMode == SkillsMode.Mind).ToList(); ;
+                adapter_Skills.SetDataList(maho);
+                tv_Magic.SetTextColor(ContextCompat.GetColorStateList(this, Resource.Color.skyblue));
+                tv_Skill.SetTextColor(ContextCompat.GetColorStateList(this, Resource.Color.dimgrey));
+            }
+        }
+        #region UI控件
+        /// <summary>
+        /// 技能名称
+        /// </summary>
+        private TextView tv_skillName;
+        /// <summary>
+        /// 技能介绍
+        /// </summary>
+        private TextView tv_skillIntroduce;
+        /// <summary>
+        /// 技能消耗
+        /// </summary>
+        private TextView tv_skillCost;
+
+        private TextView tv_Skill;
+        private TextView tv_Magic;
+        #endregion
+        ///// <summary>
+        ///// 技能ListView
+        ///// </summary>
+        //private ListView lv_Skills;
+        /// <summary>
+        /// 技能列表
+        /// </summary>
+        private List<Model_Skills> list_Skills;
+        /// <summary>
+        /// 技能适配器
+        /// </summary>
+        private CharacterSkillsAdapter adapter_Skills;
+        /// <summary>
+        /// 显示角色技能
+        /// </summary>
+        private void ShowCharacterSkillsDialog()
+        {
+            if (info_character == null)
+            {
+                return;
+            }
+            var jk = new AlertDialog.Builder(this);
+            var view = View.Inflate(this, Resource.Layout.pop_character_skills, null);
+            tv_Skill = view.FindViewById<TextView>(Resource.Id.tv_skill);
+            tv_Magic = view.FindViewById<TextView>(Resource.Id.tv_magic);
+            var lv_Skills = view.FindViewById<ListView>(Resource.Id.lv_skills);
+            if (tv_skillName == null)
+            {
+                tv_skillName = view.FindViewById<TextView>(Resource.Id.tv_skill_name);
+                tv_skillIntroduce = view.FindViewById<TextView>(Resource.Id.tv_skill_introduce);
+                tv_skillCost = view.FindViewById<TextView>(Resource.Id.tv_cost_point);
+            }
+            tv_Skill.Click -= OnClickListener;
+            tv_Magic.Click -= OnClickListener;
+
+            tv_Skill.Click += OnClickListener;
+            tv_Magic.Click += OnClickListener;
+
+            lv_Skills.ItemClick -= OnAdapterItemClickListener;
+            lv_Skills.ItemClick += OnAdapterItemClickListener;
+
+            list_Skills = info_character.ChartSkills.ToObject<List<Model_Skills>>();
+            var list = list_Skills.Where(r => r.SkillMode == SkillsMode.Attack).ToList(); ;
+
+            if (adapter_Skills == null)
+            {
+                adapter_Skills = new CharacterSkillsAdapter(this);
+            }
+            if (lv_Skills.Adapter == null)
+            {
+                lv_Skills.Adapter = adapter_Skills;
+            }
+
+            adapter_Skills.SetDataList(list);
+            jk.SetView(view);
+            _ConfigDialog = jk.Show();
+            _ConfigDialog.Window.ClearFlags(WindowManagerFlags.DimBehind);
+            _ConfigDialog.Window.SetWindowAnimations(Resource.Style.DialogFadeAnimation);
+        }
+
+        #endregion
 
         #region 选择装备
         /// <summary>

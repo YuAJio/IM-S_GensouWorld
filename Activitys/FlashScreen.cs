@@ -22,7 +22,7 @@ namespace IdoMaster_GensouWorld.Activitys
     /// <summary>
     /// 闪屏页面(做一些无法在主页做的操作)
     /// </summary>
-    [Activity(Label = "アイドルマスター", MainLauncher = true, Theme = "@style/Theme.Main", Icon = "@drawable/icon", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
+    [Activity(Label = "アイドルマスター", MainLauncher = true, Theme = "@style/Theme.Main", Icon = "@mipmap/icon", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     //[Activity(Label = "FlashScreen", MainLauncher = true)]
     public class FlashScreen : Activity
     {
@@ -244,7 +244,7 @@ namespace IdoMaster_GensouWorld.Activitys
                     SkillType=SkillsType.Water,
                     SkillMode=SkillsMode.Attack,
                    CostSp=20,
-                   ArmorDamage=100,
+                   Damage=100,
                    SkillIllustrate="目と目が逢う 瞬間好きだと気づいた"
                 },
 
@@ -253,7 +253,7 @@ namespace IdoMaster_GensouWorld.Activitys
                     SkillType=SkillsType.Water,
                     SkillMode=SkillsMode.Mana,
                    CostMp=15,
-                   MagicDamage=80,
+                   Damage=80,
                      SkillIllustrate="消える飛行機雲 僕たちは見送った"
                     },
 
@@ -262,7 +262,7 @@ namespace IdoMaster_GensouWorld.Activitys
                     SkillType=SkillsType.Water,
                     SkillMode=SkillsMode.Mana,
                    CostMp=20,
-                   MagicDamage=100,
+                   Damage=100,
                      SkillIllustrate="蒼い鳥,もし幸せ"
                 },
 
@@ -271,7 +271,7 @@ namespace IdoMaster_GensouWorld.Activitys
                     SkillType=SkillsType.Water,
                     SkillMode=SkillsMode.Mana,
                    CostMp=80,
-                   MagicDamage=350,
+                   Damage=350,
                      SkillIllustrate="私　もがきながら歩き出すの"
                 },
             };
@@ -287,7 +287,7 @@ namespace IdoMaster_GensouWorld.Activitys
                     SkillType=SkillsType.Light,
                     SkillMode=SkillsMode.Mind,
                    CostHp=15,
-                   ArmorDamage=120,
+                   Damage=120,
                     SkillIllustrate="大好きハニー　いちごみたいに　純粋なの"
                 },
 
@@ -296,7 +296,7 @@ namespace IdoMaster_GensouWorld.Activitys
                     SkillType=SkillsType.Light,
                     SkillMode=SkillsMode.Mind,
                    CostHp=25,
-                   MagicDamage=180,
+                   Damage=180,
                     SkillIllustrate="「べつに」なんて言わないで  「ちがう」って言って"
                     },
 
@@ -305,7 +305,7 @@ namespace IdoMaster_GensouWorld.Activitys
                     SkillType=SkillsType.Fire,
                     SkillMode=SkillsMode.Mind,
                    CostHp=80,
-                   MagicDamage=300,
+                   Damage=300,
                     SkillIllustrate="深紅の空燃え立つように!"
                 },
 
@@ -314,7 +314,7 @@ namespace IdoMaster_GensouWorld.Activitys
                     SkillType=SkillsType.Light,
                     SkillMode=SkillsMode.Mind,
                    CostHp=50,
-                   MagicDamage=210,
+                   Damage=210,
                     SkillIllustrate="高鳴る鼓動で壊れそう!"
                 },
             };
@@ -330,7 +330,7 @@ namespace IdoMaster_GensouWorld.Activitys
                     SkillType=SkillsType.Timber,
                     SkillMode=SkillsMode.Attack,
                    CostSp=30,
-                   ArmorDamage=150,
+                   Damage=150,
                    SkillIllustrate="キラメキラリ ずっとチュッと"
                 },
 
@@ -339,7 +339,7 @@ namespace IdoMaster_GensouWorld.Activitys
                     SkillType=SkillsType.Timber,
                     SkillMode=SkillsMode.Attack,
                    CostSp=40,
-                   MagicDamage=200,
+                   Damage=200,
                   SkillIllustrate="ぴったん たんた ぜのぴったん"
                     },
 
@@ -348,7 +348,7 @@ namespace IdoMaster_GensouWorld.Activitys
                     SkillType=SkillsType.Timber,
                     SkillMode=SkillsMode.Attack,
                    CostSp=50,
-                   MagicDamage=220,
+                   Damage=220,
                      SkillIllustrate="スマイル体操 いくよう!"
                 },
 
@@ -357,7 +357,7 @@ namespace IdoMaster_GensouWorld.Activitys
                     SkillType=SkillsType.Light,
                     SkillMode=SkillsMode.Mind,
                    CostSp=100,
-                   MagicDamage=500,
+                   Damage=500,
                      SkillIllustrate="本日はみんなに私のとっておきの"
                 },
             };
@@ -372,7 +372,7 @@ namespace IdoMaster_GensouWorld.Activitys
                     SkillType=SkillsType.Timber,
                     SkillMode=SkillsMode.Attack,
                    CostSp=20,
-                   ArmorDamage=130,
+                   Damage=130,
                    SkillIllustrate="光の外へ心は向かっていく"
                 },
 
@@ -381,7 +381,7 @@ namespace IdoMaster_GensouWorld.Activitys
                     SkillType=SkillsType.Timber,
                     SkillMode=SkillsMode.Attack,
                    CostSp=40,
-                   ArmorDamage=200,
+                   Damage=200,
                       SkillIllustrate="光の外へ心は向かっていく"
                     },
 
@@ -390,7 +390,7 @@ namespace IdoMaster_GensouWorld.Activitys
                     SkillType=SkillsType.Timber,
                     SkillMode=SkillsMode.Attack,
                    CostSp=50,
-                   ArmorDamage=220,
+                   Damage=220,
                       SkillIllustrate="光の外へ心は向かっていく"
                 },
 
@@ -399,7 +399,7 @@ namespace IdoMaster_GensouWorld.Activitys
                     SkillType=SkillsType.Timber,
                     SkillMode=SkillsMode.Attack,
                    CostSp=99,
-                   ArmorDamage=500,
+                   Damage=500,
                       SkillIllustrate="光の外へ心は向かっていく"
                 },
             };

@@ -5,7 +5,7 @@
     android:background="#FFFFFFFF"
     android:orientation="vertical">
 
-  <IdoMaster_GensouWorld.CustomControl.GestureLockViewGroup
+  <CustomControl.GestureLockViewGroup
       android:id="@+id/gl_view"
       android:layout_width="match_parent"
       android:layout_height="match_parent"

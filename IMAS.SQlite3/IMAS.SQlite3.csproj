@@ -43,7 +43,7 @@
   <ItemGroup>
     <None Include="Jars\AboutJars.txt" />
     <None Include="Additions\AboutAdditions.txt" />
-    <EmbeddedJar Include="Jars\sqlite-android-3200100.aar" />
+    <LibraryProjectZip Include="Jars\sqlite-android-3200100.aar" />
   </ItemGroup>
   <ItemGroup>
     <TransformFile Include="Transforms\Metadata.xml" />

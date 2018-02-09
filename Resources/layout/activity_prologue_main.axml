@@ -28,7 +28,7 @@
       android:layout_marginBottom="10dp"
       android:layout_marginLeft="10dp"
       android:layout_marginRight="10dp"
-      android:background="@drawable/bg_talking_box"
+      android:background="@drawable/bg_box_talking"
       android:padding="10dp">
 
     <TextView
@@ -40,7 +40,7 @@
         android:textSize="14sp"
         android:textStyle="bold" />
 
-    <IdoMaster_GensouWorld.CustomControl.GalTextView
+    <CustomControl.GalTextView
         android:id="@+id/tv_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

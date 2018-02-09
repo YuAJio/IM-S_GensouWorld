@@ -122,14 +122,17 @@ namespace IMAS.Tips.Enums
         /// <summary>
         /// 物理类型
         /// </summary>
+        [EnumDescription("物理")]
         Attack = 1,
         /// <summary>
         /// 魔法类型
         /// </summary>
+        [EnumDescription("魔法")]
         Mana = 2,
         /// <summary>
         /// 精神攻击
         /// </summary>
+        [EnumDescription("精神")]
         Mind = 3
     }
     /// <summary>

@@ -136,11 +136,11 @@ namespace IdoMaster_GensouWorld.Utils
         {
             DisplayImageOptions options = new DisplayImageOptions.Builder()
                 //设置图片在下载期期间显示的图片
-                .ShowImageOnLoading(Resource.Drawable.nameless_all_die)
+                .ShowImageOnLoading(Resource.Mipmap.nameless_all_die)
                 //设置图片Uri为空或是显示错误的时候显示的图片
-                .ShowImageForEmptyUri(Resource.Drawable.nameless_all_die)
+                .ShowImageForEmptyUri(Resource.Mipmap.nameless_all_die)
                 //设置图片加载/解码过程中错错误时候显示的图片
-                .ShowImageOnFail(Resource.Drawable.nameless_all_die)
+                .ShowImageOnFail(Resource.Mipmap.nameless_all_die)
                 //设置下载的图片是否缓存在内存中
                 .CacheInMemory(true)
                 .CacheOnDisc(true)
@@ -164,11 +164,11 @@ namespace IdoMaster_GensouWorld.Utils
         {
             DisplayImageOptions options = new DisplayImageOptions.Builder()
                 //设置图片在下载期期间显示的图片
-                .ShowImageOnLoading(Resource.Drawable.defaut_bg)
+                .ShowImageOnLoading(Resource.Mipmap.defaut_bg)
                 //设置图片Uri为空或是显示错误的时候显示的图片
-                .ShowImageForEmptyUri(Resource.Drawable.defaut_bg)
+                .ShowImageForEmptyUri(Resource.Mipmap.defaut_bg)
                 //设置图片加载/解码过程中错错误时候显示的图片
-                .ShowImageOnFail(Resource.Drawable.defaut_bg)
+                .ShowImageOnFail(Resource.Mipmap.defaut_bg)
                 //设置下载的图片是否缓存在内存中
                 .CacheInMemory(true)
                 .CacheOnDisc(true)
@@ -192,11 +192,11 @@ namespace IdoMaster_GensouWorld.Utils
         {
             DisplayImageOptions options = new DisplayImageOptions.Builder()
                  //设置图片在下载期期间显示的图片
-                 .ShowImageOnLoading(Resource.Drawable.nameless_all_die)
+                 .ShowImageOnLoading(Resource.Mipmap.nameless_all_die)
                  //设置图片Uri为空或是显示错误的时候显示的图片
-                 .ShowImageForEmptyUri(Resource.Drawable.nameless_all_die)
+                 .ShowImageForEmptyUri(Resource.Mipmap.nameless_all_die)
                  //设置图片加载/解码过程中错错误时候显示的图片
-                 .ShowImageOnFail(Resource.Drawable.nameless_all_die)
+                 .ShowImageOnFail(Resource.Mipmap.nameless_all_die)
                  //设置下载的图片是否缓存在内存中
                  .CacheInMemory(true)
                  .CacheOnDisc(true)
@@ -220,11 +220,11 @@ namespace IdoMaster_GensouWorld.Utils
         {
             DisplayImageOptions options = new DisplayImageOptions.Builder()
                 //设置图片在下载期期间显示的图片
-                .ShowImageOnLoading(Resource.Drawable.icon_defaut_avator)
+                .ShowImageOnLoading(Resource.Mipmap.icon_defaut_avator)
                 //设置图片Uri为空或是显示错误的时候显示的图片
-                .ShowImageForEmptyUri(Resource.Drawable.icon_defaut_avator)
+                .ShowImageForEmptyUri(Resource.Mipmap.icon_defaut_avator)
                 //设置图片加载/解码过程中错错误时候显示的图片
-                .ShowImageOnFail(Resource.Drawable.icon_defaut_avator)
+                .ShowImageOnFail(Resource.Mipmap.icon_defaut_avator)
                 //设置下载的图片是否缓存在内存中
                 .CacheInMemory(true)
                 .CacheOnDisc(true)
