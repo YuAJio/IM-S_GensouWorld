@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/fl_father"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/pink_trans_toast">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:background="@color/white">
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:src="@mipmap/icon_back" />
+            <TextView
+                android:id="@+id/tv_mani"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/darkgrey" />
+        </RelativeLayout>
+        <ImageView
+            android:id="@+id/iv_character"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            android:scaleType="centerCrop" />
+        <Button
+            android:id="@+id/bt_gacha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="80dp"
+            android:background="@drawable/bg_button_gacha"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="ガチャ(1500マニー)"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_messageBox"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/bg_talking_box"
+        android:padding="10dp"
+        android:visibility="gone">
+        <IdoMaster_GensouWorld.CustomControl.GalTextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/snow"
+            app:textColor="@color/snow"
+            app:textSize="16sp"
+            app:textSpacingAdd="0.0"
+            app:textSpacingMult="1.5"
+            app:textXAlignment="normal" />
+    </RelativeLayout>
+</RelativeLayout>

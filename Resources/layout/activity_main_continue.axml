@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+  <RelativeLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:src="@mipmap/icon_back" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:src="@mipmap/login_bg_banner" />
+  </RelativeLayout>
+
+  <RelativeLayout
+      android:id="@+id/rl_father"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_non"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:text="読み込む"
+        android:textColor="@color/plum"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:id="@+id/ll_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_non"
+        android:layout_marginTop="26dp"
+        android:orientation="vertical"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp">
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="プロデューサーネーム"
+          android:textColor="@color/plum"
+          android:textSize="15sp" />
+
+      <EditText
+          android:id="@+id/et_account"
+          android:layout_width="match_parent"
+          android:layout_height="38dp"
+          android:layout_marginTop="5dp"
+          android:background="@drawable/bg_edittext_login"
+          android:maxEms="8"
+          android:maxLines="1"
+          android:paddingLeft="10dp"
+          android:paddingRight="10dp"
+          android:textColor="@color/violet"
+          android:textCursorDrawable="@drawable/cursor_default" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_start"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/ll_input"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/bg_button_login"
+        android:gravity="center"
+        android:text="スタート"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+
+    <ListView
+        android:id="@+id/lv_history"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@id/ll_input"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:background="@color/white"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        android:visibility="gone" />
+  </RelativeLayout>
+</LinearLayout>

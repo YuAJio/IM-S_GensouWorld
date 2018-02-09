@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/snow"
+    android:orientation="vertical">
+
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_non"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:background="@drawable/bg_skills_menu_total"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+      <TextView
+          android:id="@+id/tv_skill"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:gravity="center"
+          android:text="戦技"
+          android:textColor="@color/skyblue"
+          android:textSize="18sp" />
+
+      <View
+          android:layout_width="1dp"
+          android:layout_height="match_parent"
+          android:layout_marginRight="1dp"
+          android:background="@color/blueviolet" />
+
+      <View
+          android:layout_width="1dp"
+          android:layout_height="match_parent"
+          android:layout_marginLeft="1dp"
+          android:background="@color/blueviolet" />
+
+      <TextView
+          android:id="@+id/tv_magic"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:gravity="center"
+          android:text="魔法"
+          android:textColor="@color/dimgray"
+          android:textSize="18sp" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lv_skills"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ll_non"
+        android:clipToPadding="true"
+        android:overScrollMode="never"
+        android:paddingTop="10dp"
+        android:scrollbars="none" />
+
+  </RelativeLayout>
+
+</LinearLayout>

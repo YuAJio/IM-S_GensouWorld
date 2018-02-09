@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:state_pressed="true" android:state_selected="true">
+    <shape xmlns:android="http://schemas.android.com/apk/res/android">
+      <!-- 实心 -->
+      <gradient android:angle="180" android:endColor="@color/whitesmoke" android:startColor="@color/whitesmoke" />
+      <!-- 边框 -->
+      <stroke android:width="2dp" android:color="@color/skyblue" />
+    </shape>
+  </item>
+  <item android:state_pressed="true" android:state_selected="false">
+    <shape xmlns:android="http://schemas.android.com/apk/res/android">
+      <!-- 实心 -->
+      <gradient android:angle="180" android:endColor="@color/whitesmoke" android:startColor="@color/whitesmoke" />
+    </shape>
+  </item>
+  <item android:state_pressed="false" android:state_selected="true">
+    <shape xmlns:android="http://schemas.android.com/apk/res/android">
+      <!-- 实心 -->
+      <gradient android:angle="180" android:endColor="#FFFFFF" android:startColor="#FFFFFF" />
+      <!-- 边框 -->
+      <stroke android:width="2dp" android:color="@color/skyblue" />
+    </shape>
+  </item>
+
+  <item android:state_pressed="false" android:state_selected="false">
+    <shape xmlns:android="http://schemas.android.com/apk/res/android">
+      <!-- 实心 -->
+      <gradient android:angle="180" android:endColor="#FFFFFF" android:startColor="#FFFFFF" />
+    </shape>
+  </item>
+</selector>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 实心 -->
+    <gradient
+        android:endColor="@color/pink"
+        android:startColor="@color/pink" />
+    <!-- 边框 -->
+    <stroke
+        android:width="2dp"
+        android:color="@color/white" />
+    <!-- 圆角 -->
+    <corners android:radius="4dp" />
+    <!--&lt;!&ndash; 边距 &ndash;&gt;-->
+    <!--<padding-->
+    <!--android:bottom="40dp"-->
+    <!--android:left="8dp"-->
+    <!--android:right="8dp"-->
+    <!--android:top="24dp" />-->
+</shape>

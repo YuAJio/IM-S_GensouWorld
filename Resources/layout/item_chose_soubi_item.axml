@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="2dp">
+
+  <RelativeLayout
+      android:id="@+id/rl_father"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/bg_selector_chose_soubi_item"
+      android:paddingBottom="12dp"
+      android:paddingLeft="10dp"
+      android:paddingRight="10dp"
+      android:paddingTop="12dp">
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/dimgrey"
+        android:textSize="16sp" />
+
+    <RelativeLayout
+        android:id="@+id/rl_weapon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/tv_name"
+        android:visibility="gone">
+
+      <TextView
+          android:id="@+id/tv_att"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textColor="@color/darkgrey" />
+
+      <TextView
+          android:id="@+id/tv_def"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          android:layout_toEndOf="@id/tv_att"
+          android:textColor="@color/darkgrey" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_health"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/tv_name"
+        android:visibility="gone">
+
+      <TextView
+          android:id="@+id/tv_healingPoint"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textColor="@color/darkgrey" />
+    </RelativeLayout>
+  </RelativeLayout>
+</LinearLayout>

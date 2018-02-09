@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- xmlns:tools="http://schemas.android.com/tools" tools:context="IdoMaster_GensouWorld.Activitys.Opening.Prologue_Activity"-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+  <ImageView
+      android:id="@+id/iv_bg"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:scaleType="center" />
+
+  <ImageView
+      android:id="@+id/iv_character"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentEnd="true"
+      android:layout_marginTop="100dp"
+      android:scaleType="centerCrop"
+      android:src="@mipmap/daily_haruka_one" />
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="100dp"
+      android:layout_alignParentBottom="true"
+      android:layout_marginBottom="10dp"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:background="@drawable/bg_talking_box"
+      android:padding="10dp">
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/snow"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <IdoMaster_GensouWorld.CustomControl.GalTextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tv_name"
+        android:layout_marginTop="6dp"
+        android:textColor="@color/snow"
+        app:textSize="16sp"
+        app:textColor="@color/snow"
+        app:textSpacingAdd="0.0"
+        app:textSpacingMult="1.5"
+        app:textXAlignment="normal" />
+  </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <android.support.percent.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/bg_battle_map">
+        <ImageView
+            android:id="@+id/iv_winter"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#00FFFFFF"
+            app:layout_heightPercent="4%"
+            app:layout_marginLeftPercent="28%"
+            app:layout_marginTopPercent="18.2%"
+            app:layout_widthPercent="54%" />
+        <ImageView
+            android:id="@+id/iv_yuri"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#00FFFFFF"
+            app:layout_heightPercent="4%"
+            app:layout_marginLeftPercent="24%"
+            app:layout_marginTopPercent="48%"
+            app:layout_widthPercent="54%" />
+        <ImageView
+            android:id="@+id/iv_banana"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#00FFFFFF"
+            app:layout_heightPercent="4%"
+            app:layout_marginLeftPercent="22%"
+            app:layout_marginTopPercent="82%"
+            app:layout_widthPercent="54%" />
+    </android.support.percent.PercentRelativeLayout>
+</LinearLayout>

@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  <!--主题-->
+  <style name="Theme.Main" parent="android:Theme">
+    <item name="android:windowBackground">@mipmap/bg_flash_screen</item>
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowFullscreen">true</item>
+  </style>
+
+  <!--界面通用的主题-->
+  <style name="Theme.PublicTheme" parent="android:Theme.Holo.Light">
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowAnimationStyle">@style/default_animation</item>
+  </style>
+
+
+  <!-- 默认Activity跳转动画 -->
+  <style name="default_animation" mce_bogus="1" parent="@android:style/Animation.Activity">
+    <item name="android:activityOpenEnterAnimation">@anim/create_zoomin</item>
+    <item name="android:activityOpenExitAnimation">@anim/create_zoomout</item>
+    <item name="android:activityCloseEnterAnimation">@anim/finish_zoomin</item>
+    <item name="android:activityCloseExitAnimation">@anim/finish_zoomout</item>
+  </style>
+
+  <style name="DialogFadeAnimation">
+    <item name="android:windowEnterAnimation">@anim/dialog_fade_in</item>
+    <item name="android:windowExitAnimation">@anim/dialog_fade_out</item>
+  </style>
+  
+  <style name="AnimationUpPopup">
+    <item name="android:windowEnterAnimation">@anim/grow_fade_in_from_bottom</item>
+    <item name="android:windowExitAnimation">@anim/shrink_fade_out_from_bottom</item>
+  </style>
+
+  <style name="AnimationFromButtom">
+    <item name="android:windowEnterAnimation">@anim/popup_form_bottom</item>
+    <item name="android:windowExitAnimation">@anim/drop_down_to_bottom</item>
+  </style>
+
+  <style name="AnimationFromTop">
+    <item name="android:windowEnterAnimation">@anim/drop_down_from_top</item>
+    <item name="android:windowExitAnimation">@anim/hide_to_top</item>
+  </style>
+  
+  <style name="Diy_dialog" parent="android:style/Theme.Dialog">
+    <item name="android:windowBackground">@null</item>
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowIsFloating">true</item>
+  </style>
+
+  
+</resources>

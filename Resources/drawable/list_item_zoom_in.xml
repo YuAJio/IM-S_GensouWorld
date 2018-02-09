@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:anim/decelerate_interpolator">
+
+    <!--//动画开始前X,Y的缩放，0.0为不显示， 1.0为正常大小-->
+    <!--//表示缩放的中轴点X坐标，距离自身左边缘的位置 ,图象的中心为中轴点，就是50%-->
+    <scale
+        android:duration="1000"
+        android:fromXScale="0.1"
+        android:fromYScale="0.1"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:toXScale="1.0"
+        android:toYScale="1.0" />
+    <alpha
+        android:duration="1000"
+        android:fromAlpha="0"
+        android:toAlpha="1.0" />
+</set>
