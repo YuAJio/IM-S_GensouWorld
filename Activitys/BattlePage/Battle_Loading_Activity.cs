@@ -88,13 +88,13 @@ namespace IdoMaster_GensouWorld.Activitys.BattlePage
                             //Level = Convert.ToInt32(charaLevel * levelStack[ra.Next(levelStack.Length)]),
                             MonsterType = IMAS.Tips.Enums.MonsterType.Animal,
                             MonsterLivePlace = IMAS.Tips.Enums.MonsterLivePlace.YuriTree,
-                            BaseHealPoint = 100,
-                            BaseAttPoint = 10,
-                            BaseDefPoint = 5,
-                            HpPotency = 30,
-                            AttPotency = 5,
-                            DefPotency = 3,
-                            DropMoney = 30,
+                            BaseHealPoint = 80,
+                            BaseAttPoint = 5,
+                            BaseDefPoint = 3,
+                            HpPotency = 20,
+                            AttPotency = 3,
+                            DefPotency = 1,
+                            DropMoney = 60,
                         });
                         list.Add(new Model_Monster
                         {
@@ -105,13 +105,13 @@ namespace IdoMaster_GensouWorld.Activitys.BattlePage
                             //Level = Convert.ToInt32(charaLevel * levelStack[ra.Next(levelStack.Length)]),
                             MonsterType = IMAS.Tips.Enums.MonsterType.Animal,
                             MonsterLivePlace = IMAS.Tips.Enums.MonsterLivePlace.YuriTree,
-                            BaseHealPoint = 150,
-                            BaseAttPoint = 12,
-                            BaseDefPoint = 10,
-                            HpPotency = 40,
-                            AttPotency = 6,
-                            DefPotency = 4,
-                            DropMoney = 60,
+                            BaseHealPoint = 100,
+                            BaseAttPoint = 7,
+                            BaseDefPoint = 3,
+                            HpPotency = 25,
+                            AttPotency = 4,
+                            DefPotency = 2,
+                            DropMoney = 100,
                         });
                         list.Add(new Model_Monster
                         {
@@ -122,13 +122,13 @@ namespace IdoMaster_GensouWorld.Activitys.BattlePage
                             //Level = Convert.ToInt32(charaLevel * levelStack[ra.Next(levelStack.Length)]),
                             MonsterType = IMAS.Tips.Enums.MonsterType.Animal,
                             MonsterLivePlace = IMAS.Tips.Enums.MonsterLivePlace.YuriTree,
-                            BaseHealPoint = 250,
-                            BaseAttPoint = 20,
-                            BaseDefPoint = 12,
-                            HpPotency = 60,
-                            AttPotency = 10,
-                            DefPotency = 6,
-                            DropMoney = 60,
+                            BaseHealPoint = 160,
+                            BaseAttPoint = 10,
+                            BaseDefPoint = 6,
+                            HpPotency = 35,
+                            AttPotency = 7,
+                            DefPotency = 5,
+                            DropMoney = 200,
                         });
                     }
                     break;

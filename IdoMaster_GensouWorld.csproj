@@ -102,6 +102,7 @@
     <Compile Include="Activitys\BattlePage\Battle_Main_Activity.cs" />
     <Compile Include="Activitys\BattlePage\Battle_Map_Select_Activity.cs" />
     <Compile Include="Activitys\CharacterPage\CharacterMainPageActivity.cs" />
+    <Compile Include="Activitys\ColonelRoomPage\ColoneRoomMain_Activity.cs" />
     <Compile Include="Activitys\FlashScreen.cs" />
     <Compile Include="Activitys\GachaPage\GachaMainPage_Activity.cs" />
     <Compile Include="Activitys\MainPage\LoadGame_Activity.cs" />
@@ -178,6 +179,9 @@
     <AndroidResource Include="Resources\layout\utils_diy_dialog.axml" />
     <AndroidResource Include="Resources\layout\utils_diy_toast.axml" />
     <AndroidResource Include="Resources\layout\item_simplestring.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\activity_colone_room_main.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <None Include="Services\Interfaces\MyBinder.aidl" />
@@ -458,6 +462,15 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\bg_box_skill_introduce.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\bg_selector_room.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-hdpi\bg_room_select_on.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-hdpi\bg_room_select.png" />
   </ItemGroup>
   <Import Project="IMAS.Sqlite\IMAS.Sqlite.projitems" Label="Shared" />
   <Import Project="..\IMAS.Utils\IMAS.Utils.projitems" Label="Shared" />

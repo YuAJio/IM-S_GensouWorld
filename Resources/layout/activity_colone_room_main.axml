@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerInside" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#69000000" />
+  </RelativeLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="#00FFFFFF"
+      android:gravity="center"
+      android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_rest"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/bg_selector_room"
+        android:gravity="center"
+        android:text="Q  K  Q  K"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/tv_change_background"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_selector_room"
+        android:gravity="center"
+        android:text="Change The BackGround"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/tv_leave"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_selector_room"
+        android:gravity="center"
+        android:text="Leave Me Alone"
+        android:textColor="@color/black" />
+  </LinearLayout>
+</RelativeLayout>

@@ -439,6 +439,7 @@ namespace IdoMaster_GensouWorld.Activitys.CharacterPage
             SQLiteUpdateProducerItem(list, clickItem.ItemType);
         }
         #endregion
+
         /// <summary>
         /// 设置此页面Text
         /// </summary>

@@ -261,10 +261,7 @@ namespace IdoMaster_GensouWorld.Activitys.GachaPage
                 info_character.IsGacha = false;
                 var result = await IMAS_ProAppDBManager.GetInstance().UpdateProducingCharacterInfo(info_character);
                 return result;
-            }).ContinueWith(t =>
-            {
-
-            }, TaskScheduler.FromCurrentSynchronizationContext());
+            });
         }
         /// <summary>
         /// 查询制作人金钱

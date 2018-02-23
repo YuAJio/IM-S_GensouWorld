@@ -23,6 +23,7 @@ using IdoMaster_GensouWorld.Activitys.BattlePage;
 using IMAS.CupCake.Extensions;
 using Com.Nostra13.Universalimageloader.Core;
 using IdoMaster_GensouWorld.Utils;
+using IdoMaster_GensouWorld.Activitys.ColonelRoomPage;
 
 namespace IdoMaster_GensouWorld.Activitys.ProductionPage
 {
@@ -174,7 +175,12 @@ namespace IdoMaster_GensouWorld.Activitys.ProductionPage
                 case Resource.Id.iv_menu_room:
                     //自室
                     {
-
+                        var intent = new Intent(this, typeof(ColoneRoomMain_Activity));
+                        var bundle = new Bundle();
+                        var producerInfo = info_Producer.ToJson();
+                        bundle.PutString("Info", producerInfo);
+                        intent.PutExtra("value", bundle);
+                        StartActivityForResult(intent, IMAS_Constants.OnPageRefreshKey);
                     }
                     break;
             }

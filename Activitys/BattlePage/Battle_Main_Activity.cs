@@ -437,9 +437,9 @@ namespace IdoMaster_GensouWorld.Activitys.BattlePage
                 case SEND_ENEMY_DIE_MSG:
                     {//敌方死亡
                         AddBattleMsg($"┏━━━━━━━┓");
-                        AddBattleMsg($"┃\t\t********\t\t┃");
+                        AddBattleMsg($"┃\t\t********\t\t\t\t┃");
                         AddBattleMsg($"┃\t\t**勝利**\t┃ ");
-                        AddBattleMsg($"┃\t\t********\t\t┃");
+                        AddBattleMsg($"┃\t\t********\t\t\t\t┃");
                         AddBattleMsg($"┗━━━━━━━┛");
                         ACC_BattleAbout.Acc_MonsterdBeDefeat(BattleMonsterInfo, BattleCharacterInfo, ProducerInfo);
                         ShowConfim(null, "どうする？", (j, k) =>
@@ -460,9 +460,9 @@ namespace IdoMaster_GensouWorld.Activitys.BattlePage
                 case SEND_SIDE_DIE_MSG:
                     {
                         AddBattleMsg($"┏━━━━━━━┓");
-                        AddBattleMsg($"┃\t\t********\t\t┃");
+                        AddBattleMsg($"┃\t\t********\t\t\t\t┃");
                         AddBattleMsg($"┃\t\t**败北**\t┃ ");
-                        AddBattleMsg($"┃\t\t********\t\t┃");
+                        AddBattleMsg($"┃\t\t********\t\t\t\t┃");
                         AddBattleMsg($"┗━━━━━━━┛");
                         ShowSureConfim(null, "負けました、キャラクターの治療のためにマニーを15%失った", (j, k) =>
                         {
@@ -787,13 +787,18 @@ namespace IdoMaster_GensouWorld.Activitys.BattlePage
         /// </summary>
         private void IntoItemMenu()
         {
+            var dataList = ProducerInfo.Items_Healing.ToObject<List<Model_Items>>();
+            if (dataList == null || !dataList.Any())
+            {
+                ShowSureConfim(null, "アイテムいません", null);
+                return;
+            }
             CoverUIControl(CoverFlag.Gone, ll_Main_Menu);
             CoverUIControl(CoverFlag.Visible, lv_SkillOrItems);
             if (lv_SkillOrItems.Adapter == null || lv_SkillOrItems.Adapter is BattleSkillAdapter)
             {
                 lv_SkillOrItems.Adapter = adapter_Item;
             }
-            var dataList = ProducerInfo.Items_Healing.ToObject<List<Model_Items>>();
             adapter_Item.SetDataList(dataList);
         }
 
