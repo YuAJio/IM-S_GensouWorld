@@ -268,7 +268,7 @@ namespace IdoMaster_GensouWorld.Activitys.GachaPage
         /// </summary>
         private void SQLiteQProducerMoney()
         {
-            var p_Id = AndroidPreferenceProvider.GetInstance().GetInt(IMAS_Constants.SpProducerInfoId);
+            var p_Id = AndroidPreferenceProvider.GetInstance().GetInt(IMAS_Constants.SpProducerInfoIdKey);
             Task.Run(async () =>
             {
                 var result = await IMAS_ProAppDBManager.GetInstance().QProducerMoney(p_Id);
@@ -294,7 +294,7 @@ namespace IdoMaster_GensouWorld.Activitys.GachaPage
         /// <param name="charId"></param>
         private void SQLiteUpdateCCCInfo(long charId)
         {
-            var p_Id = AndroidPreferenceProvider.GetInstance().GetInt(IMAS_Constants.SpProducerInfoId);
+            var p_Id = AndroidPreferenceProvider.GetInstance().GetInt(IMAS_Constants.SpProducerInfoIdKey);
             Task.Run(async () =>
             {
                 var result = await IMAS_ProAppDBManager.GetInstance().InsertProducingCharacterInfo(p_Id, charId);

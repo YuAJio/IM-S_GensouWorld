@@ -167,7 +167,7 @@ namespace IdoMaster_GensouWorld.Activitys.BattlePage
         private void SQLiteQProducerInfo()
         {
             ShowWaitDiaLog("Loading...");
-            var p_Id = AndroidPreferenceProvider.GetInstance().GetInt(IMAS_Constants.SpProducerInfoId);
+            var p_Id = AndroidPreferenceProvider.GetInstance().GetInt(IMAS_Constants.SpProducerInfoIdKey);
             Task.Run(async () =>
             {
                 return await IMAS_ProAppDBManager.GetInstance().QProducerInfo(p_Id);
@@ -195,7 +195,7 @@ namespace IdoMaster_GensouWorld.Activitys.BattlePage
         /// </summary>
         private void SQLiteQCharacterInfomation(int mapId)
         {
-            var p_Id = AndroidPreferenceProvider.GetInstance().GetInt(IMAS_Constants.SpProducerInfoId);
+            var p_Id = AndroidPreferenceProvider.GetInstance().GetInt(IMAS_Constants.SpProducerInfoIdKey);
             ShowWaitDiaLog("Loading...");
             Task.Run(async () =>
             {

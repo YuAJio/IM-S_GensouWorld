@@ -43,7 +43,7 @@ namespace IdoMaster_GensouWorld
             #endregion
 
             #region 初始化Sp
-            AndroidPreferenceProvider.GetInstance().Init(this.ApplicationContext, IMAS_Constants.SpFileName);
+            AndroidPreferenceProvider.GetInstance().Init(this.ApplicationContext, IMAS_Constants.SpFileNameKey);
             #endregion
 
             #region 初始化Sqlite

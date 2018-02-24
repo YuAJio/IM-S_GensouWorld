@@ -39,7 +39,7 @@ namespace IdoMaster_GensouWorld.Utils
             conn.ReadTimeout = ReadTimeout;
             if (conn is HttpsURLConnection)
             {
-                ((HttpsURLConnection)conn).SSLSocketFactory = mSSLSocketFactory;
+                //  ((HttpsURLConnection)conn).SSLSocketFactory = mSSLSocketFactory; 若是自定义证书 则需解锁
                 ((HttpsURLConnection)conn).HostnameVerifier = new DO_NOT_VERIFY();
             }
 

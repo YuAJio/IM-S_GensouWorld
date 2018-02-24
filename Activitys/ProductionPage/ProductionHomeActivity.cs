@@ -197,7 +197,7 @@ namespace IdoMaster_GensouWorld.Activitys.ProductionPage
         /// </summary>
         private void SQLiteQProducerInfo()
         {
-            var p_Name = AndroidPreferenceProvider.GetInstance().GetString(IMAS_Constants.SpProducerInfoName);
+            var p_Name = AndroidPreferenceProvider.GetInstance().GetString(IMAS_Constants.SpProducerInfoNameKey);
             Task.Run(async () =>
             {
                 var result = await IMAS_ProAppDBManager.GetInstance().QProducerInfo(p_Name);
@@ -221,7 +221,7 @@ namespace IdoMaster_GensouWorld.Activitys.ProductionPage
                         SQLiteQCharacterInfo();
                     }
                     SQliteChangeProducerInfo(data.PkId);
-                    AndroidPreferenceProvider.GetInstance().PutInt(IMAS_Constants.SpProducerInfoId, data.PkId);
+                    AndroidPreferenceProvider.GetInstance().PutInt(IMAS_Constants.SpProducerInfoIdKey, data.PkId);
                 }
                 else
                 {
@@ -254,7 +254,7 @@ namespace IdoMaster_GensouWorld.Activitys.ProductionPage
         /// </summary>
         private void SQLiteQCharacterInfo()
         {
-            var p_Id = AndroidPreferenceProvider.GetInstance().GetInt(IMAS_Constants.SpProducerInfoId);
+            var p_Id = AndroidPreferenceProvider.GetInstance().GetInt(IMAS_Constants.SpProducerInfoIdKey);
 
             Task.Run(async () =>
             {

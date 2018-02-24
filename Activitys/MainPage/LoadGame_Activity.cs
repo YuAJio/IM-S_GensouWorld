@@ -169,7 +169,7 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
                     var data = t.Result.Data;
                     ShowSureConfim(null, "このデータお読み込みなの？", (j, k) =>
                     {
-                        AndroidPreferenceProvider.GetInstance().PutString(IMAS_Constants.SpProducerInfoName, name);
+                        AndroidPreferenceProvider.GetInstance().PutString(IMAS_Constants.SpProducerInfoNameKey, name);
                         IMAS_Constants.Producer_Name = $"{name}";
                         if (!data.IsPrologueChapterFinish)
                         {

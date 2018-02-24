@@ -363,13 +363,9 @@
       <Project>{85311a10-858b-4565-864d-ff3c69534352}</Project>
       <Name>IMAS.SQlite3</Name>
     </ProjectReference>
-    <ProjectReference Include="IMAS_AaA_IOSAlert\IMAS_AaA_IOSAlert.csproj">
-      <Project>{20aa49ee-431c-4dab-8e6d-b5c23c0d20be}</Project>
-      <Name>IMAS_AaA_IOSAlert</Name>
-    </ProjectReference>
-    <ProjectReference Include="IMAS_IOSAlert\IMAS_IOSAlert.csproj">
-      <Project>{F78C98AF-6CD0-4681-8F61-49D5188C190A}</Project>
-      <Name>IMAS_IOSAlert</Name>
+    <ProjectReference Include="IMAS_IOS_Alert\IMAS_IOS_Alert.csproj">
+      <Project>{a9b01731-5ed6-4359-9d6d-76e75147526c}</Project>
+      <Name>IMAS_IOS_Alert</Name>
     </ProjectReference>
     <ProjectReference Include="IMAS_Jimusho\IMAS_Jimusho.csproj">
       <Project>{fc7cadfa-d569-43b5-a749-cec90233ceee}</Project>

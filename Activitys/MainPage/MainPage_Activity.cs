@@ -185,7 +185,7 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
            {
                if (t.Result.IsSuccess)
                {
-                   AndroidPreferenceProvider.GetInstance().PutString(IMAS_Constants.SpProducerInfoName, name);
+                   AndroidPreferenceProvider.GetInstance().PutString(IMAS_Constants.SpProducerInfoNameKey, name);
 
                    IMAS_Constants.Producer_Name = $"{name}";
                    StartActivity(new Intent(this, typeof(NewGame_Activity)));

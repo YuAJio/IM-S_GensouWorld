@@ -7,11 +7,11 @@ using Android.Content;
 using Java.Lang;
 using IMAS.Utils.Files;
 using IMAS.Utils.Logs;
-using Com.Bigkoo.Alertview;
+
 
 namespace IdoMaster_GensouWorld
 {
-    public abstract class BaseActivity : Activity, IOnItemClickListener
+    public abstract class BaseActivity : Activity
     {
         protected int activityCloseEnterAnimation;
         protected int activityCloseExitAnimaiton;
@@ -51,7 +51,6 @@ namespace IdoMaster_GensouWorld
             C_InitView();
             D_BindEvent();
             E_InitData();
-
         }
 
         #region 封装方法
@@ -228,39 +227,39 @@ namespace IdoMaster_GensouWorld
             }
         }
         #region 仿IOS弹出框
-        protected Action<Java.Lang.Object, int> _AaAAlertClickAction;
+        //protected Action<Java.Lang.Object, int> _AaAAlertClickAction;
 
-        protected void ShowAaASureConfim(string title, string msg, bool cancelble = false, string yesBtnName = "はい", string noBtnName = "いいえ")
-        {
-            //var window = new AlertView.Builder();
-            //window.SetTitle(title)
-            //    .SetMessage(msg)
-            //    .SetStyle(AlertView.Style.Alert)
-            //    .SetOnItemClickListener(this)
-            //    .SetContext(this)
-            //    .SetOthers(new string[] { yesBtnName })
-            //    .SetCancelText(noBtnName);
-            //var _AaAAlertView = new AlertView(window);
-            //_AaAAlertView.SetCancelable(cancelble);
-            //_AaAAlertView.Show();
+        //protected void ShowAaASureConfim(string title, string msg, bool cancelble = false, string yesBtnName = "はい", string noBtnName = "いいえ")
+        //{
+        //    //var window = new AlertView.Builder();
+        //    //window.SetTitle(title)
+        //    //    .SetMessage(msg)
+        //    //    .SetStyle(AlertView.Style.Alert)
+        //    //    .SetOnItemClickListener(this)
+        //    //    .SetContext(this)
+        //    //    .SetOthers(new string[] { yesBtnName })
+        //    //    .SetCancelText(noBtnName);
+        //    //var _AaAAlertView = new AlertView(window);
+        //    //_AaAAlertView.SetCancelable(cancelble);
+        //    //_AaAAlertView.Show();
 
-            new AlertView("标题", "内容", "取消", null,
-            null, this, AlertView.Style.ActionSheet, this).Show();
-        }
+        //    new AlertView("标题", "内容", "取消", null,
+        //    null, this, AlertView.Style.ActionSheet, this).Show();
+        //}
 
-        protected void ShowAaAAlertConfim(bool cancelble = false)
-        {
-            new AlertView("标题", "内容", null, new string[] { "确定" },
-              null, this, AlertView.Style.Alert, this).Show();
-        }
+        //protected void ShowAaAAlertConfim(bool cancelble = false)
+        //{
+        //    new AlertView("标题", "内容", null, new string[] { "确定" },
+        //      null, this, AlertView.Style.Alert, this).Show();
+        //}
 
-        public void OnItemClick(Java.Lang.Object p0, int p1)
-        {
-            if (p1 != AlertView.Cancelposition)
-            {
-                _AaAAlertClickAction?.Invoke(p0, p1);
-            }
-        }
+        //public void OnItemClick(Java.Lang.Object p0, int p1)
+        //{
+        //    if (p1 != AlertView.Cancelposition)
+        //    {
+        //        _AaAAlertClickAction?.Invoke(p0, p1);
+        //    }
+        //}
         #endregion
 
         #endregion

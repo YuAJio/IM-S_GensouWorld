@@ -19,6 +19,14 @@ namespace IdoMaster_GensouWorld
         /// ActivityResult刷新requestCode
         /// </summary>
         public const int OnPageRefreshKey = 0x01;
+        /// <summary>
+        /// 选择相册RequestCode
+        /// </summary>
+        public const int OnAlbumSelectKey = 0x102;
+        /// <summary>
+        /// 选择拍照RequestCode
+        /// </summary>
+        public const int OnTakeAPictrueKey = 0x103;
         #endregion
 
         #region 页面跳转专递信息Key
@@ -82,20 +90,23 @@ namespace IdoMaster_GensouWorld
         /// <summary>
         /// Sp文件名称 根目录
         /// </summary>
-        public const string SpFileName = "Idol_Master_Pro_Sp";
+        public const string SpFileNameKey = "Idol_Master_Pro_Sp";
         /// <summary>
         /// Sp制作人Id
         /// </summary>
-        public const string SpProducerInfoId = "ProducerInfo_Id";
+        public const string SpProducerInfoIdKey = "ProducerInfo_Id";
         /// <summary>
         /// Sp制作人Name
         /// </summary>
-        public const string SpProducerInfoName = "ProducerInfo_Name";
+        public const string SpProducerInfoNameKey = "ProducerInfo_Name";
         /// <summary>
         /// App版本Key
         /// </summary>
-        public const string SpVersionKey = "VersionKey";
-
+        public const string SpVersionKey = "Version";
+        /// <summary>
+        /// 旅店图片背景路径Key
+        /// </summary>
+        public const string SpRoomBackGroundPathKey = "RoomBackGroundPath";
         #endregion
 
         #region 网络资源网址

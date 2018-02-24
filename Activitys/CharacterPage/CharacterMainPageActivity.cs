@@ -489,7 +489,7 @@ namespace IdoMaster_GensouWorld.Activitys.CharacterPage
         /// </summary>
         private void SQLiteQProducerInfo()
         {
-            var p_Id = AndroidPreferenceProvider.GetInstance().GetInt(IMAS_Constants.SpProducerInfoId);
+            var p_Id = AndroidPreferenceProvider.GetInstance().GetInt(IMAS_Constants.SpProducerInfoIdKey);
 
             Task.Run(async () =>
             {
@@ -517,7 +517,7 @@ namespace IdoMaster_GensouWorld.Activitys.CharacterPage
         /// </summary>
         private void SQLiteGetProduceItems(ItemEnumeration itemType, AlertDialog.Builder builder)
         {
-            var p_Id = AndroidPreferenceProvider.GetInstance().GetInt(IMAS_Constants.SpProducerInfoId);
+            var p_Id = AndroidPreferenceProvider.GetInstance().GetInt(IMAS_Constants.SpProducerInfoIdKey);
             Task.Run(async () =>
             {
                 var result = await IMAS_ProAppDBManager.GetInstance().QProducerItemDetails(p_Id, itemType);
@@ -557,7 +557,7 @@ namespace IdoMaster_GensouWorld.Activitys.CharacterPage
         /// <param name="list_Items"></param>
         private void SQLiteUpdateProducerItem(List<Model_Items> list_Items, ItemEnumeration itemType)
         {
-            var p_Id = AndroidPreferenceProvider.GetInstance().GetInt(IMAS_Constants.SpProducerInfoId);
+            var p_Id = AndroidPreferenceProvider.GetInstance().GetInt(IMAS_Constants.SpProducerInfoIdKey);
             Task.Run(async () =>
             {
                 var result = await IMAS_ProAppDBManager.GetInstance().UpdateProducerItemInfo(p_Id, list_Items, itemType);
