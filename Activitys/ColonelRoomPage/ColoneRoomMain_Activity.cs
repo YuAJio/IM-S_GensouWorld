@@ -12,6 +12,7 @@ using Android.Provider;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Baidu.Aip.Ocr;
 using Com.Nostra13.Universalimageloader.Core;
 using IdoMaster_GensouWorld.Activitys.BattlePage;
 using IdoMaster_GensouWorld.Utils;
@@ -38,6 +39,10 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
         /// 改变背景
         /// </summary>
         private TextView tv_change;
+        /// <summary>
+        /// 改变Id
+        /// </summary>
+        private TextView tv_change_id;
         /// <summary>
         /// 离开
         /// </summary>
@@ -69,6 +74,7 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
         {
             tv_qk = FindViewById<TextView>(Resource.Id.tv_rest);
             tv_change = FindViewById<TextView>(Resource.Id.tv_change_background);
+            tv_change_id = FindViewById<TextView>(Resource.Id.tv_change_info);
             tv_leave = FindViewById<TextView>(Resource.Id.tv_leave);
             iv_background = FindViewById<ImageView>(Resource.Id.iv_background);
         }
@@ -77,12 +83,13 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
         {
             tv_qk.Click += OnClickListener;
             tv_change.Click += OnClickListener;
+            tv_change_id.Click += OnClickListener;
             tv_leave.Click += OnClickListener;
         }
 
         public override void E_InitData()
         {
-
+            ImageLoader.Instance.DisplayImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdpMhMQ0rAJWopP6rBfFtbt8NoI0tPZjRIqEhf6kuIAScDHze0qg", iv_background, ImageLoaderHelper.BackGroundImageOption());
         }
 
         public override void F_OnClickListener(View v, EventArgs e)
@@ -131,34 +138,18 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
                         }
                         , "カメラがら", "写真集がら"
                       );
-
-
-                        //new AlertView(
-                        //    "自室寫眞選択",
-                        //    null,
-                        //    "キャンセル",
-                        //    new string[] { "カメラがら", "寫眞がら" },
-                        //    null,
-                        //    this,
-                        //    AlertView.Style.ActionSheet,
-                        //    this
-                        //    ).Show();
-                        ////new AlertView.Builder().SetContext(this)
-                        ////    .SetStyle(AlertView.Style.ActionSheet)
-                        ////    .SetTitle("选择操作")
-                        ////    .SetMessage(null)
-                        ////    .SetCancelText("キャンセル")
-                        ////   .SetDestructive("カメラがら", "寫眞がら")
-                        ////   .SetOthers(null)
-                        ////   .SetOnItemClickListener(this)
-                        ////   .Build()
-                        ////   .Show();
+                    }
+                    break;
+                case Resource.Id.tv_change_info:
+                    {
+                        //改变身份Id
+                        //从相机选择
+                        ToTakeIdCardPic();
                     }
                     break;
                 case Resource.Id.tv_leave:
                     {//离开
-                        this.StartActivityForResult(new Intent(this, typeof(Battle_Map_Select_Activity)), 122);
-                        //    BackToTheFutrue();
+                        BackToTheFutrue();
                     }
                     break;
             }
@@ -172,14 +163,7 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
 
         private void BackToTheFutrue()
         {
-
-
             this.Finish();
-        }
-
-        public void OnItemClick(Object sender, int position)
-        {
-
         }
 
         #region 拍照流程
@@ -241,47 +225,63 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
         /// </summary>
         private void SaveNewPic()
         {
-            ShowWaitDiaLog("しばらくお待ちください", false);
-            Task.Run(() =>
-          {
-              try
-              {
-                  {//处理图片，测试是否出现内存溢出OOM,，测试压缩比例尺，质量压缩
-                      var newOpts = new Android.Graphics.BitmapFactory.Options();
-                      Bitmap bmp = null;
-                      int scaleFactor = 1;
-                      using (FileStream ins = File.OpenRead(PicLastPathTemp))
-                      {
-                          var tempBmp = BitmapFactory.DecodeStream(ins, new Rect(), newOpts);
-                          var oldW = newOpts.OutWidth;
-                          var oldH = newOpts.OutHeight;
-                          scaleFactor = oldW > oldH ? oldW / 1600 : oldH / 1600;
-                          tempBmp.Recycle();
-                      }
-                      using (FileStream fs = new FileStream(PicLastPath, FileMode.CreateNew))
-                      {
-                          bmp.Compress(Bitmap.CompressFormat.Jpeg, 50, fs);//质量压缩方法,压缩质量0~100 (100代表不压缩),把压缩后的数据存放到baos
-                      }
-                      //回收
-                      bmp.Recycle();
-                      //删除临时文件
-                      File.Delete(PicLastPathTemp);
+            try
+            {
+                {//处理图片，测试是否出现内存溢出OOM,，测试压缩比例尺，质量压缩
+                    var newOpts = new Android.Graphics.BitmapFactory.Options();
+                    Bitmap bmp = null;
+                    int scaleFactor = 1;
+                    using (FileStream ins = File.OpenRead(PicLastPathTemp))
+                    {
+                        var tempBmp = BitmapFactory.DecodeStream(ins, new Rect(), newOpts);
+                        var oldW = newOpts.OutWidth;
+                        var oldH = newOpts.OutHeight;
+                        scaleFactor = oldW > oldH ? oldW / 1600 : oldH / 1600;
+                        tempBmp.Recycle();
+                    }
+                    using (FileStream ins = File.OpenRead(PicLastPathTemp))
+                    {
+                        newOpts.InSampleSize = scaleFactor;
+                        bmp = BitmapFactory.DecodeStream(ins, new Rect(), newOpts);
+                    }
 
-                  }
-              }
-              catch (Exception e)
-              {
-                  ShowMsgLong("エラー！" + e.Message);
-              }
-          });
+                    using (FileStream fs = new FileStream(PicLastPath, FileMode.CreateNew))
+                    {
+                        bmp.Compress(Bitmap.CompressFormat.Jpeg, 50, fs);//质量压缩方法,压缩质量0~100 (100代表不压缩),把压缩后的数据存放到baos
+                    }
+                    //回收
+                    bmp.Recycle();
+                    //删除临时文件
+                    File.Delete(PicLastPathTemp);
 
+                }
+            }
+            catch (Exception e)
+            {
+                ShowMsgLong("エラー！" + e.Message);
+            }
         }
         #endregion
 
-        protected override void OnResume()
+        #region 识别身份证
+
+        /// <summary>
+        /// 识别身份证拍取图片
+        /// </summary>
+        private void ToTakeIdCardPic()
         {
-            base.OnResume();
+            Intent intent = new Intent(MediaStore.ActionImageCapture);
+            intent.PutExtra(MediaStore.ExtraVideoQuality, 1);
+            PicLastPath = GetPhotopath();
+            PicLastPathTemp = GetPhotopathTemp();
+            Java.IO.File outPhoto = new Java.IO.File(PicLastPathTemp);
+            var uri = Android.Net.Uri.FromFile(outPhoto);
+            //获取拍照后未压缩的原图片,并保存在uri路径中
+            intent.PutExtra(MediaStore.ExtraOutput, uri);
+            this.StartActivityForResult(intent, IMAS_Constants.OnTakeAIdCardPictrueKey);
         }
+
+        #endregion
 
         protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
         {
@@ -299,9 +299,21 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
                         break;
                     case IMAS_Constants.OnTakeAPictrueKey:
                         {//拍个照片
-                            SaveNewPic();
-                            imagePath = PicLastPath;
-                            ImageLoader.Instance.DisplayImage(imagePath, iv_background, ImageLoaderHelper.GeneralImageOption());
+                            ShowWaitDiaLog("しばらくお待ちください", false);
+                            Task.Run(() =>
+                            {
+                                SaveNewPic();
+                            }).ContinueWith(t =>
+                            {
+                                HideWaitDiaLog();
+                                imagePath = "file://" + PicLastPath;
+                                ImageLoader.Instance.DisplayImage(imagePath, iv_background, ImageLoaderHelper.GeneralImageOption());
+                            }, TaskScheduler.FromCurrentSynchronizationContext()); ;
+                        }
+                        break;
+                    case IMAS_Constants.OnTakeAIdCardPictrueKey:
+                        {
+                            var result = BaiduTextRecognitionUtils.GetKagemusha().IdCard(PicLastPath, 1);
                         }
                         break;
                 }

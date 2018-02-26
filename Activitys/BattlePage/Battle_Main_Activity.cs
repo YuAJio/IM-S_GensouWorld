@@ -441,19 +441,22 @@ namespace IdoMaster_GensouWorld.Activitys.BattlePage
                         AddBattleMsg($"┃\t\t**勝利**\t┃ ");
                         AddBattleMsg($"┃\t\t********\t\t\t\t┃");
                         AddBattleMsg($"┗━━━━━━━┛");
-                        ACC_BattleAbout.Acc_MonsterdBeDefeat(BattleMonsterInfo, BattleCharacterInfo, ProducerInfo);
-                        ShowConfim(null, "どうする？", (j, k) =>
+                        mHandler.PostDelayed(() =>
                         {
-                            AddBattleMsg($"敵を探す...");
-                            mHandler.PostDelayed(() =>
+                            ACC_BattleAbout.Acc_MonsterdBeDefeat(BattleMonsterInfo, BattleCharacterInfo, ProducerInfo);
+                            ShowConfim(null, "どうする？", (j, k) =>
                             {
-                                IntoBattleControllMenu();
-                                PickOneMonster();
-                            }, LongTime(1.5));
-                        }, (j, k) =>
-                        {
-                            this.Finish();
-                        }, "続く", "帰る");
+                                AddBattleMsg($"敵を探す...");
+                                mHandler.PostDelayed(() =>
+                                {
+                                    IntoBattleControllMenu();
+                                    PickOneMonster();
+                                }, LongTime(1.5));
+                            }, (j, k) =>
+                            {
+                                this.Finish();
+                            }, "続く", "帰る");
+                        }, LongTime(1.0));
 
                     }
                     break;
@@ -464,15 +467,17 @@ namespace IdoMaster_GensouWorld.Activitys.BattlePage
                         AddBattleMsg($"┃\t\t**败北**\t┃ ");
                         AddBattleMsg($"┃\t\t********\t\t\t\t┃");
                         AddBattleMsg($"┗━━━━━━━┛");
-                        ShowSureConfim(null, "負けました、キャラクターの治療のためにマニーを15%失った", (j, k) =>
+                        mHandler.PostDelayed(() =>
                         {
-                            mHandler.PostDelayed(() =>
+                            ShowSureConfim(null, "負けました、キャラクターの治療のためにマニーを15%失った", (j, k) =>
                             {
-                                ACC_BattleAbout.Acc_CharacterBeDefeat(BattleCharacterInfo, ProducerInfo);
-                                QuitTheBattle();
-                            }, LongTime(0.5));
-                        }, "はい", false);
-
+                                mHandler.PostDelayed(() =>
+                                {
+                                    ACC_BattleAbout.Acc_CharacterBeDefeat(BattleCharacterInfo, ProducerInfo);
+                                    QuitTheBattle();
+                                }, LongTime(0.5));
+                            }, "はい", false);
+                        }, LongTime(1.0));
                     }
                     break;
             }

@@ -52,6 +52,9 @@
     <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AipSdk">
+      <HintPath>IMAS.BaiduAI\aip-csharp-sdk-3.3.1\AipSdk.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.10.0.3\lib\netstandard1.3\Newtonsoft.Json.dll</HintPath>
@@ -136,6 +139,8 @@
     <Compile Include="Threads\NormalRunnable.cs" />
     <Compile Include="Threads\YurishBaseiHandler.cs" />
     <Compile Include="Utils\AnimationHelper.cs" />
+    <Compile Include="Utils\BaiduTextRecognitionUtils.cs" />
+    <Compile Include="Utils\BaiduVocalUtils.cs" />
     <Compile Include="Utils\DisplayUtil.cs" />
     <Compile Include="Utils\GalTextUtils.cs" />
     <Compile Include="Utils\ImageLoaderHelper.cs" />
@@ -355,6 +360,10 @@
     <AndroidResource Include="Resources\anim\shrink_fade_out_from_bottom.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="IMAS.BaiduVocal\IMAS.BaiduVocal.csproj">
+      <Project>{a1e62eb7-d49e-4589-9352-74f5d73d4336}</Project>
+      <Name>IMAS.BaiduVocal</Name>
+    </ProjectReference>
     <ProjectReference Include="IMAS.ImageLoader\IMAS.ImageLoader.csproj">
       <Project>{131AF8A7-6C21-44E2-B7EB-51DF893E9BA7}</Project>
       <Name>IMAS.ImageLoader</Name>

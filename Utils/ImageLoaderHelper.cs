@@ -72,7 +72,7 @@ namespace IdoMaster_GensouWorld.Utils
                 //var streamL = mContext.Assets.Open("cacert.cer");
                 //keyStore.SetCertificateEntry("ygtest", certificateFactory.GenerateCertificate(streamL));
                 //trustStore.Load(mContext.Assets.Open("cacert.pfx"), "yg366.com".ToCharArray());
-                keyStore.SetCertificateEntry("ygtest", certificateFactory.GenerateCertificate(YgCaCer()));
+                keyStore.SetCertificateEntry("证书名", certificateFactory.GenerateCertificate(YgCaCer()));
 
                 //获取套接字的上下文
                 var sslContext = SSLContext.GetInstance("TLS");
