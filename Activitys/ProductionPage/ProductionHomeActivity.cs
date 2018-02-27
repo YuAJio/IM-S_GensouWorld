@@ -34,10 +34,10 @@ namespace IdoMaster_GensouWorld.Activitys.ProductionPage
     public class ProductionHomeActivity : BaseActivity
     {
         #region UI控件
-        /// <summary>
-        /// 父布局
-        /// </summary>
-        private LinearLayout ll_father;
+        ///// <summary>
+        ///// 父布局
+        ///// </summary>
+        //private LinearLayout ll_father;
         /// <summary>
         /// 等级
         /// </summary>
@@ -90,6 +90,10 @@ namespace IdoMaster_GensouWorld.Activitys.ProductionPage
         /// 角色立绘
         /// </summary>
         private ImageView iv_character;
+        /// <summary>
+        /// 背景图片
+        /// </summary>
+        private ImageView iv_background;
         #endregion
 
         /// <summary>
@@ -109,7 +113,6 @@ namespace IdoMaster_GensouWorld.Activitys.ProductionPage
 
         public override void C_InitView()
         {
-            ll_father = FindViewById<LinearLayout>(Resource.Id.ll_father);
             tv_level = FindViewById<TextView>(Resource.Id.tv_level);
             tv_name = FindViewById<TextView>(Resource.Id.tv_name);
             tv_ap = FindViewById<TextView>(Resource.Id.tv_ap_number);
@@ -123,6 +126,7 @@ namespace IdoMaster_GensouWorld.Activitys.ProductionPage
             iv_menu_shop = FindViewById<ImageView>(Resource.Id.iv_menu_shop);
             iv_menu_room = FindViewById<ImageView>(Resource.Id.iv_menu_room);
             iv_character = FindViewById<ImageView>(Resource.Id.iv_character);
+            iv_background = FindViewById<ImageView>(Resource.Id.iv_background);
         }
 
         public override void D_BindEvent()
@@ -132,10 +136,12 @@ namespace IdoMaster_GensouWorld.Activitys.ProductionPage
             iv_menu_character.Click += OnClickListener;
             iv_menu_shop.Click += OnClickListener;
             iv_menu_room.Click += OnClickListener;
+            iv_character.Click += OnClickListener;
         }
 
         public override void E_InitData()
         {
+            SetBackGround();
             SQLiteQProducerInfo();
         }
 
@@ -173,8 +179,8 @@ namespace IdoMaster_GensouWorld.Activitys.ProductionPage
                     }
                     break;
                 case Resource.Id.iv_menu_room:
-                    //自室
                     {
+                        //自室
                         var intent = new Intent(this, typeof(ColoneRoomMain_Activity));
                         var bundle = new Bundle();
                         var producerInfo = info_Producer.ToJson();
@@ -183,12 +189,29 @@ namespace IdoMaster_GensouWorld.Activitys.ProductionPage
                         StartActivityForResult(intent, IMAS_Constants.OnPageRefreshKey);
                     }
                     break;
+
+                case Resource.Id.iv_character:
+                    {
+                        //点击角色
+
+                    }
+                    break;
             }
         }
 
         public override void G_OnAdapterItemClickListener(View v, AdapterView.ItemClickEventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// 读取背景图片地址并设置
+        /// </summary>
+        /// <param name="path"></param>
+        private void SetBackGround()
+        {
+            var jk = AndroidPreferenceProvider.GetInstance().GetString(IMAS_Constants.SpRoomBackGroundPathKey);
+            ImageLoader.Instance.DisplayImage(jk, iv_background, ImageLoaderHelper.BackGroundImageOption());
         }
 
         #region SQLite操作
@@ -331,6 +354,7 @@ namespace IdoMaster_GensouWorld.Activitys.ProductionPage
                         {
                             //刷新
                             SQLiteQProducerInfo();
+                            SetBackGround();
                         }
                         break;
                 }

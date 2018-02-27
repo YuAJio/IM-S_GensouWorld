@@ -21,13 +21,20 @@ using IMAS.LocalDBManager.Models;
 using IMAS.Tips.Logic.LocalDBManager;
 using IMAS.Utils.Files;
 using IMAS.Utils.Sp;
+using IdoMaster_GensouWorld.BaiduAI;
+using Newtonsoft.Json;
 
 namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
 {
     /// <summary>
     /// 制作人自室
     /// </summary>
-    [Activity(Label = "ColoneRoomMain_Activity", Theme = "@style/Theme.PublicTheme")]
+    [Activity(Label = "ColoneRoomMain_Activity", Theme = "@style/Theme.PublicTheme",
+        ConfigurationChanges =
+     Android.Content.PM.ConfigChanges.Orientation |
+     Android.Content.PM.ConfigChanges.ScreenSize |
+      Android.Content.PM.ConfigChanges.Keyboard |
+      Android.Content.PM.ConfigChanges.KeyboardHidden)]
     public class ColoneRoomMain_Activity : BaseActivity
     {
         #region UI控件
@@ -89,7 +96,11 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
 
         public override void E_InitData()
         {
-            ImageLoader.Instance.DisplayImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdpMhMQ0rAJWopP6rBfFtbt8NoI0tPZjRIqEhf6kuIAScDHze0qg", iv_background, ImageLoaderHelper.BackGroundImageOption());
+            var bgPath = LoadBackGroundPicPath();
+            if (!string.IsNullOrEmpty(bgPath))
+            {
+                ImageLoader.Instance.DisplayImage(bgPath, iv_background, ImageLoaderHelper.BackGroundImageOption());
+            }
         }
 
         public override void F_OnClickListener(View v, EventArgs e)
@@ -143,8 +154,31 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
                 case Resource.Id.tv_change_info:
                     {
                         //改变身份Id
-                        //从相机选择
-                        ToTakeIdCardPic();
+                        ShowConfim("IDCard選択", "どちらにするの？",
+                     (j, k) =>
+                     {
+                         //从相机选择
+                         ToTakeIdCardPic();
+                     },
+                     (j, k) =>
+                     {
+                         //从手机选择
+                         Intent intent;
+
+                         if (Build.VERSION.SdkInt < BuildVersionCodes.Kitkat)
+                         {
+                             intent = new Intent(Intent.ActionGetContent);
+                             intent.SetType("image/*");
+                         }
+                         else
+                         {
+                             intent = new Intent(Intent.ActionPick, MediaStore.Images.Media.ExternalContentUri);
+                         }
+                         this.StartActivityForResult(intent, IMAS_Constants.OnSelectAIdCardPictrueKey);
+                     }
+                     , "カメラがら", "写真集がら"
+                   );
+
                     }
                     break;
                 case Resource.Id.tv_leave:
@@ -160,7 +194,28 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
 
         }
 
+        /// <summary>
+        /// 读取背景图片地址
+        /// </summary>
+        /// <param name="path"></param>
+        private string LoadBackGroundPicPath()
+        {
+            return AndroidPreferenceProvider.GetInstance().GetString(IMAS_Constants.SpRoomBackGroundPathKey);
+        }
 
+        /// <summary>
+        /// 保存背景图片地址
+        /// </summary>
+        /// <param name="path"></param>
+        private void SaveBackGroundPicPath(string path)
+        {
+            isRefresh = true;
+            AndroidPreferenceProvider.GetInstance().PutString(IMAS_Constants.SpRoomBackGroundPathKey, path);
+        }
+
+        /// <summary>
+        /// 返回上一个页面
+        /// </summary>
         private void BackToTheFutrue()
         {
             this.Finish();
@@ -281,6 +336,43 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
             this.StartActivityForResult(intent, IMAS_Constants.OnTakeAIdCardPictrueKey);
         }
 
+        private void ToTakeHttpResult(string path)
+        {
+
+            ShowWaitDiaLog("しばらくお待ちください", false);
+            Task.Run(() =>
+            {
+                //SaveNewPic();
+                var result = BaiduTextRecognitionUtils.GetKagemusha().IdCard(path, 1);
+                return result;
+            }).ContinueWith(t =>
+            {
+                HideWaitDiaLog();
+                if (t.Exception != null)
+                {
+                    return;
+                }
+                var obj = t.Result;
+                var errorCode = obj.GetInt32("error_code");
+                if (errorCode <= 0)
+                {
+                    var jk = JsonConvert.DeserializeObject<AIM_IDCard.Words_result>(obj.GetString("words_result"));
+                    //var jk1 = obj.GetObject<List<AIM_IDCard.Words_result>>("words_result");
+                    var js = $"名前：{jk.姓名.Words}\nID：{jk.公民身份号码.Words}\n住所：{jk.住址.Words}";
+                    ShowBigToast(js);
+                }
+                else
+                {
+                    ShowMsgLong("エラー:" + errorCode);
+                    return;
+                }
+
+                //var jk = t.Result.ToObject<AIM_IDCard>();
+                //var jc = 1 + 2;
+            }, TaskScheduler.FromCurrentSynchronizationContext());
+            //var cachePath = $"{FilePathManager.GetInstance().GetPrivateRootDirPath()}/PicFile/";
+            //var jk = Directory.GetFiles(cachePath);
+        }
         #endregion
 
         protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
@@ -290,11 +382,14 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
                 var imagePath = "";
                 switch (requestCode)
                 {
+                    #region 设置背景
                     case IMAS_Constants.OnAlbumSelectKey:
                         {//选择相册
-                            var uri = data.Data.Path;
-                            imagePath = "file://" + uri;
-                            ImageLoader.Instance.DisplayImage(imagePath, iv_background, ImageLoaderHelper.GeneralImageOption());
+                            var jk = FilePathManager.GetInstance().GetRealFilePath(this, data.Data);
+                            imagePath = "file://" + jk;
+                            SaveBackGroundPicPath(imagePath);
+                            ImageLoader.Instance.DisplayImage(imagePath, iv_background, ImageLoaderHelper.BackGroundImageOption());
+
                         }
                         break;
                     case IMAS_Constants.OnTakeAPictrueKey:
@@ -307,22 +402,46 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
                             {
                                 HideWaitDiaLog();
                                 imagePath = "file://" + PicLastPath;
-                                ImageLoader.Instance.DisplayImage(imagePath, iv_background, ImageLoaderHelper.GeneralImageOption());
-                            }, TaskScheduler.FromCurrentSynchronizationContext()); ;
+                                SaveBackGroundPicPath(imagePath);
+                                ImageLoader.Instance.DisplayImage(imagePath, iv_background, ImageLoaderHelper.BackGroundImageOption());
+                            }, TaskScheduler.FromCurrentSynchronizationContext());
+                        }
+                        break;
+                    #endregion
+
+                    #region 识别身份证
+                    case IMAS_Constants.OnSelectAIdCardPictrueKey:
+                        {
+                            var jk = FilePathManager.GetInstance().GetRealFilePath(this, data.Data);
+                            ToTakeHttpResult(jk);
                         }
                         break;
                     case IMAS_Constants.OnTakeAIdCardPictrueKey:
-                        {
-                            var result = BaiduTextRecognitionUtils.GetKagemusha().IdCard(PicLastPath, 1);
+                        {//验证身份证
+                            ToTakeHttpResult(PicLastPathTemp);
                         }
                         break;
+                        #endregion
+
                 }
             }
             base.OnActivityResult(requestCode, resultCode, data);
         }
 
+        /// <summary>
+        /// 返回是否刷新
+        /// </summary>
+        private bool isRefresh = false;
+        /// <summary>
+        /// 重写Activity结束
+        /// </summary>
         public override void Finish()
         {
+            if (isRefresh)
+            {
+                isRefresh = false;
+                this.SetResult(Result.Ok);
+            }
             base.Finish();
         }
 

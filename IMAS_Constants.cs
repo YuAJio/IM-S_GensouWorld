@@ -28,9 +28,13 @@ namespace IdoMaster_GensouWorld
         /// </summary>
         public const int OnTakeAPictrueKey = 0x103;
         /// <summary>
-        /// 选择识别身份证的RequestCode
+        /// 选择识别身份证的RequestCode(拍照)
         /// </summary>
         public const int OnTakeAIdCardPictrueKey = 0x104;
+        /// <summary>
+        /// 选择识别身份证的RequestCode(相册)
+        /// </summary>
+        public const int OnSelectAIdCardPictrueKey = 0x105;
         #endregion
 
         #region 页面跳转专递信息Key

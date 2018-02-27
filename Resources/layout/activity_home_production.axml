@@ -3,136 +3,170 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <LinearLayout
-        android:id="@+id/ll_father"
+
+  <RelativeLayout
+      android:id="@+id/rl_father"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="98dp"
-            android:background="@color/white"
-            android:padding="10dp">
-            <TextView
-                android:id="@+id/tv_level"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/gray"
-                android:textSize="14sp" />
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_toEndOf="@id/tv_level"
-                android:textColor="@color/gray"
-                android:textSize="14sp" />
-            <TextView
-                android:id="@+id/tv_ap_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_level"
-                android:layout_marginTop="5dp"
-                android:textColor="@color/gray"
-                android:textSize="14sp" />
-            <TextView
-                android:id="@+id/tv_total_money"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:textColor="@color/gray"
-                android:textSize="14sp" />
-            <ImageView
-                android:id="@+id/iv_weather"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@id/tv_total_money"
-                android:layout_marginEnd="5dp"
-                android:layout_marginTop="10dp" />
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-                <ProgressBar
-                    android:id="@+id/pb_exp"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="200dp"
-                    android:layout_height="7dp"
-                    android:layout_marginEnd="5dp"
-                    android:max="100"
-                    android:progress="0"
-                    android:progressDrawable="@drawable/diy_exp_progressbar" />
-                <TextView
-                    android:id="@+id/tv_exp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:maxWidth="100dp"
-                    android:textColor="@color/dimgrey"
-                    android:textSize="12sp" />
-            </LinearLayout>
-        </RelativeLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@drawable/bg_dividing_line" />
-        <RelativeLayout
-            android:layout_width="match_parent"
+        android:scaleType="centerCrop" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_gradient_home" />
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="98dp"
+        android:background="@color/kuuhaku"
+        android:padding="10dp">
+
+      <TextView
+          android:id="@+id/tv_level"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textColor="@color/white"
+          android:textSize="14sp" />
+
+      <TextView
+          android:id="@+id/tv_name"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="5dp"
+          android:layout_toEndOf="@id/tv_level"
+          android:textColor="@color/snow"
+          android:textSize="14sp" />
+
+      <TextView
+          android:id="@+id/tv_ap_number"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/tv_level"
+          android:layout_marginTop="5dp"
+          android:textColor="@color/white"
+          android:textSize="14sp" />
+
+      <TextView
+          android:id="@+id/tv_total_money"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentEnd="true"
+          android:textColor="@color/snow"
+          android:textSize="14sp" />
+
+      <ImageView
+          android:id="@+id/iv_weather"
+          android:layout_width="50dp"
+          android:layout_height="50dp"
+          android:layout_alignParentEnd="true"
+          android:layout_below="@id/tv_total_money"
+          android:layout_marginEnd="5dp"
+          android:layout_marginTop="10dp" />
+
+      <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentBottom="true"
+          android:gravity="center_vertical"
+          android:orientation="horizontal">
+
+        <ProgressBar
+            android:id="@+id/pb_exp"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="200dp"
+            android:layout_height="7dp"
+            android:layout_marginEnd="5dp"
+            android:max="100"
+            android:progress="0"
+            android:progressDrawable="@drawable/diy_exp_progressbar" />
+
+        <TextView
+            android:id="@+id/tv_exp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:maxWidth="100dp"
+            android:textColor="@color/snow"
+            android:textSize="12sp" />
+      </LinearLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/bg_dividing_line" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/rl_title"
+        android:background="@color/kuuhaku">
+
+      <LinearLayout
+          android:id="@+id/ll_menu"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:background="@color/kuuhaku"
+          android:orientation="vertical"
+          android:paddingStart="20dp"
+          android:paddingTop="26dp">
+
+        <ImageView
+            android:id="@+id/iv_menu_attack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_menu_fight" />
+
+        <ImageView
+            android:id="@+id/iv_menu_lottery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:src="@mipmap/icon_menu_gacha" />
+
+        <ImageView
+            android:id="@+id/iv_menu_character"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:src="@mipmap/icon_menu_chara" />
+
+        <ImageView
+            android:id="@+id/iv_menu_shop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:src="@mipmap/icon_menu_shop" />
+
+        <ImageView
+            android:id="@+id/iv_menu_room"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:src="@mipmap/icon_menu_jishi" />
+      </LinearLayout>
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_toRightOf="@id/ll_menu"
+          android:background="@color/kuuhaku">
+
+        <ImageView
+            android:id="@+id/iv_character"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@color/white">
-            <LinearLayout
-                android:id="@+id/ll_menu"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@color/kuuhaku"
-                android:orientation="vertical"
-                android:paddingStart="20dp"
-                android:paddingTop="26dp">
-                <ImageView
-                    android:id="@+id/iv_menu_attack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/icon_menu_fight" />
-                <ImageView
-                    android:id="@+id/iv_menu_lottery"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:src="@mipmap/icon_menu_gacha" />
-                <ImageView
-                    android:id="@+id/iv_menu_character"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:src="@mipmap/icon_menu_chara" />
-                <ImageView
-                    android:id="@+id/iv_menu_shop"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:src="@mipmap/icon_menu_shop" />
-                <ImageView
-                    android:id="@+id/iv_menu_room"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:src="@mipmap/icon_menu_jishi" />
-            </LinearLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_toRightOf="@id/ll_menu"
-                android:background="@color/kuuhaku">
-                <ImageView
-                    android:id="@+id/iv_character"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true" />
-            </RelativeLayout>
-        </RelativeLayout>
-    </LinearLayout>
+            android:layout_alignParentEnd="true" />
+      </RelativeLayout>
+    </RelativeLayout>
+
+  </RelativeLayout>
 </LinearLayout>

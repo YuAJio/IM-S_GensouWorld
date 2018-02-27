@@ -12,8 +12,9 @@ using Android.Views;
 using Android.Widget;
 using Baidu.Aip.Ocr;
 using IMAS.CupCake.Extensions;
+using IMAS.Utils.Files;
 
-namespace IdoMaster_GensouWorld.Utils
+namespace IdoMaster_GensouWorld.BaiduAI
 {
     /// <summary>
     /// 百度文字识别类
@@ -54,20 +55,19 @@ namespace IdoMaster_GensouWorld.Utils
         /// <param name="picPath">图片地址</param>
         /// <param name="lightOrDark">0:反面,1:正面</param>
         /// <returns>结果Json</returns>
-        public string IdCard(string picPath, int lightOrDark)
+        public Newtonsoft.Json.Linq.JObject IdCard(string picPath, int lightOrDark)
         {
-            var returnString = "";
-            var imagepath = "file://" + picPath;
-            //picPath = "file://" + picPath;
-            var image = File.ReadAllBytes(imagepath);
+            if (!FilePathManager.GetInstance().CheckFileExist(picPath))
+            {
+                return null;
+            }
+            var image = File.ReadAllBytes(picPath);
             var idCardSide = lightOrDark == 0 ? "back" : "front";
 
             try
             {
-                Task.Run(() =>
-                {
-                    //如果有可选参数
-                    var option = new Dictionary<string, object>
+                //如果有可选参数
+                var option = new Dictionary<string, object>
                     {
                      //是否检测图像朝向，默认不检测，即：false。朝向是指输入图像是正常方向、逆时针旋转90/180/270度。可选值包括:               
                      //- true：检测朝向；                
@@ -78,23 +78,11 @@ namespace IdoMaster_GensouWorld.Utils
                      //false - 不开启  
                      { "detect_risk", "false"}
                     };
-                    //var result = aiClient.Idcard(image, idCardSide,option);
+                var result = aiClient.Idcard(image, idCardSide, option);
 
-                    //若没有
-                    var result = aiClient.Idcard(image, idCardSide);
-                    return result;
-                }).ContinueWith(t =>
-                {
-                    if (t.Exception != null)
-                    {
-                        throw new Exception();
-                    }
-                    returnString = t.Result.ToJson();
-
-                    return returnString;
-                }, TaskScheduler.FromCurrentSynchronizationContext());
-
-                throw new Exception();
+                //若没有可选参数
+                // var result = aiClient.Idcard(image, idCardSide);
+                return result;
             }
             catch (Exception e)
             {

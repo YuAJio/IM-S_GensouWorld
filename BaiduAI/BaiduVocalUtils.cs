@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -11,9 +10,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Baidu.Aip.Ocr;
-using IMAS.CupCake.Extensions;
 
-namespace IdoMaster_GensouWorld.Utils
+namespace IdoMaster_GensouWorld.BaiduAI
 {
     /// <summary>
     /// 百度语音合成类

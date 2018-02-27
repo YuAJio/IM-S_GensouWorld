@@ -97,7 +97,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activitys\ArtificialIntelligence\CartAI.cs" />
     <Compile Include="Activitys\BaseActivity.cs" />
     <Compile Include="Activitys\BaseFragment.cs" />
     <Compile Include="Activitys\BaseFragmentActivity.cs" />
@@ -123,6 +122,9 @@
     <Compile Include="Adapters\ShopTabFragmentAdapter.cs" />
     <Compile Include="Adapters\SimpleHistorySearchAdapter.cs" />
     <Compile Include="Adapters\Test_SlidMenuAdapter.cs" />
+    <Compile Include="BaiduAI\BaiduTextRecognitionUtils.cs" />
+    <Compile Include="BaiduAI\BaiduVocalUtils.cs" />
+    <Compile Include="BaiduAI\Z_AI_Model.cs" />
     <Compile Include="CustomControl\DragView.cs" />
     <Compile Include="CustomControl\GalTextView.cs" />
     <Compile Include="CustomControl\GestureLockView.cs" />
@@ -139,8 +141,6 @@
     <Compile Include="Threads\NormalRunnable.cs" />
     <Compile Include="Threads\YurishBaseiHandler.cs" />
     <Compile Include="Utils\AnimationHelper.cs" />
-    <Compile Include="Utils\BaiduTextRecognitionUtils.cs" />
-    <Compile Include="Utils\BaiduVocalUtils.cs" />
     <Compile Include="Utils\DisplayUtil.cs" />
     <Compile Include="Utils\GalTextUtils.cs" />
     <Compile Include="Utils\ImageLoaderHelper.cs" />
@@ -476,6 +476,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap-hdpi\bg_room_select.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\bg_gradient_home.xml" />
   </ItemGroup>
   <Import Project="IMAS.Sqlite\IMAS.Sqlite.projitems" Label="Shared" />
   <Import Project="..\IMAS.Utils\IMAS.Utils.projitems" Label="Shared" />
