@@ -24,6 +24,8 @@ using IMAS.CupCake.Extensions;
 using Com.Nostra13.Universalimageloader.Core;
 using IdoMaster_GensouWorld.Utils;
 using IdoMaster_GensouWorld.Activitys.ColonelRoomPage;
+using IMAS.BaiduAI.Vocal_Compound;
+using IMAS.Utils.Files;
 
 namespace IdoMaster_GensouWorld.Activitys.ProductionPage
 {
@@ -100,6 +102,11 @@ namespace IdoMaster_GensouWorld.Activitys.ProductionPage
         /// 制作人信息
         /// </summary>
         private Model_ProducerInfo info_Producer;
+
+        /// <summary>
+        /// 操作角色Id(-1为没有)
+        /// </summary>
+        private long CharId = -1;
 
         public override int A_GetContentViewId()
         {
@@ -192,13 +199,51 @@ namespace IdoMaster_GensouWorld.Activitys.ProductionPage
 
                 case Resource.Id.iv_character:
                     {
-                        //点击角色
-
+                        TestRaundom();
+                        ////点击角色
+                        //if (CharId <= 0)
+                        //    return;//没有角色就不讲话
+                        //var chatContentList = FileUtils.ReadAssetsInfoForObject<List<Model_ChatContent_Plus>>(this, IMAS_Constants.Ass_ChatContent);
+                        //var chatContent = chatContentList.Where(r => r.CharacterId == CharId).FirstOrDefault();
+                        //var ra = new Random();
+                        //var vocalText = chatContent.Touch_Serifu[ra.Next(chatContent.Touch_Serifu.Count - 1)];
+                        //BaiduVocalManager.GetKagemusha().Speak(vocalText);
                     }
                     break;
             }
         }
 
+        private void TestRaundom()
+        {
+            var jk = 0;
+            var jc = 0;
+            var js = 0;
+            var jy = 0;
+
+            var tList = new List<string> { "a", "b", "c", "d" };
+            var ra = new Random();
+            var wCount = 0;
+            while (wCount < 10000)
+            {
+                var value = tList[ra.Next(tList.Count)];
+                switch (value)
+                {
+                    case "a":
+                        jk += 1;
+                        break;
+                    case "b":
+                        jc += 1;
+                        break;
+                    case "c":
+                        js += 1;
+                        break;
+                    case "d":
+                        jy += 1;
+                        break;
+                }
+            }
+            Console.Write(jk + jc + js + jy);
+        }
         public override void G_OnAdapterItemClickListener(View v, AdapterView.ItemClickEventArgs e)
         {
 
@@ -290,6 +335,7 @@ namespace IdoMaster_GensouWorld.Activitys.ProductionPage
                     var data = t.Result.Data;
                     if (data != null)
                     {
+                        CharId = data.CharacterId;
                         ImageLoader.Instance.DisplayImage(data.CharacterTachie, iv_character, ImageLoaderHelper.CharacterPicImageOption());
                     }
                 }

@@ -9,6 +9,7 @@ using IMAS.Tips.Logic.LocalDBManager;
 using IMAS.Utils.Logs;
 using Com.Nostra13.Universalimageloader.Cache.Disc.Impl;
 using Com.Nostra13.Universalimageloader.Core;
+using IMAS.BaiduAI.Vocal_Compound;
 
 namespace IdoMaster_GensouWorld
 {
@@ -54,6 +55,9 @@ namespace IdoMaster_GensouWorld
             FileLogManager.GetInstance().Init("IMAS");
             #endregion
 
+            #region 初始化百度语音合成
+            BaiduVocalManager.GetKagemusha().Init(ApplicationContext, null);
+            #endregion
         }
 
         /// <summary>

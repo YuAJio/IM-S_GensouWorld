@@ -170,7 +170,7 @@ namespace IdoMaster_GensouWorld.Activitys.GachaPage
         private void ShowFirstMeetChatBox(long CharId)
         {
             CoverUIControl(CoverFlag.Visible, rl_message_Box);
-            var chatContentList = FileUtils.ReadAssetsInfoForObject<List<Model_ChatContent_Plus>>(this, "CCC_ChatList.json");
+            var chatContentList = FileUtils.ReadAssetsInfoForObject<List<Model_ChatContent_Plus>>(this, IMAS_Constants.Ass_ChatContent);
             var chatContent = chatContentList.Where(r => r.CharacterId == CharId).FirstOrDefault();
 
             tv_talk_Content.SetTextContent(chatContent.Chat_FirstMeet);

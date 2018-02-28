@@ -3,22 +3,40 @@
     "CharacterId": 72,
     "Chat_FirstMeet": "私には、歌以外に失って困るものなんて、ありませんか。",
     "Touch_Serifu": [
-      "くぅ",
-      "くぅぅ",
-      "くぅぅぅ",
-      "くぅぅぅぅ"
+      "Kuuuu",
+      "What are you doing?Producer?",
+      "I want sing,I very want it",
+      "Song is my life,Producer"
     ]
   },
   {
     "CharacterId": 49,
-    "Chat_FirstMeet": "わたくしは、確かめたいのです。目指していた高みから見える景色を。"
+    "Chat_FirstMeet": "わたくしは、確かめたいのです。目指していた高みから見える景色を。",
+    "Touch_Serifu": [
+      "It's secret",
+      "The moon rising in my hometown,It's beautiful and tranquil",
+      "A little hungered.",
+      "Suspicious!"
+    ]
   },
   {
     "CharacterId": 3,
-    "Chat_FirstMeet": "ミキ、アイドルするの、結構本気だよ？"
+    "Chat_FirstMeet": "ミキ、アイドルするの、結構本気だよ？",
+    "Touch_Serifu": [
+      "I'am so sleepy.....",
+      "That's easy,I can learn it in ten minutes.",
+      "Honey~Over here",
+      "I'am gona sleep two minutes,see ya~"
+    ]
   },
   {
     "CharacterId": 861,
-    "Chat_FirstMeet": "うっうー、アイドル日本一、大変そうですけど、がんばりまーすっ！"
+    "Chat_FirstMeet": "うっうー、アイドル日本一、大変そうですけど、がんばりまーすっ！",
+    "Touch_Serifu": [
+      "Wah,So beautiful!",
+      "Market's special price time is comming ! Let's go!",
+      "Tonight it's the night to open the bean sprouts festival !!! Ya-ho !~",
+      "Is that expensive ? wu-wu..."
+    ]
   }
 ]

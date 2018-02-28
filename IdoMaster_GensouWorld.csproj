@@ -150,6 +150,12 @@
     <AndroidAsset Include="Assets\CCC_ChatList.json" />
     <AndroidAsset Include="Assets\nihonn_font.ttf" />
     <AndroidAsset Include="Assets\nihonn_sild.ttf" />
+    <AndroidAsset Include="Assets\bd_etts_ch_speech_female.dat" />
+    <AndroidAsset Include="Assets\bd_etts_ch_speech_male.dat" />
+    <AndroidAsset Include="Assets\bd_etts_ch_text.dat" />
+    <AndroidAsset Include="Assets\bd_etts_text.dat" />
+    <AndroidAsset Include="Assets\bd_etts_speech_female.dat" />
+    <AndroidAsset Include="Assets\bd_etts_speech_male.dat" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />

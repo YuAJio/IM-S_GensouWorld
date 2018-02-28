@@ -17,6 +17,9 @@ namespace IMAS.LocalDBManager.Models
         /// 初次见面文本
         /// </summary>
         public string Chat_FirstMeet { get; set; }
-
+        /// <summary>
+        /// 触摸语音文本
+        /// </summary>
+        public List<string> Touch_Serifu { get; set; }
     }
 }

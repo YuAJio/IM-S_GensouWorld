@@ -53,6 +53,7 @@ namespace IdoMaster_GensouWorld
         #endregion
 
         #region 本地文件系统相关常量
+        #region 目录&文件夹名称
         /// <summary>
         /// sdcard 根目录
         /// </summary>
@@ -85,6 +86,13 @@ namespace IdoMaster_GensouWorld
         /// 数据库文件目录名称
         /// </summary>
         public const string DBDir = "DB";
+        #endregion
+        #region Ass文件名
+        /// <summary>
+        /// 角色文本
+        /// </summary>
+        public const string Ass_ChatContent = "CCC_ChatList.json";
+        #endregion
         #endregion
 
         #region Log相关常量
@@ -197,6 +205,27 @@ namespace IdoMaster_GensouWorld
         /// </summary>
         public const int EVENT_CHAT_GO_ON = 0x010;
         #endregion
+        #endregion
+
+        #region 百度AI sp常量
+
+        /// <summary>
+        /// 百度语音 在线发声音人
+        /// </summary>
+        public const string BaiduAITtsParamSpeakerKey = "BaiduAITtsParamSpeaker";
+        /// <summary>
+        /// 百度语音 合成的音量
+        /// </summary>
+        public const string BaiduAITtsParamVolumeKey = "BaiduAITtsParamVolume";
+        /// <summary>
+        /// 百度语音 合成的语速
+        /// </summary>
+        public const string BaiduAITtsParamSpeedKey = "BaiduAITtsParamSpeed";
+        /// <summary>
+        /// 百度语音 合成的语调
+        /// </summary>
+        public const string BaiduAITtsParamPitchKey = "BaiduAITtsParamPitch";
+
         #endregion
     }
 }

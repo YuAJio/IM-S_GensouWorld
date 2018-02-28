@@ -37,9 +37,12 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
 
         public override void B_BeforeInitView()
         {
+#if !DEBUG
             var intent = new Intent(this, typeof(BackGroundMusicPlayer));
             intent.PutExtra(BackGroundMusicPlayer.MusicSelectKey, (int)BGM_Enumeration.Main_BGM);
             ApplicationContext.StartService(intent);
+#endif
+
         }
 
         public override void C_InitView()
