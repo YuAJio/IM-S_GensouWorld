@@ -16,12 +16,13 @@ using Baidu.Aip.Ocr;
 using Com.Nostra13.Universalimageloader.Core;
 using IdoMaster_GensouWorld.Activitys.BattlePage;
 using IdoMaster_GensouWorld.Utils;
+using IMAS.BaiduAI;
+using IMAS.BaiduAI.Identification_Text;
 using IMAS.CupCake.Extensions;
 using IMAS.LocalDBManager.Models;
 using IMAS.Tips.Logic.LocalDBManager;
 using IMAS.Utils.Files;
 using IMAS.Utils.Sp;
-using IdoMaster_GensouWorld.BaiduAI;
 using Newtonsoft.Json;
 
 namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage

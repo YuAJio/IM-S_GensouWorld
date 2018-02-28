@@ -68,28 +68,28 @@ namespace IdoMaster_GensouWorld.BaiduAI
             /// <summary>
             /// 住址
             /// </summary>
-            public 住址 住址 { get; set; }
+            public Address 住址 { get; set; }
             /// <summary>
             /// 公民身份号码
             /// </summary>
-            public 公民身份号码 公民身份号码 { get; set; }
+            public IDNumber 公民身份号码 { get; set; }
             /// <summary>
             /// 出生
             /// </summary>
-            public 出生 出生 { get; set; }
+            public Birthday 出生 { get; set; }
             /// <summary>
             /// 姓名
             /// </summary>
-            public 姓名 姓名 { get; set; }
+            public Name 姓名 { get; set; }
             /// <summary>
             /// 性别            /// </summary>
-            public 性别 性别 { get; set; }
+            public Gender 性别 { get; set; }
             /// <summary>
             /// 民族
             /// </summary>
-            public 民族 民族 { get; set; }
+            public Nation 民族 { get; set; }
         }
-        public class 住址
+        public class Address
         {
             /// <summary>
             /// 位置数组（坐标0点为左上角）
@@ -102,7 +102,7 @@ namespace IdoMaster_GensouWorld.BaiduAI
         }
 
 
-        public class 公民身份号码
+        public class IDNumber
         {
             /// <summary>
             /// 位置数组（坐标0点为左上角）
@@ -114,7 +114,7 @@ namespace IdoMaster_GensouWorld.BaiduAI
             public string Words { get; set; }
         }
 
-        public class 出生
+        public class Birthday
         {
             /// <summary>
             /// 位置数组（坐标0点为左上角）
@@ -126,7 +126,7 @@ namespace IdoMaster_GensouWorld.BaiduAI
             public string Words { get; set; }
         }
 
-        public class 姓名
+        public class Name
         {
             /// <summary>
             /// 位置数组（坐标0点为左上角）
@@ -138,7 +138,7 @@ namespace IdoMaster_GensouWorld.BaiduAI
             public string Words { get; set; }
         }
 
-        public class 性别
+        public class Gender
         {
             /// <summary>
             /// 位置数组（坐标0点为左上角）
@@ -149,7 +149,7 @@ namespace IdoMaster_GensouWorld.BaiduAI
             /// </summary>
             public string Words { get; set; }
         }
-        public class 民族
+        public class Nation
         {
             /// <summary>
             /// 位置数组（坐标0点为左上角）

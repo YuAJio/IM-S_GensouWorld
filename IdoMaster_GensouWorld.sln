@@ -8,6 +8,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IM@S_Kotori_Clerk", "IM@S_Kotori_Clerk", "{C6714C72-EFE8-4CF8-8E71-678111DA0CCA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IM@S_Kotori_Tips", "IM@S_Kotori_Tips", "{C366E514-4B74-4C3D-BFA0-C12EE1F6539C}"
+	ProjectSection(SolutionItems) = preProject
+		BaiduAI\BaiduVocalUtils.cs = BaiduAI\BaiduVocalUtils.cs
+	EndProjectSection
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "IMAS.Tips.Logic", "IMAS.Tips.Logic\IMAS.Tips.Logic.shproj", "{F09865FD-964C-4AE6-B405-AA3D37F72CFE}"
 EndProject
@@ -25,13 +28,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMAS_IOS_Alert", "IMAS_IOS_
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMAS.BaiduVocal", "IMAS.BaiduVocal\IMAS.BaiduVocal.csproj", "{A1E62EB7-D49E-4589-9352-74F5D73D4336}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "IMAS.BaiduAI", "..\IMAS.BaiduAI\IMAS.BaiduAI.shproj", "{A5DADC24-01B6-494D-B8C6-024836678A15}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		IMAS.Sqlite\IMAS.Sqlite.projitems*{22164fba-8c04-42e7-b7b1-508a982334fb}*SharedItemsImports = 4
 		IMAS.Tips.Logic\IMAS.Tips.Logic.projitems*{22164fba-8c04-42e7-b7b1-508a982334fb}*SharedItemsImports = 4
+		..\IMAS.BaiduAI\IMAS.BaiduAI.projitems*{22164fba-8c04-42e7-b7b1-508a982334fb}*SharedItemsImports = 4
 		..\IMAS.Utils\IMAS.Utils.projitems*{22164fba-8c04-42e7-b7b1-508a982334fb}*SharedItemsImports = 4
 		..\IMAS.Utils\IMAS.Utils.projitems*{9b1544de-ce4b-428d-a768-2f6afce776be}*SharedItemsImports = 13
 		IMAS.Sqlite\IMAS.Sqlite.projitems*{a3c480e5-d6c7-49b4-a145-f9a9c9eb944a}*SharedItemsImports = 13
+		..\IMAS.BaiduAI\IMAS.BaiduAI.projitems*{a5dadc24-01b6-494d-b8c6-024836678a15}*SharedItemsImports = 13
 		IMAS.Tips.Logic\IMAS.Tips.Logic.projitems*{f09865fd-964c-4ae6-b405-aa3d37f72cfe}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -78,6 +85,7 @@ Global
 		{131AF8A7-6C21-44E2-B7EB-51DF893E9BA7} = {C6714C72-EFE8-4CF8-8E71-678111DA0CCA}
 		{A9B01731-5ED6-4359-9D6D-76E75147526C} = {C6714C72-EFE8-4CF8-8E71-678111DA0CCA}
 		{A1E62EB7-D49E-4589-9352-74F5D73D4336} = {C6714C72-EFE8-4CF8-8E71-678111DA0CCA}
+		{A5DADC24-01B6-494D-B8C6-024836678A15} = {C6714C72-EFE8-4CF8-8E71-678111DA0CCA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {30173585-BE29-4734-A3D4-3D59EDC22B70}
