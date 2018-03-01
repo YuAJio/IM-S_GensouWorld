@@ -15,6 +15,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Accountings\ACC_GachaRandom.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Accountings\ACC_HpMpSpState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Accountings\ACC_MonsterCreat.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HttpRemoteManager\FilmApiHttpProxys.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LocalDBManager\Enums\IMAS_Enums.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LocalDBManager\IMAS_ProAppDB.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LocalDBManager\IMAS_ProAppDBManager.cs" />
@@ -30,6 +31,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)LocalDBManager\Models\Model_SearchHistory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LocalDBManager\Models\Model_Skills.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LocalDBManager\Models\Model_TodaySellGoods.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LocalDBManager\Models\Model_VideoSearchs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LocalDBManager\Models\Model_Weight.cs" />
   </ItemGroup>
 </Project>

@@ -4,6 +4,12 @@ using System.Text;
 
 namespace IMAS.LocalDBManager.Models
 {
+
+    //public class Model_VideoSearch
+    //{
+
+    //}
+
     /// <summary>
     /// 基础权重类
     /// </summary>

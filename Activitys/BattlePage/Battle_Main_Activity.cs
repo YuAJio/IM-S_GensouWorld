@@ -335,8 +335,6 @@ namespace IdoMaster_GensouWorld.Activitys.BattlePage
                         //    return;
                         //}
                         IntoBattleMessageMenu();
-                        if (IsMonsterBeDefeat())
-                            return;
                         mHandler.PostDelayed(() =>
                         {
                             AddBattleMsg($"{BattleCharacterInfo.Name}の普通攻撃");
@@ -346,7 +344,13 @@ namespace IdoMaster_GensouWorld.Activitys.BattlePage
                             AddBattleMsg($"{BattleMonsterInfo.Name}は {dmg} のダメージお受けた");
                             SetMonsterInfo(BattleMonsterInfo);
                         }, LongTime(2));
-                        mHandler.PostDelayed(runabla_Beta, LongTime(2.1));
+
+                        HandlerPostDelayed(mHandler, () =>
+                        {
+                            if (IsMonsterBeDefeat())
+                                return;
+                            mHandler.Post(runabla_Beta);
+                        }, LongTime(4));
                     }
                     break;
                 case Resource.Id.bt_skill:
@@ -556,8 +560,8 @@ namespace IdoMaster_GensouWorld.Activitys.BattlePage
                                     BattleCharacterInfo.StaminaPoint -= skill.CostSp;
 
                                     IntoBattleMessageMenu();
-                                    if (IsMonsterBeDefeat())
-                                        return;
+                                    //if (IsMonsterBeDefeat())
+                                    //    return;
                                     mHandler.PostDelayed(() =>
                                     {
                                         AddBattleMsg($"{BattleCharacterInfo.Name}は{skill.Name}を使いえた");
@@ -567,7 +571,12 @@ namespace IdoMaster_GensouWorld.Activitys.BattlePage
                                         SetMonsterInfo(BattleMonsterInfo);
                                         AddBattleMsg($"{BattleMonsterInfo.Name}は {dmg} の{EnumDescription.GetFieldText(skill.SkillType)}ダメージを受けた");
                                     }, LongTime(2));
-                                    mHandler.PostDelayed(runabla_Beta, LongTime(2.1));
+                                    HandlerPostDelayed(mHandler, () =>
+                                    {
+                                        if (IsMonsterBeDefeat())
+                                            return;
+                                        mHandler.Post(runabla_Beta);
+                                    }, LongTime(3));
                                     SetCharacterInfo(BattleCharacterInfo);
                                 }
                                 break;
@@ -583,8 +592,8 @@ namespace IdoMaster_GensouWorld.Activitys.BattlePage
                                     BattleCharacterInfo.StaminaPoint -= magic.CostSp;
 
                                     IntoBattleMessageMenu();
-                                    if (IsMonsterBeDefeat())
-                                        return;
+                                    //if (IsMonsterBeDefeat())
+                                    //    return;
                                     mHandler.PostDelayed(() =>
                                     {
                                         AddBattleMsg($"{BattleCharacterInfo.Name}は{magic.Name}を使いえた");
@@ -594,7 +603,12 @@ namespace IdoMaster_GensouWorld.Activitys.BattlePage
                                         SetMonsterInfo(BattleMonsterInfo);
                                         AddBattleMsg($"{BattleMonsterInfo.Name}は {dmg} の{EnumDescription.GetFieldText(magic.SkillType)}ダメージを受けた");
                                     }, LongTime(2));
-                                    mHandler.PostDelayed(runabla_Beta, LongTime(2.1));
+                                    HandlerPostDelayed(mHandler, () =>
+                                    {
+                                        if (IsMonsterBeDefeat())
+                                            return;
+                                        mHandler.Post(runabla_Beta);
+                                    }, LongTime(3));
                                     SetCharacterInfo(BattleCharacterInfo);
                                 }
                                 break;

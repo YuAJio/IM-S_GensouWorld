@@ -7,7 +7,7 @@ using Android.Content;
 using Java.Lang;
 using IMAS.Utils.Files;
 using IMAS.Utils.Logs;
-
+using Android.Views.InputMethods;
 
 namespace IdoMaster_GensouWorld
 {
@@ -273,6 +273,26 @@ namespace IdoMaster_GensouWorld
         protected void WriteLogFile(LogLevel level, string key, object message)
         {
             FileLogManager.GetInstance().Log(level, key, message);
+        }
+        #endregion
+        #region 主线程等待
+        protected void HandlerPostDelayed(Handler handler, Action action, long time)
+        {
+            handler.PostDelayed(() =>
+            {
+                action();
+            }, time);
+        }
+
+        #endregion
+        #region 隐藏软键盘
+        /// <summary>
+        /// 隐藏软键盘
+        /// </summary>
+        protected void HideTheSoftKeybow()
+        {
+            var inputMethodManager = (InputMethodManager)Application.Context.GetSystemService(Context.InputMethodService);
+            inputMethodManager.ToggleSoftInput(0, HideSoftInputFlags.NotAlways);
         }
         #endregion
         #endregion

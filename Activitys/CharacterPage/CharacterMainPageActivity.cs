@@ -460,7 +460,8 @@ namespace IdoMaster_GensouWorld.Activitys.CharacterPage
             tv_Weapon.Text = str_Weapon == null ? "なし" : str_Weapon.Name;
             tv_Armour.Text = str_Equipment == null ? "なし" : str_Equipment.Name;
             tv_Kazari.Text = str_Other == null ? "なし" : str_Other.Name;
-            var jk = data.Exp / data.LevelUpExp;
+
+            var jk = data.Exp / (double)data.LevelUpExp * 100;
             pb_exp.Progress = (int)jk;
 
             ImageLoader.Instance.DisplayImage(data.CharacterTachie, iv_Character, ImageLoaderHelper.CharacterPicImageOption());

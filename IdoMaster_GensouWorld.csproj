@@ -59,6 +59,12 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.10.0.3\lib\netstandard1.3\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Square.OkHttp3, Version=3.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Square.OkHttp3.3.8.1\lib\MonoAndroid\Square.OkHttp3.dll</HintPath>
+    </Reference>
+    <Reference Include="Square.OkIO, Version=1.13.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Square.OkIO.1.13.0\lib\MonoAndroid\Square.OkIO.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Net.Http" />
@@ -114,6 +120,7 @@
     <Compile Include="Activitys\ProductionPage\ProductionHomeActivity.cs" />
     <Compile Include="Activitys\ShopPage\FragmentShopPage_Pager.cs" />
     <Compile Include="Activitys\ShopPage\ShopHomePage_Pager_Activity.cs" />
+    <Compile Include="Activitys_Film\Film_HomePage.cs" />
     <Compile Include="Adapters\AsakuraBaseAdapter.cs" />
     <Compile Include="Adapters\BattleItemOrSkillAdapter.cs" />
     <Compile Include="Adapters\CharacterSkillsAdapter.cs" />
@@ -131,6 +138,7 @@
     <Compile Include="CustomControl\StartMovieTextView.cs" />
     <Compile Include="IMAS_Application.cs" />
     <Compile Include="IMAS_Constants.cs" />
+    <Compile Include="Listeners\YsOnkeyListener.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\SoundPlayer\BackGroundMusicPlayer.cs" />
@@ -190,6 +198,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_colone_room_main.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\film_activity_home_page.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <None Include="Services\Interfaces\MyBinder.aidl" />
@@ -487,6 +498,7 @@
   <Import Project="..\IMAS.Utils\IMAS.Utils.projitems" Label="Shared" />
   <Import Project="IMAS.Tips.Logic\IMAS.Tips.Logic.projitems" Label="Shared" />
   <Import Project="..\IMAS.BaiduAI\IMAS.BaiduAI.projitems" Label="Shared" />
+  <Import Project="..\IMAS.OkHttp\IMAS.OkHttp.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="packages\Xamarin.Android.Support.Annotations.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.Annotations.targets" Condition="Exists('packages\Xamarin.Android.Support.Annotations.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.Annotations.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

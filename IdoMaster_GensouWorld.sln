@@ -30,13 +30,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMAS.BaiduVocal", "IMAS.Bai
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "IMAS.BaiduAI", "..\IMAS.BaiduAI\IMAS.BaiduAI.shproj", "{A5DADC24-01B6-494D-B8C6-024836678A15}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "IMAS.OkHttp", "..\IMAS.OkHttp\IMAS.OkHttp.shproj", "{9F9473DA-259E-4C5A-8122-4CA68FCD43BE}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		IMAS.Sqlite\IMAS.Sqlite.projitems*{22164fba-8c04-42e7-b7b1-508a982334fb}*SharedItemsImports = 4
 		IMAS.Tips.Logic\IMAS.Tips.Logic.projitems*{22164fba-8c04-42e7-b7b1-508a982334fb}*SharedItemsImports = 4
 		..\IMAS.BaiduAI\IMAS.BaiduAI.projitems*{22164fba-8c04-42e7-b7b1-508a982334fb}*SharedItemsImports = 4
+		..\IMAS.OkHttp\IMAS.OkHttp.projitems*{22164fba-8c04-42e7-b7b1-508a982334fb}*SharedItemsImports = 4
 		..\IMAS.Utils\IMAS.Utils.projitems*{22164fba-8c04-42e7-b7b1-508a982334fb}*SharedItemsImports = 4
 		..\IMAS.Utils\IMAS.Utils.projitems*{9b1544de-ce4b-428d-a768-2f6afce776be}*SharedItemsImports = 13
+		..\IMAS.OkHttp\IMAS.OkHttp.projitems*{9f9473da-259e-4c5a-8122-4ca68fcd43be}*SharedItemsImports = 13
 		IMAS.Sqlite\IMAS.Sqlite.projitems*{a3c480e5-d6c7-49b4-a145-f9a9c9eb944a}*SharedItemsImports = 13
 		..\IMAS.BaiduAI\IMAS.BaiduAI.projitems*{a5dadc24-01b6-494d-b8c6-024836678a15}*SharedItemsImports = 13
 		IMAS.Tips.Logic\IMAS.Tips.Logic.projitems*{f09865fd-964c-4ae6-b405-aa3d37f72cfe}*SharedItemsImports = 13
@@ -86,6 +90,7 @@ Global
 		{A9B01731-5ED6-4359-9D6D-76E75147526C} = {C6714C72-EFE8-4CF8-8E71-678111DA0CCA}
 		{A1E62EB7-D49E-4589-9352-74F5D73D4336} = {C6714C72-EFE8-4CF8-8E71-678111DA0CCA}
 		{A5DADC24-01B6-494D-B8C6-024836678A15} = {C6714C72-EFE8-4CF8-8E71-678111DA0CCA}
+		{9F9473DA-259E-4C5A-8122-4CA68FCD43BE} = {C6714C72-EFE8-4CF8-8E71-678111DA0CCA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {30173585-BE29-4734-A3D4-3D59EDC22B70}

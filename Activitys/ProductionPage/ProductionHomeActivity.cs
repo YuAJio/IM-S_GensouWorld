@@ -199,15 +199,14 @@ namespace IdoMaster_GensouWorld.Activitys.ProductionPage
 
                 case Resource.Id.iv_character:
                     {
-                        TestRaundom();
                         ////点击角色
-                        //if (CharId <= 0)
-                        //    return;//没有角色就不讲话
-                        //var chatContentList = FileUtils.ReadAssetsInfoForObject<List<Model_ChatContent_Plus>>(this, IMAS_Constants.Ass_ChatContent);
-                        //var chatContent = chatContentList.Where(r => r.CharacterId == CharId).FirstOrDefault();
-                        //var ra = new Random();
-                        //var vocalText = chatContent.Touch_Serifu[ra.Next(chatContent.Touch_Serifu.Count - 1)];
-                        //BaiduVocalManager.GetKagemusha().Speak(vocalText);
+                        if (CharId <= 0)
+                            return;//没有角色就不讲话
+                        var chatContentList = FileUtils.ReadAssetsInfoForObject<List<Model_ChatContent_Plus>>(this, IMAS_Constants.Ass_ChatContent);
+                        var chatContent = chatContentList.Where(r => r.CharacterId == CharId).FirstOrDefault();
+                        var ra = new Random();
+                        var vocalText = chatContent.Touch_Serifu[ra.Next(chatContent.Touch_Serifu.Count - 1)];
+                        BaiduVocalManager.GetKagemusha().Speak(vocalText);
                     }
                     break;
             }
@@ -276,7 +275,7 @@ namespace IdoMaster_GensouWorld.Activitys.ProductionPage
                 {
                     var data = t.Result.Data;
                     tv_exp.Text = $"{data.Exp} / {data.LevelUpExp}";
-                    var jk = data.Exp / data.LevelUpExp;
+                    var jk = data.Exp / (double)data.LevelUpExp * 100;
                     pb_exp.Progress = (int)jk;
                     tv_ap.Text = $"体力：{data.AP}";
                     tv_level.Text = $"LV.{data.Level}";
