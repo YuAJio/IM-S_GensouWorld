@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -10,6 +10,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using IdoMaster_GensouWorld.Listeners;
+using IMAS.OkHttp.Bases;
+using IMAS.Tips.Logic.HttpRemoteManager;
 
 namespace IdoMaster_GensouWorld.Activitys_Film
 {
@@ -27,7 +29,7 @@ namespace IdoMaster_GensouWorld.Activitys_Film
 
         public override void B_BeforeInitView()
         {
-
+            FilmApiHttpProxys.GetInstance().Init();
         }
 
         public override void C_InitView()
@@ -61,7 +63,7 @@ namespace IdoMaster_GensouWorld.Activitys_Film
         /// <param name="txt"></param>
         private void SearchInfo(string msg)
         {
-
+            HttpGetSearchResult(msg);
         }
 
 
@@ -74,13 +76,54 @@ namespace IdoMaster_GensouWorld.Activitys_Film
         /// <returns></returns>
         private bool OnKeyFunction(View v, [GeneratedEnum] Keycode keyCode, KeyEvent e)
         {
-            HideTheSoftKeybow();
-            var txt = et_Search.Text.Trim();
-            if (!string.IsNullOrEmpty(txt))
+            if (keyCode == Keycode.Enter && e.Action == KeyEventActions.Down)
             {
-                SearchInfo(txt);
+                HideTheSoftKeybow();
+                var txt = et_Search.Text.Trim();
+                if (!string.IsNullOrEmpty(txt))
+                {
+                    SearchInfo(txt);
+                }
+                return false;
             }
             return true;
         }
+
+        #region Http相关
+        private void HttpGetSearchResult(string msg)
+        {
+            Task.Run(async () =>
+            {
+                var result = await FilmApiHttpProxys.GetInstance().SearchFilm(msg);
+                return result;
+            }).ContinueWith(t =>
+            {
+                if (t.Exception != null)
+                {
+                    Console.WriteLine("线程异常");
+                    return;
+                }
+                if (t.Result.IsSuccess)
+                {
+                }
+                else
+                {
+                    if (t.Result.Code == OkHttpBase.LocalExceptionState)
+                    {
+                        ShowMsgShort("网络异常，请检查网络");
+                    }
+                    else if (t.Result.Code == OkHttpBase.WebExceptionState)
+                    {
+                        ShowMsgShort("服务器连接异常");
+                    }
+                    else
+                    {
+                        ShowMsgShort($"{t.Result.Message}");
+                    }
+                }
+            }, TaskScheduler.FromCurrentSynchronizationContext());
+        }
+
+        #endregion
     }
 }

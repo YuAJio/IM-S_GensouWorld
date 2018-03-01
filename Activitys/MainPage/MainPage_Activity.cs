@@ -20,6 +20,7 @@ using Android.Support.V4.Content;
 using System.Security.Cryptography;
 using IMAS.Utils.Cryptographic;
 using IMAS.Utils.Sp;
+using IdoMaster_GensouWorld.Activitys_Film;
 
 namespace IdoMaster_GensouWorld.Activitys.MainPage
 {
@@ -77,7 +78,8 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
             switch (v.Id)
             {
                 case Resource.Id.bt_new_game:
-                    ShowEditProducerInfomationPop();
+                    //ShowEditProducerInfomationPop();
+                    StartActivity(new Intent(this, typeof(Film_HomePage)));
                     break;
                 case Resource.Id.bt_lode_game:
                     intent.SetClass(this, typeof(LoadGame_Activity));
