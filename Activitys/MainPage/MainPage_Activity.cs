@@ -20,7 +20,7 @@ using Android.Support.V4.Content;
 using System.Security.Cryptography;
 using IMAS.Utils.Cryptographic;
 using IMAS.Utils.Sp;
-using IdoMaster_GensouWorld.Activitys_Film;
+using IdoMaster_GensouWorld.Film_Activitys;
 
 namespace IdoMaster_GensouWorld.Activitys.MainPage
 {
@@ -60,6 +60,7 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
             bt_new_game.Click += OnClickListener;
             bt_lode_game.Click += OnClickListener;
             bt_quite.Click += OnClickListener;
+            FindViewById<ImageView>(Resource.Id.iv_film_into).Click += OnClickListener; ;
         }
 
         public override void E_InitData()
@@ -78,8 +79,8 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
             switch (v.Id)
             {
                 case Resource.Id.bt_new_game:
-                    //ShowEditProducerInfomationPop();
-                    StartActivity(new Intent(this, typeof(Film_HomePage)));
+                    ShowEditProducerInfomationPop();
+                    //StartActivity(new Intent(this, typeof(Film_HomePage)));
                     break;
                 case Resource.Id.bt_lode_game:
                     intent.SetClass(this, typeof(LoadGame_Activity));
@@ -93,6 +94,12 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
                     //关闭服务
                     ApplicationContext.StopService(new Intent(this, typeof(BackGroundMusicPlayer)));
                     this.Finish();
+                    break;
+                case Resource.Id.iv_film_into:
+                    {
+                        //进去电影院
+                        StartActivity(new Intent(this, typeof(Film_HomePage)));
+                    }
                     break;
             }
         }

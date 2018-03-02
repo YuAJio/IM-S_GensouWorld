@@ -185,7 +185,7 @@ namespace IdoMaster_GensouWorld.Utils
         }
 
         /// <summary>
-        /// 背景图片加载设置
+        /// 角色加载
         /// </summary>
         /// <returns></returns>
         public static DisplayImageOptions CharacterPicImageOption()
@@ -217,6 +217,32 @@ namespace IdoMaster_GensouWorld.Utils
         /// </summary>
         /// <returns></returns>
         public static DisplayImageOptions CircleImageOptions()
+        {
+            DisplayImageOptions options = new DisplayImageOptions.Builder()
+                //设置图片在下载期期间显示的图片
+                .ShowImageOnLoading(Resource.Mipmap.icon_defaut_avator)
+                //设置图片Uri为空或是显示错误的时候显示的图片
+                .ShowImageForEmptyUri(Resource.Mipmap.icon_defaut_avator)
+                //设置图片加载/解码过程中错错误时候显示的图片
+                .ShowImageOnFail(Resource.Mipmap.icon_defaut_avator)
+                //设置下载的图片是否缓存在内存中
+                .CacheInMemory(true)
+                .CacheOnDisc(true)
+                //是否考虑JPEG图像EXIF参数(旋转,翻转)
+                .ConsiderExifParams(true)
+                //是否设置为圆角,弧度为多少
+                .ImageScaleType(Com.Nostra13.Universalimageloader.Core.Assist.ImageScaleType.ExactlyStretched)
+                //设置图片的解码类型
+                .BitmapConfig(Android.Graphics.Bitmap.Config.Rgb565)
+                .Build();
+            return options;
+        }
+
+        /// <summary>
+        /// 圆形图片加载Options
+        /// </summary>
+        /// <returns></returns>
+        public static DisplayImageOptions FilmPosterImageOptions()
         {
             DisplayImageOptions options = new DisplayImageOptions.Builder()
                 //设置图片在下载期期间显示的图片

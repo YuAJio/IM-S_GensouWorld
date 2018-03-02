@@ -9,43 +9,38 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using IdoMaster_GensouWorld.Listeners;
 using IMAS.OkHttp.Bases;
 using IMAS.Tips.Logic.HttpRemoteManager;
 
-namespace IdoMaster_GensouWorld.Activitys_Film
+namespace IdoMaster_GensouWorld.Film_Activitys
 {
-    [Activity(Label = "Film_HomePage", Theme = "@style/Theme.PublicTheme")]
-    public class Film_HomePage : BaseActivity
+    [Activity(Label = "Film_Details_Activity", Theme = "@style/Theme.PublicTheme")]
+    public class Film_Details_Activity : BaseActivity
     {
-        private EditText et_Search;
-        private GridView gv_List;
-
-
+        private string Path;
         public override int A_GetContentViewId()
         {
-            return Resource.Layout.film_activity_home_page;
+            return Resource.Layout.film_activity_film_details;
         }
 
         public override void B_BeforeInitView()
         {
-            FilmApiHttpProxys.GetInstance().Init();
+            Path = Intent.GetStringExtra("value");
         }
 
         public override void C_InitView()
         {
-            et_Search = FindViewById<EditText>(Resource.Id.et_search);
-            gv_List = FindViewById<GridView>(Resource.Id.gv_grid);
+
         }
 
         public override void D_BindEvent()
         {
-            et_Search.SetOnKeyListener(new YsOnkeyListener(OnKeyFunction));
+
         }
 
         public override void E_InitData()
         {
-
+            HttpGetSearchResult(Path);
         }
 
         public override void F_OnClickListener(View v, EventArgs e)
@@ -57,47 +52,19 @@ namespace IdoMaster_GensouWorld.Activitys_Film
         {
 
         }
-        /// <summary>
-        /// 搜索方法
-        /// </summary>
-        /// <param name="txt"></param>
-        private void SearchInfo(string msg)
-        {
-            HttpGetSearchResult(msg);
-        }
 
-
-        /// <summary>
-        /// 监听搜索框搜索
-        /// </summary>
-        /// <param name="v"></param>
-        /// <param name="keyCode"></param>
-        /// <param name="e"></param>
-        /// <returns></returns>
-        private bool OnKeyFunction(View v, [GeneratedEnum] Keycode keyCode, KeyEvent e)
-        {
-            if (keyCode == Keycode.Enter && e.Action == KeyEventActions.Down)
-            {
-                HideTheSoftKeybow();
-                var txt = et_Search.Text.Trim();
-                if (!string.IsNullOrEmpty(txt))
-                {
-                    SearchInfo(txt);
-                }
-                return false;
-            }
-            return true;
-        }
 
         #region Http相关
-        private void HttpGetSearchResult(string msg)
+        private void HttpGetSearchResult(string href)
         {
+            ShowWaitDiaLog("请稍等//...");
             Task.Run(async () =>
             {
-                var result = await FilmApiHttpProxys.GetInstance().SearchFilm(msg);
+                var result = await FilmApiHttpProxys.GetInstance().GetVideoInfo(href);
                 return result;
             }).ContinueWith(t =>
             {
+                HideWaitDiaLog();
                 if (t.Exception != null)
                 {
                     Console.WriteLine("线程异常");
@@ -105,6 +72,7 @@ namespace IdoMaster_GensouWorld.Activitys_Film
                 }
                 if (t.Result.IsSuccess)
                 {
+                    var jk = t.Result.Data;
                 }
                 else
                 {

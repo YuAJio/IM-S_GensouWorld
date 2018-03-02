@@ -35,14 +35,30 @@ namespace IMAS.Tips.Logic.HttpRemoteManager
             //});
         }
 
-        public async Task<Result> SearchFilm(string searchMsg)
+        /// <summary>
+        /// 获取影片列表
+        /// </summary>
+        /// <param name="q">搜索关键字</param>
+        /// <returns></returns>
+        public async Task<Result<List<Model_VideoCover>>> GetVideoMsg(string q)
         {
             var data = NewPostParamDataDict();
             //var data = new Dictionary<string,string>();
+            data.Add("q", q);
+            //var jk = await AsyncPostJson<List<Model_VideoSearchs>>($"/api/MovieAPI/GetVideoMsg", data);
+            return await AsyncPostJson<Result<List<Model_VideoCover>>>($"/api/MovieAPI/GetVideoMsg", data);
+        }
 
-            data.Add("q", searchMsg);
-
-            return await AsyncPostJson<Result<List<Model_VideoSearchs>>>("/Home/GetVideoMsgs", data);
+        /// <summary>
+        /// 获取影片详情
+        /// </summary>
+        /// <param name="herf">影片地址</param>
+        /// <returns></returns>
+        public async Task<Result<List<VideoMsg>>> GetVideoInfo(string href)
+        {
+            var data = NewPostParamDataDict();
+            data.Add("href", href);
+            return await AsyncPostJson<Result<List<VideoMsg>>>($"/api/MovieAPI/GetVideoInfo", data);
         }
     }
 

@@ -101,6 +101,9 @@
     <Reference Include="Xamarin.Android.Support.Percent, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Xamarin.Android.Support.Percent.26.1.0.1\lib\MonoAndroid80\Xamarin.Android.Support.Percent.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin.Android.Support.v7.RecyclerView, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Xamarin.Android.Support.v7.RecyclerView.26.1.0.1\lib\MonoAndroid80\Xamarin.Android.Support.v7.RecyclerView.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activitys\BaseActivity.cs" />
@@ -120,7 +123,8 @@
     <Compile Include="Activitys\ProductionPage\ProductionHomeActivity.cs" />
     <Compile Include="Activitys\ShopPage\FragmentShopPage_Pager.cs" />
     <Compile Include="Activitys\ShopPage\ShopHomePage_Pager_Activity.cs" />
-    <Compile Include="Activitys_Film\Film_HomePage.cs" />
+    <Compile Include="Film_Activitys\Film_Details_Activity.cs" />
+    <Compile Include="Film_Activitys\Film_HomePage.cs" />
     <Compile Include="Adapters\AsakuraBaseAdapter.cs" />
     <Compile Include="Adapters\BattleItemOrSkillAdapter.cs" />
     <Compile Include="Adapters\CharacterSkillsAdapter.cs" />
@@ -136,6 +140,9 @@
     <Compile Include="CustomControl\MaxHeightListView.cs" />
     <Compile Include="CustomControl\SlipIndicator.cs" />
     <Compile Include="CustomControl\StartMovieTextView.cs" />
+    <Compile Include="Film_Adapters\AsakuraBaseRvAdapter.cs" />
+    <Compile Include="Film_Adapters\Film_FilmSearchList_Adapter.cs" />
+    <Compile Include="Film_Adapters\Z_RecyclerViewAsGrid_Spacing.cs" />
     <Compile Include="IMAS_Application.cs" />
     <Compile Include="IMAS_Constants.cs" />
     <Compile Include="Listeners\YsOnkeyListener.cs" />
@@ -201,6 +208,12 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\film_activity_home_page.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\film_activity_film_details.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\film_item_film_list.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <None Include="Services\Interfaces\MyBinder.aidl" />
@@ -374,6 +387,10 @@
     <AndroidResource Include="Resources\anim\shrink_fade_out_from_bottom.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IMAS.KSYPlayer\IMAS.KSYPlayer.csproj">
+      <Project>{0317a163-e1bd-4fcb-b745-ee22931dd2f5}</Project>
+      <Name>IMAS.KSYPlayer</Name>
+    </ProjectReference>
     <ProjectReference Include="IMAS.BaiduVocal\IMAS.BaiduVocal.csproj">
       <Project>{a1e62eb7-d49e-4589-9352-74f5d73d4336}</Project>
       <Name>IMAS.BaiduVocal</Name>
@@ -494,6 +511,9 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\bg_gradient_home.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-hdpi\icon_search.png" />
+  </ItemGroup>
   <Import Project="IMAS.Sqlite\IMAS.Sqlite.projitems" Label="Shared" />
   <Import Project="..\IMAS.Utils\IMAS.Utils.projitems" Label="Shared" />
   <Import Project="IMAS.Tips.Logic\IMAS.Tips.Logic.projitems" Label="Shared" />
@@ -515,6 +535,7 @@
     <Error Condition="!Exists('packages\Xamarin.Android.Support.Core.Utils.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.Core.Utils.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Xamarin.Android.Support.Core.Utils.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.Core.Utils.targets'))" />
     <Error Condition="!Exists('packages\Xamarin.Android.Support.Fragment.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.Fragment.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Xamarin.Android.Support.Fragment.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.Fragment.targets'))" />
     <Error Condition="!Exists('packages\Xamarin.Android.Support.Media.Compat.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.Media.Compat.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Xamarin.Android.Support.Media.Compat.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.Media.Compat.targets'))" />
+    <Error Condition="!Exists('packages\Xamarin.Android.Support.v7.RecyclerView.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.v7.RecyclerView.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Xamarin.Android.Support.v7.RecyclerView.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.v7.RecyclerView.targets'))" />
   </Target>
   <Import Project="packages\Xamarin.Android.Arch.Core.Common.1.0.0\build\MonoAndroid80\Xamarin.Android.Arch.Core.Common.targets" Condition="Exists('packages\Xamarin.Android.Arch.Core.Common.1.0.0\build\MonoAndroid80\Xamarin.Android.Arch.Core.Common.targets')" />
   <Import Project="packages\Xamarin.Android.Arch.Lifecycle.Common.1.0.1\build\MonoAndroid80\Xamarin.Android.Arch.Lifecycle.Common.targets" Condition="Exists('packages\Xamarin.Android.Arch.Lifecycle.Common.1.0.1\build\MonoAndroid80\Xamarin.Android.Arch.Lifecycle.Common.targets')" />
@@ -525,6 +546,7 @@
   <Import Project="packages\Xamarin.Android.Support.Core.Utils.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.Core.Utils.targets" Condition="Exists('packages\Xamarin.Android.Support.Core.Utils.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.Core.Utils.targets')" />
   <Import Project="packages\Xamarin.Android.Support.Fragment.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.Fragment.targets" Condition="Exists('packages\Xamarin.Android.Support.Fragment.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.Fragment.targets')" />
   <Import Project="packages\Xamarin.Android.Support.Media.Compat.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.Media.Compat.targets" Condition="Exists('packages\Xamarin.Android.Support.Media.Compat.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.Media.Compat.targets')" />
+  <Import Project="packages\Xamarin.Android.Support.v7.RecyclerView.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.v7.RecyclerView.targets" Condition="Exists('packages\Xamarin.Android.Support.v7.RecyclerView.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.v7.RecyclerView.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
 		Other similar extension points exist, see Microsoft.Common.targets.
 		<Target Name="BeforeBuild">
