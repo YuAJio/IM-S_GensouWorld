@@ -387,10 +387,6 @@
     <AndroidResource Include="Resources\anim\shrink_fade_out_from_bottom.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IMAS.KSYPlayer\IMAS.KSYPlayer.csproj">
-      <Project>{0317a163-e1bd-4fcb-b745-ee22931dd2f5}</Project>
-      <Name>IMAS.KSYPlayer</Name>
-    </ProjectReference>
     <ProjectReference Include="IMAS.BaiduVocal\IMAS.BaiduVocal.csproj">
       <Project>{a1e62eb7-d49e-4589-9352-74f5d73d4336}</Project>
       <Name>IMAS.BaiduVocal</Name>
@@ -398,6 +394,10 @@
     <ProjectReference Include="IMAS.ImageLoader\IMAS.ImageLoader.csproj">
       <Project>{131AF8A7-6C21-44E2-B7EB-51DF893E9BA7}</Project>
       <Name>IMAS.ImageLoader</Name>
+    </ProjectReference>
+    <ProjectReference Include="IMAS.KSYPlayer\IMAS.KSYPlayer.csproj">
+      <Project>{8d0bd710-014c-418a-94aa-75062f6eccc6}</Project>
+      <Name>IMAS.KSYPlayer</Name>
     </ProjectReference>
     <ProjectReference Include="IMAS.SQlite3\IMAS.SQlite3.csproj">
       <Project>{85311a10-858b-4565-864d-ff3c69534352}</Project>
@@ -514,11 +514,35 @@
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap-hdpi\icon_search.png" />
   </ItemGroup>
+  <ItemGroup>
+    <TransformFile Include="Resources\values\Dimens.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\bg_film_diy_seekbar.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\bg_film_episodes_select.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-hdpi\icon_film_thumb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-hdpi\icon_film_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-hdpi\icon_film_play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-hdpi\icon_film_stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\selector_media_play_button.xml" />
+  </ItemGroup>
   <Import Project="IMAS.Sqlite\IMAS.Sqlite.projitems" Label="Shared" />
-  <Import Project="..\IMAS.Utils\IMAS.Utils.projitems" Label="Shared" />
   <Import Project="IMAS.Tips.Logic\IMAS.Tips.Logic.projitems" Label="Shared" />
-  <Import Project="..\IMAS.BaiduAI\IMAS.BaiduAI.projitems" Label="Shared" />
-  <Import Project="..\IMAS.OkHttp\IMAS.OkHttp.projitems" Label="Shared" />
+  <Import Project="IMAS.OkHttp\IMAS.OkHttp.projitems" Label="Shared" />
+  <Import Project="IMAS.Utils\IMAS.Utils.projitems" Label="Shared" />
+  <Import Project="IMAS.BaiduAI_Manager\IMAS.BaiduAI_Manager.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="packages\Xamarin.Android.Support.Annotations.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.Annotations.targets" Condition="Exists('packages\Xamarin.Android.Support.Annotations.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.Annotations.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

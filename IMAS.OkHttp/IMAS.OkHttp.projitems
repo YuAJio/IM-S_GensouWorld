@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>9f9473da-259e-4c5a-8122-4ca68fcd43be</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>IMAS.OkHttp</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Base\MediaTypeConstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Base\MyOkHttpCallback.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Base\OkHttpBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Download\ProgressDownloader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Download\ProgressResponseBody.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\DataModels.cs" />
+  </ItemGroup>
+</Project>

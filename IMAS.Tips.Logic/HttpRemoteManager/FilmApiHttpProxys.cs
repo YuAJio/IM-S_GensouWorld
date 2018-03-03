@@ -54,11 +54,11 @@ namespace IMAS.Tips.Logic.HttpRemoteManager
         /// </summary>
         /// <param name="herf">影片地址</param>
         /// <returns></returns>
-        public async Task<Result<List<VideoMsg>>> GetVideoInfo(string href)
+        public async Task<Result<VideoMsg>> GetVideoInfo(string href)
         {
             var data = NewPostParamDataDict();
             data.Add("href", href);
-            return await AsyncPostJson<Result<List<VideoMsg>>>($"/api/MovieAPI/GetVideoInfo", data);
+            return await AsyncPostJson<Result<VideoMsg>>($"/api/MovieAPI/GetVideoInfo", data);
         }
     }
 

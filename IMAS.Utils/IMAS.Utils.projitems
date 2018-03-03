@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>9b1544de-ce4b-428d-a768-2f6afce776be</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>IMAS.Utils</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Cryptographic\HashCryptographic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Cryptographic\SymmetricCryptographyTools.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Files\FilePathManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Files\FileUtils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logs\FileLogManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedPreferences\AndroidPerFerenceProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)IMAS.Utils.projitems" />
+    <None Include="$(MSBuildThisFileDirectory)IMAS.Utils.shproj" />
+    <None Include="$(MSBuildThisFileDirectory)IMAS.Utils.shproj.user" />
+  </ItemGroup>
+</Project>
