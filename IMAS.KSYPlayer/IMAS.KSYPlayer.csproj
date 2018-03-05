@@ -46,8 +46,6 @@
     <EmbeddedNativeLibrary Include="armeabi\libksyplayer.so" />
     <None Include="Jars\AboutJars.txt" />
     <None Include="Additions\AboutAdditions.txt" />
-    <EmbeddedNativeLibrary Include="x86\libksyplayer.so" />
-    <EmbeddedNativeLibrary Include="x86_64\libksyplayer.so" />
   </ItemGroup>
   <ItemGroup>
     <TransformFile Include="Transforms\Metadata.xml" />

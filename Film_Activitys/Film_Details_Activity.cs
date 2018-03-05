@@ -77,7 +77,6 @@ namespace IdoMaster_GensouWorld.Film_Activitys
         #endregion
         #region 金山云播放相关
         private string rPath;
-
         #endregion
         /// <summary>
         /// 视频唯一Id

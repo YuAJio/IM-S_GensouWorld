@@ -391,6 +391,10 @@
       <Project>{a1e62eb7-d49e-4589-9352-74f5d73d4336}</Project>
       <Name>IMAS.BaiduVocal</Name>
     </ProjectReference>
+    <ProjectReference Include="IMAS.IJKPlayer\IMAS.IJKPlayer.csproj">
+      <Project>{5334fd3b-a783-4257-81f4-e1e5c7acfcc8}</Project>
+      <Name>IMAS.IJKPlayer</Name>
+    </ProjectReference>
     <ProjectReference Include="IMAS.ImageLoader\IMAS.ImageLoader.csproj">
       <Project>{131AF8A7-6C21-44E2-B7EB-51DF893E9BA7}</Project>
       <Name>IMAS.ImageLoader</Name>
