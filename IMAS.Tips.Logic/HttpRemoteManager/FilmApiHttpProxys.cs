@@ -60,6 +60,18 @@ namespace IMAS.Tips.Logic.HttpRemoteManager
             data.Add("href", href);
             return await AsyncPostJson<Result<VideoMsg>>($"/api/MovieAPI/GetVideoInfo", data);
         }
+        /// <summary>
+        /// 获取影片播放地址
+        /// </summary>
+        /// <param name="herf">影片地址</param>
+        /// <returns></returns>
+        public async Task<Result<string>> GetPlayResources(string href,string name)
+        {
+            var data = NewPostParamDataDict();
+            data.Add("name", name);
+            data.Add("href", href);
+            return await AsyncPostJson<Result<string>>($"/api/MovieAPI/GetPlayResources", data);
+        }
     }
 
 }

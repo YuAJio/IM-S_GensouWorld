@@ -124,6 +124,7 @@
     <Compile Include="Activitys\ShopPage\FragmentShopPage_Pager.cs" />
     <Compile Include="Activitys\ShopPage\ShopHomePage_Pager_Activity.cs" />
     <Compile Include="Film_Activitys\Film_Details_Activity.cs" />
+    <Compile Include="Film_Activitys\Film_Details_Activity_IJK.cs" />
     <Compile Include="Film_Activitys\Film_HomePage.cs" />
     <Compile Include="Adapters\AsakuraBaseAdapter.cs" />
     <Compile Include="Adapters\BattleItemOrSkillAdapter.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="CustomControl\SlipIndicator.cs" />
     <Compile Include="CustomControl\StartMovieTextView.cs" />
     <Compile Include="Film_Adapters\AsakuraBaseRvAdapter.cs" />
+    <Compile Include="Film_Adapters\Film_FilmEpisodes_Adapter.cs" />
     <Compile Include="Film_Adapters\Film_FilmSearchList_Adapter.cs" />
     <Compile Include="Film_Adapters\Z_RecyclerViewAsGrid_Spacing.cs" />
     <Compile Include="IMAS_Application.cs" />
@@ -214,6 +216,12 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\film_item_film_list.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\film_activity_film_details_ijk.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\film_item_film_episode.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <None Include="Services\Interfaces\MyBinder.aidl" />
@@ -541,6 +549,18 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\selector_media_play_button.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-hdpi\icon_film_full_screen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-hdpi\icon_film_wait.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\anim\anime_video_wait.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\selector_film_episodes_item.xml" />
   </ItemGroup>
   <Import Project="IMAS.Sqlite\IMAS.Sqlite.projitems" Label="Shared" />
   <Import Project="IMAS.Tips.Logic\IMAS.Tips.Logic.projitems" Label="Shared" />
