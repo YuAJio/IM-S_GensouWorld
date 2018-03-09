@@ -18,6 +18,8 @@ using IdoMaster_GensouWorld.Threads;
 using Android.Views.Animations;
 using IdoMaster_GensouWorld.Adapters;
 using IMAS.LocalDBManager.Models;
+using static Android.Media.MediaPlayer;
+using Android.Media;
 
 namespace IdoMaster_GensouWorld.Film_Activitys
 {
@@ -30,7 +32,7 @@ namespace IdoMaster_GensouWorld.Film_Activitys
         Android.Content.PM.ConfigChanges.Keyboard |
         Android.Content.PM.ConfigChanges.KeyboardHidden
         )]
-    public class Film_Details_Activity : BaseActivity
+    public class Film_Details_Activity : BaseActivity, IOnPreparedListener, IOnCompletionListener, IOnSeekCompleteListener
     {
         #region UI控件
         /// <summary>
@@ -140,6 +142,9 @@ namespace IdoMaster_GensouWorld.Film_Activitys
         /// 错误Catch
         /// </summary>
         private MyOnErrorListenerImp errorListennerImp;
+        //private IOnPreparedListener onPreparedListener;
+        //private IOnCompletionListener onCompletionListener;
+        //private IOnSeekCompleteListener onSeekCompleteListener;
         #endregion
         #region 变量
         /// <summary>
@@ -150,6 +155,10 @@ namespace IdoMaster_GensouWorld.Film_Activitys
         /// 视频播放地址
         /// </summary>
         private string rPath;
+        /// <summary>
+        /// 是否第一次进入
+        /// </summary>
+        private bool isFirstComein = true;
         #endregion
 
         public override int A_GetContentViewId()
@@ -184,7 +193,7 @@ namespace IdoMaster_GensouWorld.Film_Activitys
             rl_wait = FindViewById<RelativeLayout>(Resource.Id.rl_wait);
             rc_episodes = FindViewById<RecyclerView>(Resource.Id.rc_episodes);
 
-            rc_episodes.SetLayoutManager(new GridLayoutManager(this, 5));
+            rc_episodes.SetLayoutManager(new GridLayoutManager(this, 4));
             rc_episodes.AddItemDecoration(new Z_RecyclerViewAsGrid_Spacing(3, 10, true));
         }
 
@@ -211,7 +220,6 @@ namespace IdoMaster_GensouWorld.Film_Activitys
 
 
             HttpGetVideoInfo();
-            ShowWaitAnime();
             //rPath = "http://yingshi.yazyzw.com/20171010/A2sCXesp/index.m3u8";
             //InitKSYPlayer();
         }
@@ -236,6 +244,11 @@ namespace IdoMaster_GensouWorld.Film_Activitys
                         }
                         else
                         {
+                            if (isFirstComein)
+                            {//如果是第一次进入
+                                ShowWaitAnime();
+                                InitKSYPlayer();
+                            }
                             //播放
                             if (IsPlaying())
                                 mVideoView.Start();
@@ -273,6 +286,7 @@ namespace IdoMaster_GensouWorld.Film_Activitys
         {
             var clickItem = adapter_es[position];
             adapter_es.SetPlayerIndex(position);
+
 
         }
 
@@ -339,12 +353,14 @@ namespace IdoMaster_GensouWorld.Film_Activitys
             mVideoView.SetTimeout(15, 30);
             mVideoView.SetRotateDegree(90);
             mVideoView.SetVideoScalingMode(0);
+            mVideoView.ShouldAutoPlay(false);//关闭自动开播功能
             mVideoView.PrepareAsync();
             KSYTextureViewManager.Instance.SetHardWareDecodeMode(mVideoView);
             KSYTextureViewManager.Instance.SetOnErrorListener(mVideoView, errorListennerImp);
             mVideoView.LayoutParameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
             rl_video.AddView(mVideoView, 0);
-            mVideoView.SeekTo(5000);
+            //mVideoView.SeekTo(5000);
+            
         }
 
         /// <summary>
@@ -454,9 +470,12 @@ namespace IdoMaster_GensouWorld.Film_Activitys
 
                     if (jk.PlayList.Any())
                         CoverUIControl(CoverFlag.Visible, rc_episodes);
-                    adapter_es.SetDataList(jk.PlayList, 0);
+
+                    var dataList = jk.PlayList;
+                    dataList.Reverse();
+                    adapter_es.SetDataList(dataList, 0);
                     var data = jk.PlayList[0];
-                    //rPath = jk.PlayList[0].Href;
+
                     HttpGetVideoPlayUrl(data.Href, data.Name);
                 }
                 else
@@ -592,6 +611,26 @@ namespace IdoMaster_GensouWorld.Film_Activitys
 
             }
         }
+
+        #region 播放器各种接口回调
+
+        public void OnPrepared(MediaPlayer mp)
+        {
+             
+        }
+
+        public void OnCompletion(MediaPlayer mp)
+        {
+             
+        }
+
+        public void OnSeekComplete(MediaPlayer mp)
+        {
+             
+        }
+
+        #endregion
+
 
         #endregion
     }

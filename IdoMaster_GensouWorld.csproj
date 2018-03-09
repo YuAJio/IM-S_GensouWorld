@@ -147,6 +147,7 @@
     <Compile Include="Film_Adapters\Z_RecyclerViewAsGrid_Spacing.cs" />
     <Compile Include="IMAS_Application.cs" />
     <Compile Include="IMAS_Constants.cs" />
+    <Compile Include="Listeners\FingerAuthenticationCallback.cs" />
     <Compile Include="Listeners\YsOnkeyListener.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

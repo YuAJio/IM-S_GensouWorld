@@ -410,7 +410,7 @@ namespace IMAS.OkHttp.Bases
         /// <param name="onFailure">失败回调函数</param>
         /// <param name="tag">用于控制取消请求</param>
         /// <returns></returns>
-        protected async Task<TResult> AsyncPostEnqueue<TResult>(string api, Dictionary<string, string> paras, Java.Lang.Object tag = null) where TResult : Result, new()
+        protected async Task<TResult> AsyncPostEnqueue<TResult>(string api, Dictionary<string, string> paras, Java.Lang.Object tag = null) where TResult : Results, new()
         {
             var builder = new Request.Builder();
             builder.Url($"{_baseUrl}{api}");
@@ -484,7 +484,7 @@ namespace IMAS.OkHttp.Bases
         /// <param name="jsonData">请求参数</param>
         /// <param name="tag">用于控制取消请求</param>
         /// <returns></returns>
-        protected async Task<TResult> AsyncPostJson<TResult>(string api, string jsonData, Java.Lang.Object tag = null) where TResult : Result, new()
+        protected async Task<TResult> AsyncPostJson<TResult>(string api, string jsonData, Java.Lang.Object tag = null) where TResult : Results, new()
         {
             var builder = new Request.Builder();
             builder.Url($"{_baseUrl}{api}");
@@ -681,7 +681,7 @@ namespace IMAS.OkHttp.Bases
         /// <param name="paras">请求参数</param>
         /// <param name="tag">用于控制取消请求</param>
         /// <returns></returns>
-        protected async Task<TResult> AsyncPostJson<TResult>(string api, Dictionary<string, object> paras, Java.Lang.Object tag = null) where TResult : Result, new()
+        protected async Task<TResult> AsyncPostJson<TResult>(string api, Dictionary<string, object> paras, Java.Lang.Object tag = null) where TResult : Results, new()
         {
             var builder = new Request.Builder();
             builder.Url($"{_baseUrl}{api}");
@@ -747,7 +747,7 @@ namespace IMAS.OkHttp.Bases
         /// <param name="paras">请求参数</param>
         /// <param name="tag">用于控制取消请求</param>
         /// <returns></returns>
-        protected async Task<TResult> AsyncPostForm<TResult>(string api, Dictionary<string, string> paras, Java.Lang.Object tag = null) where TResult : Result, new()
+        protected async Task<TResult> AsyncPostForm<TResult>(string api, Dictionary<string, string> paras, Java.Lang.Object tag = null) where TResult : Results, new()
         {
             var builder = new Request.Builder();
             builder.Url($"{_baseUrl}{api}");
@@ -802,7 +802,7 @@ namespace IMAS.OkHttp.Bases
         /// <param name="api">API接口</param>
         /// <param name="tag">用于控制取消请求</param>
         /// <returns></returns>
-        protected async Task<TResult> AsyncGet<TResult>(string api, Java.Lang.Object tag = null) where TResult : Result, new()
+        protected async Task<TResult> AsyncGet<TResult>(string api, Java.Lang.Object tag = null) where TResult : Results, new()
         {
             var builder = new Request.Builder();
             builder.Get().Url($"{_baseUrl}{api}");
@@ -879,7 +879,7 @@ namespace IMAS.OkHttp.Bases
         /// <param name="filePath">上传文件的绝对路径</param>
         /// <param name="tag"></param>
         /// <returns></returns>
-        protected async Task<TResult> UploadFilePost<TResult>(string api, string filePath, string mediaTypeStr = "*/*", string nameKey = "upload", Java.Lang.Object tag = null) where TResult : Result, new()
+        protected async Task<TResult> UploadFilePost<TResult>(string api, string filePath, string mediaTypeStr = "*/*", string nameKey = "upload", Java.Lang.Object tag = null) where TResult : Results, new()
         {
             var builder = new Request.Builder();
             builder.Url($"{_baseUrl}{api}");
@@ -942,7 +942,7 @@ namespace IMAS.OkHttp.Bases
         /// <param name="mediaTypeStr">文件类型</param>
         /// <param name="tag"></param>
         /// <returns></returns>
-        protected async Task<TResult> BatchUploadFilePost<TResult>(string api, IList<UploadFileInfo> info, string nameKey = "upload", string mediaTypeStr = "*/*", Java.Lang.Object tag = null) where TResult : Result, new()
+        protected async Task<TResult> BatchUploadFilePost<TResult>(string api, IList<UploadFileInfo> info, string nameKey = "upload", string mediaTypeStr = "*/*", Java.Lang.Object tag = null) where TResult : Results, new()
         {
             var builder = new Request.Builder();
             builder.Url($"{_baseUrl}{api}");

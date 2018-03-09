@@ -75,9 +75,9 @@ namespace IMAS.Tips.Logic.LocalDBManager
         /// <param name="kazari">饰品</param>
         /// <param name="tabemono">食物</param>
         /// <returns></returns>
-        public async Task<Result> InsertTodaysSellGoods(DateTime date, List<Model_Items> fuku, List<Model_Items> kazari, List<Model_Items> tabemono)
+        public async Task<Results> InsertTodaysSellGoods(DateTime date, List<Model_Items> fuku, List<Model_Items> kazari, List<Model_Items> tabemono)
         {
-            var result = new Result();
+            var result = new Results();
             var info = new Model_TodaySellGoods();
             info.TodaySell_Fuku = fuku?.ToJson();
             info.TodaySell_Kazari = kazari?.ToJson();
@@ -163,9 +163,9 @@ namespace IMAS.Tips.Logic.LocalDBManager
         /// <param name="name">制作人姓名</param>
         /// <param name="birthday">制作人生日</param>
         /// <returns></returns>
-        public async Task<Result> InsertProducerInfo(string name, DateTime birthday)
+        public async Task<Results> InsertProducerInfo(string name, DateTime birthday)
         {
-            var result = new Result();
+            var result = new Results();
             var info = new Model_ProducerInfo();
             var ra = new Random();
 
@@ -239,14 +239,14 @@ namespace IMAS.Tips.Logic.LocalDBManager
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        public async Task<Result> UpdateProducerInfo(Model_ProducerInfo info)
+        public async Task<Results> UpdateProducerInfo(Model_ProducerInfo info)
         {
             var jk = await dbInstance.InsertOrReplaceAsync(info);
             if (jk <= 0)
             {
-                return Result.NewError(message: "プロデューサーデータ更新失敗");
+                return Results.NewError(message: "プロデューサーデータ更新失敗");
             }
-            return Result.NewSuccess();
+            return Results.NewSuccess();
         }
         /// <summary>
         /// 更新制作人信息
@@ -255,9 +255,9 @@ namespace IMAS.Tips.Logic.LocalDBManager
         /// <param name="chapter"></param>
         /// <param name="isFinish"></param>
         /// <returns></returns>
-        public async Task<Result> UpdateProducerChapterInfo(int pkId, ChapterEnumeration chapter, bool isFinish)
+        public async Task<Results> UpdateProducerChapterInfo(int pkId, ChapterEnumeration chapter, bool isFinish)
         {
-            var result = new Result();
+            var result = new Results();
             var detail = await dbInstance.GetAsync<Model_ProducerInfo>(pkId);
             if (detail == null)
             {
@@ -312,9 +312,9 @@ namespace IMAS.Tips.Logic.LocalDBManager
         /// 插入可培养的偶像信息
         /// </summary>
         /// <returns></returns>
-        public async Task<Result> InsertProducingCharactersInfo(List<Model_PlayerControllCharacter> list)
+        public async Task<Results> InsertProducingCharactersInfo(List<Model_PlayerControllCharacter> list)
         {
-            var result = new Result();
+            var result = new Results();
             var count = await dbInstance.InsertAllAsync(list);
             if (count <= 0)
             {
@@ -326,16 +326,16 @@ namespace IMAS.Tips.Logic.LocalDBManager
         /// 更新现在所培养偶像的信息
         /// </summary>
         /// <returns></returns>
-        public async Task<Result> UpdateProducingCharacterInfo(Model_PlayerControllCharacter data)
+        public async Task<Results> UpdateProducingCharacterInfo(Model_PlayerControllCharacter data)
         {
             var C_data = await dbInstance.GetAsync<Model_PlayerControllCharacter>(data.PkId);
             C_data = data;
             var num = await dbInstance.UpdateAsync(C_data);
             if (num <= 0)
             {
-                return Result.NewError(message: "データ更新失敗");
+                return Results.NewError(message: "データ更新失敗");
             }
-            return Result.NewSuccess();
+            return Results.NewSuccess();
         }
         /// <summary>
         /// 查询现在可扭出来的角色列表
@@ -515,18 +515,18 @@ namespace IMAS.Tips.Logic.LocalDBManager
         /// <param name="pkId">角色Id</param>
         /// <param name="money">マーニー</param>
         /// <returns></returns>
-        public async Task<Result> UpdateProducerMoney(int pkId, long money)
+        public async Task<Results> UpdateProducerMoney(int pkId, long money)
         {
             var dict = new Dictionary<string, object>();
             dict.Add("Money", money);
             var count = await dbInstance.UpdateAsync<Model_ProducerInfo>(pkId, dict);
             if (count > 0)
             {
-                return Result.NewSuccess();
+                return Results.NewSuccess();
             }
             else
             {
-                return Result.NewError(message: "データ更新失敗");
+                return Results.NewError(message: "データ更新失敗");
             }
 
             //var result = new Result();
@@ -550,7 +550,7 @@ namespace IMAS.Tips.Logic.LocalDBManager
         /// <param name="itemList">物品列表</param>
         /// <param name="itemType">物品类型</param>
         /// <returns></returns>
-        public async Task<Result> UpdateProducerItemInfo(int pkId, List<Model_Items> itemList, ItemEnumeration itemType)
+        public async Task<Results> UpdateProducerItemInfo(int pkId, List<Model_Items> itemList, ItemEnumeration itemType)
         {
             var jk = itemList.ToJson();
             var dict = new Dictionary<string, object>();
@@ -572,11 +572,11 @@ namespace IMAS.Tips.Logic.LocalDBManager
             var count = await dbInstance.UpdateAsync<Model_ProducerInfo>(pkId, dict);
             if (count > 0)
             {
-                return Result.NewSuccess();
+                return Results.NewSuccess();
             }
             else
             {
-                return Result.NewError(message: "データ更新失敗");
+                return Results.NewError(message: "データ更新失敗");
             }
         }
 
@@ -586,7 +586,7 @@ namespace IMAS.Tips.Logic.LocalDBManager
         /// <param name="Producer_PkId">制作人Id</param>
         /// <param name="CCC_PkId">偶像Id</param>
         /// <returns></returns>
-        public async Task<Result> InsertProducingCharacterInfo(int Producer_PkId, long CCC_Id)
+        public async Task<Results> InsertProducingCharacterInfo(int Producer_PkId, long CCC_Id)
         {
             try
             {
@@ -595,7 +595,7 @@ namespace IMAS.Tips.Logic.LocalDBManager
                 var q_result_ex = q_result.FirstOrDefault();
                 if (q_result == null)
                 {
-                    return Result.NewError(message: "データいません");
+                    return Results.NewError(message: "データいません");
                 }
                 var idsList = new List<long>();
                 if (!string.IsNullOrEmpty(q_result_ex.ProducingCharacter))
@@ -611,9 +611,9 @@ namespace IMAS.Tips.Logic.LocalDBManager
                 var i_result = await dbInstance.UpdateAsync<Model_ProducerInfo>(Producer_PkId, dict);
                 if (i_result > 0)
                 {
-                    return Result.NewSuccess();
+                    return Results.NewSuccess();
                 }
-                return Result.NewError(message: "データ更新失敗");
+                return Results.NewError(message: "データ更新失敗");
             }
             catch (Exception ex)
             {
@@ -639,12 +639,12 @@ namespace IMAS.Tips.Logic.LocalDBManager
         /// </summary>
         /// <param name="maps">地图信息</param>
         /// <returns></returns>
-        public async Task<Result> InsertBattleMapInfomation(List<Model_BattleMap> maps)
+        public async Task<Results> InsertBattleMapInfomation(List<Model_BattleMap> maps)
         {
             var count = await dbInstance.InsertAllAsync(maps);
             if (count <= 0)
-                return Result.NewError(message: "データ挿入失敗");
-            return Result.NewSuccess();
+                return Results.NewError(message: "データ挿入失敗");
+            return Results.NewSuccess();
         }
         /// <summary>
         /// 查询战斗地图
@@ -668,19 +668,19 @@ namespace IMAS.Tips.Logic.LocalDBManager
         /// <param name="pkId">地图Id</param>
         /// <param name="monsets">怪物列表</param>
         /// <returns></returns>
-        public async Task<Result> UpdateMonsterInfomation(int pkId, List<Model_Monster> monsets)
+        public async Task<Results> UpdateMonsterInfomation(int pkId, List<Model_Monster> monsets)
         {
             var jk = await dbInstance.FindAsync<Model_BattleMap>(pkId);
             if (jk == null)
-                return Result.NewError(message: "地図のデータがいません");
+                return Results.NewError(message: "地図のデータがいません");
             jk.LivedMonster = monsets.ToJson();
             var dict = new Dictionary<string, object>();
             dict.Add("LivedMonster", monsets.ToJson());
             var count = await dbInstance.UpdateAsync<Model_BattleMap>(pkId, dict);
             if (count <= 0)
-                return Result.NewError(message: "データ更新失敗");
+                return Results.NewError(message: "データ更新失敗");
 
-            return Result.NewSuccess();
+            return Results.NewSuccess();
         }
         /// <summary>
         /// 获取生活在该地图的怪物
@@ -708,9 +708,9 @@ namespace IMAS.Tips.Logic.LocalDBManager
         /// <param name="historyType">类型</param>
         /// <param name="message"></param>
         /// <returns></returns>
-        public async Task<Result> InsertSearchHistoryInfo(InputHistoryType historyType, string message)
+        public async Task<Results> InsertSearchHistoryInfo(InputHistoryType historyType, string message)
         {
-            var result = new Result();
+            var result = new Results();
             var info = new Model_SearchHistory();
             info.HistoryType = historyType;
             info.Message = message;
@@ -730,18 +730,18 @@ namespace IMAS.Tips.Logic.LocalDBManager
         /// </summary>
         /// <param name="pkId">主键</param>
         /// <returns></returns>
-        public async Task<Result> UpdateSearchHistoryInfo(int pkId)
+        public async Task<Results> UpdateSearchHistoryInfo(int pkId)
         {
             var dict = new Dictionary<string, object>();
             dict.Add("UpdateTime", DateTime.Now);
             var count = await dbInstance.UpdateAsync<Model_SearchHistory>(pkId, dict);
             if (count > 0)
             {
-                return Result.NewSuccess(true);
+                return Results.NewSuccess(true);
             }
             else
             {
-                return Result.NewError(message: "更新失败");
+                return Results.NewError(message: "更新失败");
             }
         }
 
@@ -768,9 +768,9 @@ namespace IMAS.Tips.Logic.LocalDBManager
         /// </summary>
         /// <param name="pkId"></param>
         /// <returns></returns>
-        public async Task<Result> DeleteSearchHistoryInfo(int pkId)
+        public async Task<Results> DeleteSearchHistoryInfo(int pkId)
         {
-            var result = new Result();
+            var result = new Results();
 
             var count = await dbInstance.DeleteAsync<Model_SearchHistory>(pkId);
             if (count <= 0)

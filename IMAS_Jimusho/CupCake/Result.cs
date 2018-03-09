@@ -11,7 +11,7 @@ namespace IMAS.CupCake.Data
     /// <summary>
     /// 处理结果对象
     /// </summary>
-    public class Result
+    public class Results
     {
         /// <summary>
         /// 是否成功
@@ -34,7 +34,7 @@ namespace IMAS.CupCake.Data
         /// <param name="code"></param>
         /// <param name="message"></param>
         /// <returns></returns>
-        public Result Success(int code = 0, string message = null)
+        public Results Success(int code = 0, string message = null)
         {
             IsSuccess = true;
             Code = code;
@@ -48,7 +48,7 @@ namespace IMAS.CupCake.Data
         /// <param name="code"></param>
         /// <param name="message"></param>
         /// <returns></returns>
-        public Result Error(int code = 0, string message = null)
+        public Results Error(int code = 0, string message = null)
         {
             IsSuccess = false;
             Code = code;
@@ -62,9 +62,9 @@ namespace IMAS.CupCake.Data
         /// <param name="code"></param>
         /// <param name="message"></param>
         /// <returns></returns>
-        public static Result NewSuccess(int code = 0, string message = null)
+        public static Results NewSuccess(int code = 0, string message = null)
         {
-            return new Result { IsSuccess = true, Code = code, Message = message };
+            return new Results { IsSuccess = true, Code = code, Message = message };
         }
 
         /// <summary>
@@ -73,9 +73,9 @@ namespace IMAS.CupCake.Data
         /// <param name="code"></param>
         /// <param name="message"></param>
         /// <returns></returns>
-        public static Result NewError(int code = 0, string message = null)
+        public static Results NewError(int code = 0, string message = null)
         {
-            return new Result { IsSuccess = false, Code = code, Message = message };
+            return new Results { IsSuccess = false, Code = code, Message = message };
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace IMAS.CupCake.Data
     /// 泛型结果
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class Result<T> : Result
+    public class Result<T> : Results
     {
         private T _data;
 
@@ -157,14 +157,14 @@ namespace IMAS.CupCake.Data
 
     public static class ResultExtenssion
     {
-        public static Task<TResult> WrapResultTask<TResult>(this TResult result) where TResult : Result
+        public static Task<TResult> WrapResultTask<TResult>(this TResult result) where TResult : Results
         {
             return Task.FromResult(result);
         }
 
-        public static Task<Result> ConvertAndWrapTask(this object result)
+        public static Task<Results> ConvertAndWrapTask(this object result)
         {
-            return Task.FromResult(result as Result);
+            return Task.FromResult(result as Results);
         }
     }
 }

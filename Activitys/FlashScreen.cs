@@ -54,7 +54,7 @@ namespace IdoMaster_GensouWorld.Activitys
         {
             Task.Run(async () =>
             {
-                var result = new IMAS.CupCake.Data.Result();
+                var result = new IMAS.CupCake.Data.Results();
                 var r_shop = await InitTodaysSellGoods();
                 if (!r_shop.IsSuccess)
                 {
@@ -619,7 +619,7 @@ namespace IdoMaster_GensouWorld.Activitys
         /// 初始化商店贩卖物品信息
         /// </summary>
         /// <returns></returns>
-        private async Task<IMAS.CupCake.Data.Result> InitTodaysSellGoods()
+        private async Task<IMAS.CupCake.Data.Results> InitTodaysSellGoods()
         {
             var list_Fuku = GetFukuList();
             var list_Kazari = GetKazariList();
@@ -631,7 +631,7 @@ namespace IdoMaster_GensouWorld.Activitys
         /// 初始化可扭曲角色信息
         /// </summary>
         /// <returns></returns>
-        private async Task<IMAS.CupCake.Data.Result> InitCharacterCanBeGacha()
+        private async Task<IMAS.CupCake.Data.Results> InitCharacterCanBeGacha()
         {
             var list = new List<Model_PlayerControllCharacter>() { CreateCharacter_Eins(), CreateCharacter_Zwei(), CreateCharacter_Drei(), CreateCharacter_Vier() };
 
@@ -641,7 +641,7 @@ namespace IdoMaster_GensouWorld.Activitys
         /// 初始化可进入地图信息
         /// </summary>
         /// <returns></returns>
-        private async Task<IMAS.CupCake.Data.Result> InitBattleMap()
+        private async Task<IMAS.CupCake.Data.Results> InitBattleMap()
         {
             var list = new List<Model_BattleMap>() { CreatBatteMap_Yuri(), CreatBatteMap_Winter(), CreatBatteMap_Banana() };
 
