@@ -21,6 +21,10 @@ using System.Security.Cryptography;
 using IMAS.Utils.Cryptographic;
 using IMAS.Utils.Sp;
 using IdoMaster_GensouWorld.Film_Activitys;
+using Android.Hardware.Fingerprints;
+using IdoMaster_GensouWorld.Listeners;
+using Android;
+using IMAS.CupCake.Data;
 
 namespace IdoMaster_GensouWorld.Activitys.MainPage
 {
@@ -66,6 +70,7 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
         public override void E_InitData()
         {
             tv_version.Text = GetVersionName();
+            InitFingerPrint();
         }
 
         private const string HASH_Eins = "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92";
@@ -97,8 +102,21 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
                     break;
                 case Resource.Id.iv_film_into:
                     {
-                        //进去电影院
-                        StartActivity(new Intent(this, typeof(Film_HomePage)));
+                        var jk = IsFingerCanUse();
+                        if (jk.IsSuccess)
+                        {
+                            StartListening();
+                            ShowSureConfim(null, "指紋を入力してください", (j, k) =>
+                            {
+                                mCancellationSignal.Cancel();
+                            }, "キャンセル", false);
+                        }
+                        else
+                        {
+                            ShowMsgShort(jk.Message);
+                            //进去电影院
+                            StartActivity(new Intent(this, typeof(Film_HomePage)));
+                        }
                     }
                     break;
             }
@@ -108,6 +126,100 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
         {
 
         }
+        #region 指纹读取相关
+        private CancellationSignal mCancellationSignal;
+        private FingerprintManager fpManager;
+        private KeyguardManager kgManager;
+        private FingerAuthenticationCallback mSelfCancelled;
+
+
+        private const string TAG = "finger_log";
+
+        /// <summary>
+        /// 初始化指纹识别管理器
+        /// </summary>
+        private void InitFingerPrint()
+        {
+            mCancellationSignal = new CancellationSignal();
+            fpManager = (FingerprintManager)GetSystemService(FingerprintService);
+            kgManager = (KeyguardManager)GetSystemService(KeyguardService);
+            InitFingerCallBack();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private Results IsFingerCanUse()
+        {
+            var result = new Results();
+            if (!fpManager.IsHardwareDetected)
+                return result.Error(message: "没有指纹识别模块");
+            if (!kgManager.IsKeyguardSecure)
+                return result.Error(message: "没有开启锁屏密码");
+            if (!fpManager.HasEnrolledFingerprints)
+                return result.Error(message: "没有录入指纹");
+
+            return result.Success();
+        }
+
+        /// <summary>
+        /// 开始监听
+        /// </summary>
+        private void StartListening()
+        {
+            //android studio 上，没有这个会报错
+            if (Android.Support.V4.Content.ContextCompat.CheckSelfPermission(this, Manifest.Permission.UseFingerprint) != Android.Content.PM.Permission.Granted)
+            {
+                ShowMsgLong("没有指纹识别权限");
+                return;
+            }
+            fpManager.Authenticate(null, mCancellationSignal, FingerprintAuthenticationFlags.None, mSelfCancelled, null);
+        }
+
+        private void ShowAuthenticationScreen()
+        {
+            var intent = kgManager.CreateConfirmDeviceCredentialIntent("finger", "测试指纹识别");
+            isCanBeCallBack = false;
+            if (intent != null)
+                StartActivityForResult(intent, IMAS_Constants.OnDeviceFingerCheckKey);
+        }
+
+        /// <summary>
+        /// 实现指纹验证回调
+        /// </summary>
+        private void InitFingerCallBack()
+        {
+            mSelfCancelled = new FingerAuthenticationCallback((val) => { OnAuthenticationSucceeded(val); }, () => { OnAuthenticationFailed(); }, (j, k) => { OnAuthenticationError(j, k); }, (j, k) => { OnAuthenticationHelp(j, k); });
+        }
+
+        #region 接口回调
+        private bool isCanBeCallBack = true;
+        private void OnAuthenticationSucceeded(FingerprintManager.AuthenticationResult result)
+        {
+            ShowMsgLong("指纹验证成功");
+            //进去电影院
+            StartActivity(new Intent(this, typeof(Film_HomePage)));
+        }
+        private void OnAuthenticationFailed()
+        {
+            ShowMsgLong("指纹识别失败");
+        }
+        private void OnAuthenticationError(FingerprintState errorCode, ICharSequence errString)
+        {
+            if (!isCanBeCallBack)
+                return;
+            //但多次指纹密码验证错误后，进入此方法；并且，不能短时间内调用指纹验证
+            ShowMsgLong("指纹验证多次失败");
+            ShowAuthenticationScreen();
+        }
+        public void OnAuthenticationHelp(FingerprintState helpCode, ICharSequence helpString)
+        {
+            ShowMsgLong(helpString.ToString());
+        }
+        #endregion
+        #endregion
+
         #region 开始新游戏弹出制作人信息弹出框
         private EditText et_input;
         /// <summary>
@@ -158,6 +270,7 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
             }
         }
         #endregion
+
         #region SQLite操作
         private void SQLiteQProducerInfo(string name)
         {
@@ -211,6 +324,7 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
            }, TaskScheduler.FromCurrentSynchronizationContext());
         }
         #endregion
+
         #region 监听EditText
         public void AfterTextChanged(IEditable s)
         {
@@ -236,6 +350,7 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
             }
         }
         #endregion
+
         #region 显示版本号
         private int EasterEggCount;
         /// <summary>
@@ -260,6 +375,7 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
             return packageName;
         }
         #endregion
+
         #region 监听返回键做APP退出
         private void CleanAllActivity(int count)
         {
@@ -301,5 +417,23 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
         }
 
         #endregion
+
+        protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
+        {
+            if (requestCode == IMAS_Constants.OnDeviceFingerCheckKey)
+            {
+                isCanBeCallBack = true;
+                if (resultCode == Result.Ok)
+                {
+                    ShowMsgLong("识别成功于ActivityResult");
+                    StartActivity(new Intent(this, typeof(Film_HomePage)));
+                }
+                else
+                    ShowMsgLong("识别失败了于ActivityResult");
+
+            }
+
+        }
+
     }
 }

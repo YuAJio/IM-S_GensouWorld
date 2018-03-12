@@ -13,6 +13,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Cryptographic\SymmetricCryptographyTools.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Files\FilePathManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Files\FileUtils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HardCodes\FingerPrintManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logs\FileLogManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SharedPreferences\AndroidPerFerenceProvider.cs" />
   </ItemGroup>

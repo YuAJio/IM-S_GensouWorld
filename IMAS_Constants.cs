@@ -35,6 +35,10 @@ namespace IdoMaster_GensouWorld
         /// 选择识别身份证的RequestCode(相册)
         /// </summary>
         public const int OnSelectAIdCardPictrueKey = 0x105;
+        /// <summary>
+        /// 选择手机设备指纹验证RequestCode
+        /// </summary>
+        public const int OnDeviceFingerCheckKey = 0x106;
         #endregion
 
         #region 页面跳转专递信息Key

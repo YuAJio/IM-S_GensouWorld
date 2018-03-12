@@ -23,6 +23,8 @@ using IMAS.Utils.Sp;
 using Android.Hardware.Fingerprints;
 using IMAS.CupCake.Data;
 using IdoMaster_GensouWorld.Listeners;
+using Android.Support.V4.App;
+using Java.Lang;
 
 namespace IdoMaster_GensouWorld.Activitys.MainPage
 {
@@ -73,6 +75,7 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
         public override void E_InitData()
         {
             lv_history.Adapter = adapter_history;
+
         }
 
         public override void F_OnClickListener(View v, EventArgs e)
@@ -153,41 +156,6 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
             this.Finish();
         }
 
-        #region 指纹读取相关
-        private CancellationSignal mCancellationSignal;
-        private FingerprintManager fpManager;
-        private KeyguardManager kgManager;
-        private FingerprintManager.AuthenticationCallback mSelfCancelled;
-
-
-        private const int REQUEST_CODE_CONFIRM_DEVICE_CREDENTIALS = 0;
-        private const string TAG = "finger_log";
-
-        /// <summary>
-        /// 初始化指纹识别管理器
-        /// </summary>
-        private void InitFingerPrint()
-        {
-            mCancellationSignal = new CancellationSignal();
-            fpManager = (FingerprintManager)GetSystemService(FingerprintService);
-            kgManager = (KeyguardManager)GetSystemService(KeyguardService);
-            mSelfCancelled = new FingerAuthenticationCallback();
-
-        }
-
-        private Results IsFingerCanUse()
-        {
-            var result = new Results();
-            if (!fpManager.IsHardwareDetected)
-                return result.Error(message: "没有指纹识别模块");
-            if (!kgManager.IsKeyguardSecure)
-                return result.Error(message: "没有开启锁屏密码");
-            if (!fpManager.HasEnrolledFingerprints)
-                return result.Error(message: "没有录入指纹");
-
-            return result.Success();
-        }
-        #endregion
 
         #region SQLite相关
 
@@ -316,5 +284,7 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
         }
         #endregion
         #endregion
+
+
     }
 }
