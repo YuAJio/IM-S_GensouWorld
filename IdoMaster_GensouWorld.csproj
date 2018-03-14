@@ -145,10 +145,13 @@
     <Compile Include="Film_Adapters\Film_FilmEpisodes_Adapter.cs" />
     <Compile Include="Film_Adapters\Film_FilmSearchList_Adapter.cs" />
     <Compile Include="Film_Adapters\Z_RecyclerViewAsGrid_Spacing.cs" />
+    <Compile Include="Film_Adapters\Z_RecyclerViewAsStaggered_Spacing.cs" />
     <Compile Include="IMAS_Application.cs" />
     <Compile Include="IMAS_Constants.cs" />
     <Compile Include="Listeners\FingerAuthenticationCallback.cs" />
+    <Compile Include="Listeners\KsyAzEventCallBack.cs" />
     <Compile Include="Listeners\YsOnkeyListener.cs" />
+    <Compile Include="Listeners\YsSeekChangeListener.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\SoundPlayer\BackGroundMusicPlayer.cs" />
@@ -528,7 +531,7 @@
     <AndroidResource Include="Resources\mipmap-hdpi\icon_search.png" />
   </ItemGroup>
   <ItemGroup>
-    <TransformFile Include="Resources\values\Dimens.xml" />
+    <AndroidResource Include="Resources\values\Dimens.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\bg_film_diy_seekbar.xml" />
@@ -562,6 +565,18 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\selector_film_episodes_item.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\xml\file_paths.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\textbg_open_intro.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\textbg_retry.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-hdpi\icon_ac_video_error.png" />
   </ItemGroup>
   <Import Project="IMAS.Sqlite\IMAS.Sqlite.projitems" Label="Shared" />
   <Import Project="IMAS.Tips.Logic\IMAS.Tips.Logic.projitems" Label="Shared" />

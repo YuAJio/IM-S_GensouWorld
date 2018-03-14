@@ -231,5 +231,12 @@ namespace IdoMaster_GensouWorld
         public const string BaiduAITtsParamPitchKey = "BaiduAITtsParamPitch";
 
         #endregion
+
+        #region 电影院常量
+        /// <summary>
+        /// 播放控件Id
+        /// </summary>
+        public const int KsyTextureViewId = 0x12534;
+        #endregion
     }
 }

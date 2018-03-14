@@ -35,7 +35,7 @@ namespace IdoMaster_GensouWorld.Listeners
             Action<FingerprintState, ICharSequence> Act_OnAuthenticationHelp
            )
         {
-            this.Act_OnAuthenticationError = Act_OnAuthenticationError;
+            this.Act_OnAuthenticationSucceeded = Act_OnAuthenticationSucceeded;
             this.Act_OnAuthenticationFailed = Act_OnAuthenticationFailed;
             this.Act_OnAuthenticationError = Act_OnAuthenticationError;
             this.Act_OnAuthenticationHelp = Act_OnAuthenticationError;

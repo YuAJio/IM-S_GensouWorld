@@ -114,8 +114,7 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
                         else
                         {
                             ShowMsgShort(jk.Message);
-                            //进去电影院
-                            StartActivity(new Intent(this, typeof(Film_HomePage)));
+                            IntoFilmActivity();
                         }
                     }
                     break;
@@ -126,6 +125,15 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
         {
 
         }
+        /// <summary>
+        /// 进入电影院
+        /// </summary>
+        private void IntoFilmActivity()
+        {
+            DismissConfim();
+            StartActivity(new Intent(this, typeof(Film_HomePage)));
+        }
+
         #region 指纹读取相关
         private CancellationSignal mCancellationSignal;
         private FingerprintManager fpManager;
@@ -198,8 +206,8 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
         private void OnAuthenticationSucceeded(FingerprintManager.AuthenticationResult result)
         {
             ShowMsgLong("指纹验证成功");
-            //进去电影院
-            StartActivity(new Intent(this, typeof(Film_HomePage)));
+
+            IntoFilmActivity();
         }
         private void OnAuthenticationFailed()
         {
@@ -426,7 +434,7 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
                 if (resultCode == Result.Ok)
                 {
                     ShowMsgLong("识别成功于ActivityResult");
-                    StartActivity(new Intent(this, typeof(Film_HomePage)));
+                    IntoFilmActivity();
                 }
                 else
                     ShowMsgLong("识别失败了于ActivityResult");

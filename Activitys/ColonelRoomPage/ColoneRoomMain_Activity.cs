@@ -4,12 +4,14 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Android;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.OS;
 using Android.Provider;
 using Android.Runtime;
+using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
 using Baidu.Aip.Ocr;
@@ -35,7 +37,7 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
      Android.Content.PM.ConfigChanges.Orientation |
      Android.Content.PM.ConfigChanges.ScreenSize |
       Android.Content.PM.ConfigChanges.Keyboard |
-      Android.Content.PM.ConfigChanges.KeyboardHidden)]
+      Android.Content.PM.ConfigChanges.KeyboardHidden), /*IntentFilter(actions:new string[] { "android.media.action.CAMERA" })*/]
     public class ColoneRoomMain_Activity : BaseActivity
     {
         #region UI控件
@@ -234,12 +236,17 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
 
         private void ToTakePhoto()
         {
+            if (!IsPermissionOpen(Manifest.Permission.Camera))
+            {
+                return;
+            }
             Intent intent = new Intent(MediaStore.ActionImageCapture);
             intent.PutExtra(MediaStore.ExtraVideoQuality, 1);
             PicLastPath = GetPhotopath();
             PicLastPathTemp = GetPhotopathTemp();
             Java.IO.File outPhoto = new Java.IO.File(PicLastPathTemp);
-            var uri = Android.Net.Uri.FromFile(outPhoto);
+            //var uri = Android.Net.Uri.FromFile(outPhoto);
+            var uri = FileProvider.GetUriForFile(this, PackageName + ".fileprovider", outPhoto);
             //获取拍照后未压缩的原图片,并保存在uri路径中
             intent.PutExtra(MediaStore.ExtraOutput, uri);
             this.StartActivityForResult(intent, IMAS_Constants.OnTakeAPictrueKey);

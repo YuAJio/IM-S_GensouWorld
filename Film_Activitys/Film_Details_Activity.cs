@@ -20,6 +20,7 @@ using IdoMaster_GensouWorld.Adapters;
 using IMAS.LocalDBManager.Models;
 using static Android.Media.MediaPlayer;
 using Android.Media;
+using IdoMaster_GensouWorld.Listeners;
 
 namespace IdoMaster_GensouWorld.Film_Activitys
 {
@@ -32,7 +33,7 @@ namespace IdoMaster_GensouWorld.Film_Activitys
         Android.Content.PM.ConfigChanges.Keyboard |
         Android.Content.PM.ConfigChanges.KeyboardHidden
         )]
-    public class Film_Details_Activity : BaseActivity, IOnPreparedListener, IOnCompletionListener, IOnSeekCompleteListener
+    public class Film_Details_Activity : BaseActivity
     {
         #region UI控件
         /// <summary>
@@ -68,6 +69,10 @@ namespace IdoMaster_GensouWorld.Film_Activitys
         /// </summary>
         private TextView tv_intro;
         /// <summary>
+        /// 重试
+        /// </summary>
+        private TextView tv_retry;
+        /// <summary>
         /// 主要演员
         /// </summary>
         private TextView tv_art;
@@ -88,23 +93,23 @@ namespace IdoMaster_GensouWorld.Film_Activitys
         /// </summary>
         private RelativeLayout rl_wait;
         /// <summary>
+        /// 错误控件容器
+        /// </summary>
+        private LinearLayout ll_error;
+        /// <summary>
         /// 集数列表
         /// </summary>
         private RecyclerView rc_episodes;
         #endregion
         #region 杂项
         /// <summary>
-        /// 简介是否是展开状态
-        /// </summary>
-        private bool isOpenIntro = false;
-        /// <summary>
-        /// 目前正在播放的集数
-        /// </summary>
-        private int PlayingIndex;
-        /// <summary>
         /// 集数适配器
         /// </summary>
         private Film_FilmEpisodes_Adapter adapter_es;
+        /// <summary>
+        /// 进度条回调
+        /// </summary>
+        private YsSeekChangeListener onSeekChangeListener;
         #endregion
         #region Handler&Runnable
         /// <summary>
@@ -115,6 +120,10 @@ namespace IdoMaster_GensouWorld.Film_Activitys
         /// 线程1,专门检查是否正在播放
         /// </summary>
         private NormalRunnable mRunnable_Alpha;
+        /// <summary>
+        /// 线程2,专门隐藏播放界面
+        /// </summary>
+        private NormalRunnable mRunnable_Beta;
         /// <summary>
         /// 隐藏菜单消息
         /// 代号:林
@@ -130,6 +139,11 @@ namespace IdoMaster_GensouWorld.Film_Activitys
         /// 代号:风
         /// </summary>
         private const int MSG_CHECK_VIDEO_IS_PLAY = 0x0030;
+        /// <summary>
+        /// 更新进度条
+        /// 代号:水
+        /// </summary>
+        private const int MSG_UPDATE_SEEK_PROGRESS = 0x0040;
         #endregion
 
 
@@ -141,12 +155,21 @@ namespace IdoMaster_GensouWorld.Film_Activitys
         /// <summary>
         /// 错误Catch
         /// </summary>
-        private MyOnErrorListenerImp errorListennerImp;
+        private KsyAzEventCallBack azEventCallBack;
         //private IOnPreparedListener onPreparedListener;
         //private IOnCompletionListener onCompletionListener;
         //private IOnSeekCompleteListener onSeekCompleteListener;
         #endregion
+
         #region 变量
+        /// <summary>
+        /// 简介是否是展开状态
+        /// </summary>
+        private bool isOpenIntro = false;
+        ///// <summary>
+        ///// 目前正在播放的集数
+        ///// </summary>
+        //private int PlayingIndex;
         /// <summary>
         /// 视频唯一Id
         /// </summary>
@@ -159,6 +182,14 @@ namespace IdoMaster_GensouWorld.Film_Activitys
         /// 是否第一次进入
         /// </summary>
         private bool isFirstComein = true;
+        /// <summary>
+        /// 距离上次点击的时间
+        /// </summary>
+        private long mClickTime = 0;
+        /// <summary>
+        /// 重试连接次数
+        /// </summary>
+        private int retryCount = 0;
         #endregion
 
         public override int A_GetContentViewId()
@@ -172,6 +203,7 @@ namespace IdoMaster_GensouWorld.Film_Activitys
             //初始化线程
             mHandler = new YurishBaseiHandler();
             mRunnable_Alpha = new NormalRunnable(mHandler, MSG_CHECK_VIDEO_IS_PLAY);
+            mRunnable_Beta = new NormalRunnable(mHandler, MSG_COVER_MENU);
             mHandler.handlerAction -= RunHandlerAction;
             mHandler.handlerAction += RunHandlerAction;
         }
@@ -186,15 +218,18 @@ namespace IdoMaster_GensouWorld.Film_Activitys
             tv_title = FindViewById<TextView>(Resource.Id.tv_title);
             tv_intro = FindViewById<TextView>(Resource.Id.tv_intro);
             tv_art = FindViewById<TextView>(Resource.Id.tv_art);
+            tv_retry = FindViewById<TextView>(Resource.Id.tv_retry);
             tv_open_intro = FindViewById<TextView>(Resource.Id.tv_open_intro);
             sb_seek = FindViewById<SeekBar>(Resource.Id.sb_progress);
             rl_video = FindViewById<RelativeLayout>(Resource.Id.rl_video);
             rl_menu = FindViewById<RelativeLayout>(Resource.Id.rl_menu);
             rl_wait = FindViewById<RelativeLayout>(Resource.Id.rl_wait);
+            ll_error = FindViewById<LinearLayout>(Resource.Id.ll_error);
             rc_episodes = FindViewById<RecyclerView>(Resource.Id.rc_episodes);
 
-            rc_episodes.SetLayoutManager(new GridLayoutManager(this, 4));
-            rc_episodes.AddItemDecoration(new Z_RecyclerViewAsGrid_Spacing(3, 10, true));
+            rc_episodes.SetLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.Horizontal));
+            rc_episodes.AddItemDecoration(new Z_RecyclerViewAsStaggered_Spacing(0, 5, 10, 0));
+            tv_retry.Paint.Flags = Android.Graphics.PaintFlags.UnderlineText;
         }
 
         public override void D_BindEvent()
@@ -203,6 +238,10 @@ namespace IdoMaster_GensouWorld.Film_Activitys
             iv_play_or_stop.Click += OnClickListener;
             iv_full_screen.Click += OnClickListener;
             tv_open_intro.Click += OnClickListener;
+            rl_video.Click += OnClickListener;
+            tv_retry.Click += OnClickListener;
+            InitOnSeekChangeListener();
+
         }
 
         public override void E_InitData()
@@ -213,11 +252,8 @@ namespace IdoMaster_GensouWorld.Film_Activitys
             adapter_es.onItemClickAct += OnRVItemClickListener;
             rc_episodes.SetAdapter(adapter_es);
 
-            //初始化错误回调
-            errorListennerImp = new MyOnErrorListenerImp();
-            errorListennerImp.ErrorAction -= OnError;
-            errorListennerImp.ErrorAction += OnError;
-
+            ///初始化播放器回调
+            InitPlayerCallBack();
 
             HttpGetVideoInfo();
             //rPath = "http://yingshi.yazyzw.com/20171010/A2sCXesp/index.m3u8";
@@ -233,6 +269,13 @@ namespace IdoMaster_GensouWorld.Film_Activitys
                         QuitThePage();
                     }
                     break;
+                case Resource.Id.tv_retry:///重试
+                    {
+                        HideErrorLayout();
+                        ShowWaitAnime();
+                        SendRetryPlayerMsg();
+                    }
+                    break;
                 case Resource.Id.iv_play:///播放/暂停
                     {
                         var b = iv_back.Selected;
@@ -240,39 +283,66 @@ namespace IdoMaster_GensouWorld.Film_Activitys
                         {
                             //暂停
                             if (IsPlaying())
-                                mVideoView.Stop();
+                                StopPlayer();
                         }
                         else
                         {
                             if (isFirstComein)
                             {//如果是第一次进入
                                 ShowWaitAnime();
+                                HideMenu(CoverFlag.Gone);
                                 InitKSYPlayer();
                             }
                             //播放
                             if (IsPlaying())
-                                mVideoView.Start();
+                                StartPlayer();
                         }
                         iv_back.Selected = !b;
                     }
                     break;
                 case Resource.Id.iv_full_screen:///全屏
                     {
-
-
+                        ChangeTheScreenFull();
                     }
                     break;
                 case Resource.Id.tv_open_intro:///展开&关闭简介
                     {
-                        if (isOpenIntro)
+                        if (!isOpenIntro)
+                        {
                             //展开简介
+                            tv_open_intro.Text = "关闭展开";
                             CoverUIControl(CoverFlag.Visible, tv_intro);
+                        }
                         else
+                        {
                             //关闭简介
+                            tv_open_intro.Text = "展开简介";
                             CoverUIControl(CoverFlag.Gone, tv_intro);
+                        }
+                        isOpenIntro = !isOpenIntro;
                     }
                     break;
 
+                case Resource.Id.rl_video:///点击品目
+                    {
+                        if (Java.Lang.JavaSystem.CurrentTimeMillis() - mClickTime < 800)
+                        {
+                            if (!IsPlaying())
+                                return;
+                            //双击操作
+                            ChangeTheScreenFull();
+
+                        }
+                        else
+                        {
+                            //单击操作
+                            mClickTime = Java.Lang.JavaSystem.CurrentTimeMillis();
+                            if (rl_menu.Visibility == ViewStates.Invisible)
+                                HideMenu(CoverFlag.Visible);
+                        }
+
+                    }
+                    break;
             }
 
         }
@@ -286,7 +356,7 @@ namespace IdoMaster_GensouWorld.Film_Activitys
         {
             var clickItem = adapter_es[position];
             adapter_es.SetPlayerIndex(position);
-
+            HttpGetVideoPlayUrl(clickItem.Href, clickItem.Name, true);
 
         }
 
@@ -299,17 +369,24 @@ namespace IdoMaster_GensouWorld.Film_Activitys
             {
                 case MSG_RETRY_PLAYER:
                     {
+                        if (retryCount >= 8)
+                        {
+                            ShowErrorLayout();
+                            retryCount = 0;
+                            return;
+                        }
                         CleanTheKSYMedia();
                         if (rl_wait.Visibility == ViewStates.Gone)
                         {
                             ShowWaitAnime();
                         }
                         InitKSYPlayer();
+                        retryCount++;
                     }
                     break;
                 case MSG_COVER_MENU:
                     {
-                        CoverUIControl(CoverFlag.Gone, rl_menu);
+                        CoverUIControl(CoverFlag.Invisible, rl_menu);
                     }
                     break;
                 case MSG_CHECK_VIDEO_IS_PLAY:
@@ -325,8 +402,107 @@ namespace IdoMaster_GensouWorld.Film_Activitys
                         mHandler.PostDelayed(mRunnable_Alpha, 3000);
                     }
                     break;
+                case MSG_UPDATE_SEEK_PROGRESS:
+                    {
+                        UpdateProgreedInfo();
+                    }
+                    break;
             }
         }
+
+        #region 全屏操作
+        /// <summary>
+        /// 是否是全屏
+        /// </summary>
+        private bool isFullScreenOrNot = false;
+        /// <summary>
+        /// 是否开启了重力检测
+        /// </summary>
+        private bool isGravityOpen = false;
+        /// <summary>
+        /// 切换全屏与半屏幕
+        /// </summary>
+        private void ChangeTheScreenFull()
+        {
+            if (isFullScreenOrNot)
+                SetPortraitAndLandscape(false);
+            else
+                SetPortraitAndLandscape(true);
+        }
+        /// 根据输入的布尔值来切换全屏播放或是小屏播放
+        /// </summary>
+        /// <param name="bo">true:切换横屏,false:切换竖屏</param>
+        private void SetPortraitAndLandscape(bool bo)
+        {
+            if (bo)
+            {
+                ///屏幕横屏相关设置
+                if (isGravityOpen)
+                    RequestedOrientation = Android.Content.PM.ScreenOrientation.FullSensor;
+                else
+                    RequestedOrientation = Android.Content.PM.ScreenOrientation.Landscape;
+                //HideOtherUiWidget(true);
+                rl_video.LayoutParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
+                isFullScreenOrNot = true;
+            }
+            else
+            {
+                ///屏幕竖屏相关设置
+                if (isGravityOpen)
+                    RequestedOrientation = Android.Content.PM.ScreenOrientation.FullSensor;
+                else
+                    RequestedOrientation = Android.Content.PM.ScreenOrientation.Portrait;
+                //LinearLayout.LayoutParams lp = rl_video.LayoutParameters;
+                //HideOtherUiWidget(false);
+                rl_video.LayoutParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, (int)Resources.GetDimension(Resource.Dimension.media_player_height));
+                isFullScreenOrNot = false;
+            }
+        }
+
+        #endregion
+
+        #region 隐藏操作页面
+
+        /// <summary>
+        /// 隐藏操作菜单
+        /// </summary>
+        /// <param name="bo">true:隐藏  false:显示</param>
+        private void HideMenu(CoverFlag flag)
+        {
+            CoverUIControl(flag, rl_menu, iv_play_or_stop);
+        }
+
+        /// <summary>
+        /// 开始计时,三秒后执行runable
+        /// </summary>
+        private void StartHideTimer()
+        {
+            mHandler.RemoveMessages(MSG_COVER_MENU);
+            if (rl_menu.Visibility == ViewStates.Invisible)
+            {
+                HideMenu(CoverFlag.Visible);
+            }
+            mHandler.SendMessageDelayed(mHandler.ObtainMessage(MSG_COVER_MENU), 5000);
+        }
+
+        /// <summary>
+        /// 移除Msg,不在计时
+        /// </summary>
+        private void EndHideTimer()
+        {
+            mHandler.RemoveMessages(MSG_COVER_MENU);
+        }
+
+        /// <summary>
+        /// 重置计时
+        /// </summary>
+        private void ResetHideTimer()
+        {
+            mHandler.RemoveMessages(MSG_COVER_MENU);
+            mHandler.SendMessageDelayed(mHandler.ObtainMessage(MSG_COVER_MENU), 5000);
+        }
+
+        #endregion
 
         /// <summary>
         /// 退出此页面
@@ -345,6 +521,7 @@ namespace IdoMaster_GensouWorld.Film_Activitys
                 rl_video.RemoveView(mVideoView);
             mVideoView = new KSYTextureView(this)
             {
+                //Id = IMAS_Constants.KsyTextureViewId,
                 KeepScreenOn = true,
                 BufferTimeMax = 2,
                 DataSource = rPath,
@@ -356,11 +533,13 @@ namespace IdoMaster_GensouWorld.Film_Activitys
             mVideoView.ShouldAutoPlay(false);//关闭自动开播功能
             mVideoView.PrepareAsync();
             KSYTextureViewManager.Instance.SetHardWareDecodeMode(mVideoView);
-            KSYTextureViewManager.Instance.SetOnErrorListener(mVideoView, errorListennerImp);
+            //KSYTextureViewManager.Instance.SetOnErrorListener(mVideoView, errorListennerImp);
+            KSYTextureViewManager.Instance.SetAzEventListener(mVideoView, azEventCallBack);
             mVideoView.LayoutParameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
+            //SetFilmTouchEvent();
             rl_video.AddView(mVideoView, 0);
             //mVideoView.SeekTo(5000);
-            
+
         }
 
         /// <summary>
@@ -379,6 +558,49 @@ namespace IdoMaster_GensouWorld.Film_Activitys
             }
             return bo;
         }
+
+        /// <summary>
+        /// 设置点击播放
+        /// </summary>
+        private void SetFilmTouchEvent()
+        {
+            mVideoView.Click -= OnClickListener;
+            mVideoView.Click += OnClickListener;
+        }
+        /// <summary>
+        /// 清理播放器
+        /// </summary>
+        private void CleanTheKSYMedia()
+        {
+            if (mVideoView != null)
+            {
+                mVideoView.Release();
+                mVideoView.Dispose();
+            }
+            mVideoView = null;
+            GC.Collect();
+        }
+
+        #region 播放暂停控制
+        /// <summary>
+        /// 开始视频播放
+        /// </summary>
+        private void StartPlayer()
+        {
+            mHandler.SendMessageDelayed(mHandler.ObtainMessage(MSG_UPDATE_SEEK_PROGRESS), 1 * 1000);
+            if (mVideoView != null)
+                mVideoView.Start();
+        }
+        /// <summary>
+        /// 暂停视频播放
+        /// </summary>
+        private void StopPlayer()
+        {
+            mHandler.RemoveMessages(MSG_UPDATE_SEEK_PROGRESS);
+            if (mVideoView != null)
+                mVideoView.Stop();
+        }
+        #endregion
 
         #region 播放等待动画控制
         /// <summary>
@@ -402,8 +624,20 @@ namespace IdoMaster_GensouWorld.Film_Activitys
         {
             CoverUIControl(CoverFlag.Gone, rl_wait);
             iv_wait.ClearAnimation();
-
-
+        }
+        /// <summary>
+        /// 显示错误布局
+        /// </summary>
+        private void ShowErrorLayout()
+        {
+            CoverUIControl(CoverFlag.Visible, ll_error);
+        }
+        /// <summary>
+        /// 显示错误布局
+        /// </summary>
+        private void HideErrorLayout()
+        {
+            CoverUIControl(CoverFlag.Gone, ll_error);
         }
         #endregion
 
@@ -431,13 +665,85 @@ namespace IdoMaster_GensouWorld.Film_Activitys
         {
             mHandler.SendMessageDelayed(mHandler.ObtainMessage(MSG_RETRY_PLAYER), 3000);
         }
+
         #endregion
 
         #region 播放进度控制
+        /// <summary>
+        /// 初始化进度
+        /// </summary>
+        private void InitOnSeekChangeListener()
+        {
+            onSeekChangeListener = new YsSeekChangeListener();
+            onSeekChangeListener.Act_OnProgressChanged -= OnProgressChanged;
+            onSeekChangeListener.Act_OnStartTrackingTouch -= OnStartTrackingTouch;
+            onSeekChangeListener.Act_OnStopTrackingTouch -= OnStopTrackingTouch;
+
+            onSeekChangeListener.Act_OnProgressChanged += OnProgressChanged;
+            onSeekChangeListener.Act_OnStartTrackingTouch += OnStartTrackingTouch;
+            onSeekChangeListener.Act_OnStopTrackingTouch += OnStopTrackingTouch;
+
+            sb_seek.SetOnSeekBarChangeListener(onSeekChangeListener);
+        }
+        /// <summary>
+        /// 总时长
+        /// </summary>
+        private long totalTime;
+
+        /// <summary>
+        /// 设置初始进度信息
+        /// </summary>
         private void SetProgreesInfo()
         {
-            var progrees = mVideoView.Duration;
+            var progrees = mVideoView.Duration;//获取视频总时长毫秒
+            totalTime = progrees;
+            var jk = $"{00} : {00}/{FormatLongToTimeStr(progrees)}";
+            tv_seek.Text = jk;
+            sb_seek.Max = Convert.ToInt32(progrees);
         }
+
+        /// <summary>
+        /// 更新视频信息
+        /// </summary>
+        private void UpdateProgreedInfo()
+        {
+            sb_seek.Progress = Convert.ToInt32(mVideoView.CurrentPosition);
+            var positionTime = mVideoView.CurrentPosition;
+            var jk = $"{FormatLongToTimeStr(positionTime)}/{FormatLongToTimeStr(totalTime)}";
+            tv_seek.Text = jk;
+        }
+
+        private string FormatLongToTimeStr(long duration)
+        {
+            var ts = new TimeSpan(0, 0, Convert.ToInt32(duration / 1000));
+            var str = "";
+            if (ts.Hours > 0)
+            {
+                var jk = ts.Hours * 60;
+                str = $"{ts.Minutes * jk} : {ts.Seconds}";
+            }
+            else
+            {
+                str = $"{ts.Minutes} : {ts.Seconds}";
+            }
+            return str;
+        }
+
+        private void OnProgressChanged(SeekBar seekBar, int progress, bool fromUser)
+        {
+            Console.Write($"SeekBar____Changed{progress}=={fromUser}");
+        }
+
+        private void OnStartTrackingTouch(SeekBar seekBar)
+        {
+
+        }
+
+        private void OnStopTrackingTouch(SeekBar seekBar)
+        {
+
+        }
+
         #endregion
 
         #region Http相关
@@ -454,7 +760,6 @@ namespace IdoMaster_GensouWorld.Film_Activitys
                 return result;
             }).ContinueWith(t =>
             {
-                HideWaitDiaLog();
                 if (t.Exception != null)
                 {
                     Console.WriteLine("线程异常");
@@ -463,7 +768,7 @@ namespace IdoMaster_GensouWorld.Film_Activitys
                 if (t.Result.IsSuccess)
                 {
                     var jk = t.Result.Data;
-                    tv_art.Text = jk.Starring;
+                    tv_art.Text = $"主演:{jk.Starring}";
                     tv_intro.Text = jk.Intro;
                     tv_title.Text = jk.Name;
 
@@ -498,7 +803,7 @@ namespace IdoMaster_GensouWorld.Film_Activitys
         /// <summary>
         /// 获取播放地址
         /// </summary>
-        private void HttpGetVideoPlayUrl(string href, string name)
+        private void HttpGetVideoPlayUrl(string href, string name, bool isChange = false)
         {
             Task.Run(async () =>
             {
@@ -514,7 +819,13 @@ namespace IdoMaster_GensouWorld.Film_Activitys
                 }
                 if (t.Result.IsSuccess)
                 {
-                    var jk = t.Result.Data;
+                    rPath = t.Result.Data;
+                    if (isChange)
+                    {
+                        CleanTheKSYMedia();
+                        InitKSYPlayer();
+                    }
+
                 }
                 else
                 {
@@ -536,42 +847,13 @@ namespace IdoMaster_GensouWorld.Film_Activitys
 
         #endregion
 
-        #region 金山云错误回调查看
-        private class MyOnErrorListenerImp : Java.Lang.Object, IMyOnErrorListener
-        {
-            /// <summary>
-            /// 错误回调,第一个参数
-            /// </summary>
-            public Action<int, int> ErrorAction;
-            public bool OnError(int what, int extro)
-            {
-                ErrorAction?.Invoke(what, extro);
-                return false;
-            }
-        }
-        private void OnError(int what, int extro)
-        {
-            CleanTheKSYMedia();
-            SendRetryPlayerMsg();
-        }
-        private void CleanTheKSYMedia()
-        {
-            if (mVideoView != null)
-            {
-                mVideoView.Release();
-                mVideoView.Dispose();
-            }
-            mVideoView = null;
-            GC.Collect();
-        }
-        #endregion
-
         #region 生命周期
         protected override void OnResume()
         {
             base.OnResume();
             //每五秒发送一条检测视频是否正常播放的消息
             mHandler.PostDelayed(mRunnable_Alpha, 5000);
+            isGravityOpen = Android.Provider.Settings.System.GetInt(this.ContentResolver, Android.Provider.Settings.System.AccelerometerRotation) == 1 ? true : false;
         }
         protected override void OnPause()
         {
@@ -611,27 +893,75 @@ namespace IdoMaster_GensouWorld.Film_Activitys
 
             }
         }
+        #endregion
 
-        #region 播放器各种接口回调
-
-        public void OnPrepared(MediaPlayer mp)
+        #region 播放器回调
+        /// <summary>
+        /// 初始化播放器回调
+        /// </summary>
+        private void InitPlayerCallBack()
         {
-             
+            azEventCallBack = new KsyAzEventCallBack(OnError, OnInfo);
+
+            azEventCallBack.Act_OnBufferingUpdate -= OnBufferingUpdate;
+            azEventCallBack.Act_OnCompletion -= OnCompletion;
+            azEventCallBack.Act_OnPrepared -= OnPrepared;
+            azEventCallBack.Act_OnSeekComplete -= OnSeekComplete;
+            azEventCallBack.Act_OnVideoSizeChanged -= OnVideoSizeChanged;
+
+            azEventCallBack.Act_OnBufferingUpdate += OnBufferingUpdate;
+            azEventCallBack.Act_OnCompletion += OnCompletion;
+            azEventCallBack.Act_OnPrepared += OnPrepared;
+            azEventCallBack.Act_OnSeekComplete += OnSeekComplete;
+            azEventCallBack.Act_OnVideoSizeChanged += OnVideoSizeChanged;
         }
 
-        public void OnCompletion(MediaPlayer mp)
+        private void OnBufferingUpdate(int p0)
         {
-             
+
         }
 
-        public void OnSeekComplete(MediaPlayer mp)
+        private void OnCompletion()
         {
-             
+
+        }
+
+        private bool OnError(int p0, int p1)
+        {
+            CleanTheKSYMedia();
+            SendRetryPlayerMsg();
+            return false;
+        }
+
+        private bool OnInfo(int p0, int p1)
+        {
+            if (p0 == 40020)
+            {
+                if (mVideoView != null)
+                    mVideoView.Reload(rPath, false);
+            }
+            return false;
+        }
+
+        private void OnPrepared()
+        {
+            SetProgreesInfo();
+            StartPlayer();
+            HideWaitAnime();
+            HideMenu(CoverFlag.Visible);
+        }
+
+        private void OnSeekComplete()
+        {
+
+        }
+
+        private void OnVideoSizeChanged(int p0, int p1, int p2, int p3)
+        {
+
         }
 
         #endregion
 
-
-        #endregion
     }
 }

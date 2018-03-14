@@ -8,6 +8,10 @@ using Java.Lang;
 using IMAS.Utils.Files;
 using IMAS.Utils.Logs;
 using Android.Views.InputMethods;
+using Android.Support.V4.App;
+using Android;
+using Android.Content.PM;
+using Android.Runtime;
 
 namespace IdoMaster_GensouWorld
 {
@@ -222,8 +226,11 @@ namespace IdoMaster_GensouWorld
         {
             if (_ConfigDialog != null)
             {
-                _ConfigDialog.Dismiss();
-                _ConfigDialog = null;
+                if (_ConfigDialog.IsShowing)
+                {
+                    _ConfigDialog.Dismiss();
+                    _ConfigDialog = null;
+                }
             }
         }
         #region 仿IOS弹出框
@@ -295,6 +302,53 @@ namespace IdoMaster_GensouWorld
             inputMethodManager.ToggleSoftInput(0, HideSoftInputFlags.NotAlways);
         }
         #endregion
+        #region 查看权限是否打开
+        private const int PermissionReuqestKey = 0x10020;
+        protected bool IsPermissionOpen(string permission)
+        {
+            var returnBo = true;
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
+            {
+                if (ActivityCompat.ShouldShowRequestPermissionRationale(this, permission))
+                {
+                    //权限已有
+                    //onPermissionListener.OnClick(true);
+                    returnBo = true;
+                }
+                else
+                {
+                    //没有权限,申请一下
+                    ActivityCompat.RequestPermissions(this, new string[] { permission }, PermissionReuqestKey);
+                    returnBo = false;
+                }
+            }
+            return returnBo;
+        }
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
+        {
+            if (requestCode == PermissionReuqestKey)
+            {
+                if (grantResults[0] == Permission.Granted)
+                {
+                    //权限通过
+                    //if (onPermissionListener != null)
+                    //{
+                    //    onPermissionListener.OnClick(true);
+                    //}
+                }
+                else
+                {
+                    //验证拒绝
+                    //if (onPermissionListener != null)
+                    //{
+                    //    onPermissionListener.OnClick(false);
+                    //}
+                }
+            }
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+        #endregion
         #endregion
         #region 抽象方法
         /// <summary>
@@ -345,7 +399,6 @@ namespace IdoMaster_GensouWorld
         }
 
         #endregion
-
     }
 }
 
