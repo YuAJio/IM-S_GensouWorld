@@ -21,6 +21,8 @@ using IMAS.LocalDBManager.Models;
 using static Android.Media.MediaPlayer;
 using Android.Media;
 using IdoMaster_GensouWorld.Listeners;
+using Android.Content.PM;
+using IdoMaster_GensouWorld.Utils;
 
 namespace IdoMaster_GensouWorld.Film_Activitys
 {
@@ -52,6 +54,10 @@ namespace IdoMaster_GensouWorld.Film_Activitys
         /// 等待圆圈
         /// </summary>
         private ImageView iv_wait;
+        /// <summary>
+        /// 准备播放
+        /// </summary>
+        private ImageView iv_prepera;
         /// <summary>
         /// 播放进度(文字)
         /// </summary>
@@ -93,6 +99,10 @@ namespace IdoMaster_GensouWorld.Film_Activitys
         /// </summary>
         private RelativeLayout rl_wait;
         /// <summary>
+        /// 全屏时隐藏其他信息布局
+        /// </summary>
+        private LinearLayout ll_info;
+        /// <summary>
         /// 错误控件容器
         /// </summary>
         private LinearLayout ll_error;
@@ -100,6 +110,16 @@ namespace IdoMaster_GensouWorld.Film_Activitys
         /// 集数列表
         /// </summary>
         private RecyclerView rc_episodes;
+
+        /// <summary>
+        /// 两位父亲
+        /// </summary>
+        private RelativeLayout rl_fahter;
+        private ScrollView sv_fahter;
+        /// <summary>
+        /// 儿子布局
+        /// </summary>
+        private RelativeLayout rl_child;
         #endregion
         #region 杂项
         /// <summary>
@@ -214,6 +234,7 @@ namespace IdoMaster_GensouWorld.Film_Activitys
             iv_play_or_stop = FindViewById<ImageView>(Resource.Id.iv_play);
             iv_full_screen = FindViewById<ImageView>(Resource.Id.iv_full_screen);
             iv_wait = FindViewById<ImageView>(Resource.Id.iv_wait);
+            iv_prepera = FindViewById<ImageView>(Resource.Id.iv_prepare);
             tv_seek = FindViewById<TextView>(Resource.Id.tv_progress);
             tv_title = FindViewById<TextView>(Resource.Id.tv_title);
             tv_intro = FindViewById<TextView>(Resource.Id.tv_intro);
@@ -224,12 +245,19 @@ namespace IdoMaster_GensouWorld.Film_Activitys
             rl_video = FindViewById<RelativeLayout>(Resource.Id.rl_video);
             rl_menu = FindViewById<RelativeLayout>(Resource.Id.rl_menu);
             rl_wait = FindViewById<RelativeLayout>(Resource.Id.rl_wait);
+            ll_info = FindViewById<LinearLayout>(Resource.Id.ll_info);
             ll_error = FindViewById<LinearLayout>(Resource.Id.ll_error);
             rc_episodes = FindViewById<RecyclerView>(Resource.Id.rc_episodes);
+
+            rl_fahter = FindViewById<RelativeLayout>(Resource.Id.rl_father);
+            sv_fahter = FindViewById<ScrollView>(Resource.Id.sv_father);
+
+            rl_child = FindViewById<RelativeLayout>(Resource.Id.rl_child);
 
             rc_episodes.SetLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.Horizontal));
             rc_episodes.AddItemDecoration(new Z_RecyclerViewAsStaggered_Spacing(0, 5, 10, 0));
             tv_retry.Paint.Flags = Android.Graphics.PaintFlags.UnderlineText;
+
         }
 
         public override void D_BindEvent()
@@ -237,6 +265,7 @@ namespace IdoMaster_GensouWorld.Film_Activitys
             iv_back.Click += OnClickListener;
             iv_play_or_stop.Click += OnClickListener;
             iv_full_screen.Click += OnClickListener;
+            iv_prepera.Click += OnClickListener;
             tv_open_intro.Click += OnClickListener;
             rl_video.Click += OnClickListener;
             tv_retry.Click += OnClickListener;
@@ -266,7 +295,10 @@ namespace IdoMaster_GensouWorld.Film_Activitys
             {
                 case Resource.Id.iv_back:///返回
                     {
-                        QuitThePage();
+                        if (isFullScreenOrNot)
+                            ChangeTheScreenFull();
+                        else
+                            QuitThePage();
                     }
                     break;
                 case Resource.Id.tv_retry:///重试
@@ -278,7 +310,7 @@ namespace IdoMaster_GensouWorld.Film_Activitys
                     break;
                 case Resource.Id.iv_play:///播放/暂停
                     {
-                        var b = iv_back.Selected;
+                        var b = iv_play_or_stop.Selected;
                         if (b)
                         {
                             //暂停
@@ -287,22 +319,57 @@ namespace IdoMaster_GensouWorld.Film_Activitys
                         }
                         else
                         {
-                            if (isFirstComein)
-                            {//如果是第一次进入
-                                ShowWaitAnime();
-                                HideMenu(CoverFlag.Gone);
-                                InitKSYPlayer();
-                            }
                             //播放
-                            if (IsPlaying())
+                            if (mVideoView != null)
                                 StartPlayer();
                         }
-                        iv_back.Selected = !b;
+                        iv_play_or_stop.Selected = !b;
+                    }
+                    break;
+                case Resource.Id.iv_prepare:
+                    {
+                        //开始准备视频
+                        ShowWaitAnime();
+                        CoverUIControl(CoverFlag.Gone, iv_prepera);
+                        //HideMenu(CoverFlag.Gone);
+                        InitKSYPlayer();
+                        iv_play_or_stop.Selected = true;
                     }
                     break;
                 case Resource.Id.iv_full_screen:///全屏
                     {
-                        ChangeTheScreenFull();
+                        //if (IsPlaying())
+                        //{
+                        //    mVideoView.Pause();
+                        //}
+                        //var bundler = new Bundle();
+                        //var dicition = new Dictionary<string, Object>()
+                        //{
+                        //    {"video",mVideoView },
+                        //    {"iv_back",iv_back },
+                        //    {"iv_wait",iv_wait },
+                        //    {"iv_play_or_stop",iv_play_or_stop },
+                        //    {"iv_full_screen",iv_full_screen },
+                        //    {"tv_seek",tv_seek },
+                        //    {"tv_retry",tv_retry },
+                        //    {"sb_seek",sb_seek },
+                        //    {"rl_video",rl_video },
+                        //    {"rl_menu",rl_menu },
+                        //    {"rl_wait",rl_wait },
+                        //    {"ll_error",ll_error }
+                        //};
+                        //var pop_FullScreen = new PopWindow_FullScreenPalyer(this, dicition);
+                        //pop_FullScreen.ShowPopWindow(iv_back);
+
+                        try
+                        {
+                            ChangeTheScreenFull();
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+
                     }
                     break;
                 case Resource.Id.tv_open_intro:///展开&关闭简介
@@ -325,7 +392,7 @@ namespace IdoMaster_GensouWorld.Film_Activitys
 
                 case Resource.Id.rl_video:///点击品目
                     {
-                        if (Java.Lang.JavaSystem.CurrentTimeMillis() - mClickTime < 800)
+                        if (Java.Lang.JavaSystem.CurrentTimeMillis() - mClickTime < 200)
                         {
                             if (!IsPlaying())
                                 return;
@@ -338,7 +405,15 @@ namespace IdoMaster_GensouWorld.Film_Activitys
                             //单击操作
                             mClickTime = Java.Lang.JavaSystem.CurrentTimeMillis();
                             if (rl_menu.Visibility == ViewStates.Invisible)
+                            {
+                                StartHideTimer();
                                 HideMenu(CoverFlag.Visible);
+                            }
+                            else
+                            {
+                                HideMenu(CoverFlag.Invisible);
+                            }
+
                         }
 
                     }
@@ -404,6 +479,7 @@ namespace IdoMaster_GensouWorld.Film_Activitys
                     break;
                 case MSG_UPDATE_SEEK_PROGRESS:
                     {
+                        mHandler.SendMessageDelayed(mHandler.ObtainMessage(MSG_UPDATE_SEEK_PROGRESS), 1 * 1000);
                         UpdateProgreedInfo();
                     }
                     break;
@@ -425,8 +501,10 @@ namespace IdoMaster_GensouWorld.Film_Activitys
         private void ChangeTheScreenFull()
         {
             if (isFullScreenOrNot)
+                //取消全屏
                 SetPortraitAndLandscape(false);
             else
+                //切换全屏
                 SetPortraitAndLandscape(true);
         }
         /// 根据输入的布尔值来切换全屏播放或是小屏播放
@@ -434,29 +512,39 @@ namespace IdoMaster_GensouWorld.Film_Activitys
         /// <param name="bo">true:切换横屏,false:切换竖屏</param>
         private void SetPortraitAndLandscape(bool bo)
         {
+            //rl_video.RemoveView(mVideoView);
             if (bo)
             {
                 ///屏幕横屏相关设置
                 if (isGravityOpen)
-                    RequestedOrientation = Android.Content.PM.ScreenOrientation.FullSensor;
+                    RequestedOrientation = ScreenOrientation.FullSensor;
                 else
-                    RequestedOrientation = Android.Content.PM.ScreenOrientation.Landscape;
+                    RequestedOrientation = ScreenOrientation.Landscape;
                 //HideOtherUiWidget(true);
-                rl_video.LayoutParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
+                rl_video.LayoutParameters = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
+                CoverUIControl(CoverFlag.Gone, ll_info, sv_fahter);
+                CoverUIControl(CoverFlag.Visible, rl_fahter);
+                sv_fahter.RemoveView(rl_child);
+                rl_fahter.AddView(rl_child);
                 isFullScreenOrNot = true;
             }
             else
             {
                 ///屏幕竖屏相关设置
                 if (isGravityOpen)
-                    RequestedOrientation = Android.Content.PM.ScreenOrientation.FullSensor;
+                    RequestedOrientation = ScreenOrientation.FullSensor;
                 else
-                    RequestedOrientation = Android.Content.PM.ScreenOrientation.Portrait;
+                    RequestedOrientation = ScreenOrientation.Portrait;
                 //LinearLayout.LayoutParams lp = rl_video.LayoutParameters;
                 //HideOtherUiWidget(false);
-                rl_video.LayoutParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, (int)Resources.GetDimension(Resource.Dimension.media_player_height));
+                rl_video.LayoutParameters = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, (int)Resources.GetDimension(Resource.Dimension.media_player_height));
+                CoverUIControl(CoverFlag.Visible, ll_info, sv_fahter);
+                CoverUIControl(CoverFlag.Gone, rl_fahter);
+                rl_fahter.RemoveView(rl_child);
+                sv_fahter.AddView(rl_child);
                 isFullScreenOrNot = false;
             }
+            //rl_video.AddView(mVideoView);
         }
 
         #endregion
@@ -598,7 +686,7 @@ namespace IdoMaster_GensouWorld.Film_Activitys
         {
             mHandler.RemoveMessages(MSG_UPDATE_SEEK_PROGRESS);
             if (mVideoView != null)
-                mVideoView.Stop();
+                mVideoView.Pause();
         }
         #endregion
 
@@ -717,14 +805,27 @@ namespace IdoMaster_GensouWorld.Film_Activitys
         {
             var ts = new TimeSpan(0, 0, Convert.ToInt32(duration / 1000));
             var str = "";
+            var s = ts.Seconds;
+            var m = ts.Minutes;
             if (ts.Hours > 0)
             {
                 var jk = ts.Hours * 60;
-                str = $"{ts.Minutes * jk} : {ts.Seconds}";
+                if (s < 10)
+                    str = $"{m * jk} : 0{s}";
+                if (m < 10)
+                    str = $"0{m * jk} : {s}";
+                if (s < 10 && m < 10)
+                    str = $"0{m * jk} : 0{s}";
             }
             else
             {
-                str = $"{ts.Minutes} : {ts.Seconds}";
+                if (s < 10)
+                    str = $"{m } : 0{s}";
+                if (m < 10)
+                    str = $"0{m} : {s}";
+                if (s < 10 && m < 10)
+                    str = $"0{m} : 0{s}";
+                //str = $"{ts.Minutes} : {ts.Seconds}";
             }
             return str;
         }
@@ -956,7 +1057,7 @@ namespace IdoMaster_GensouWorld.Film_Activitys
 
         }
 
-        private void OnVideoSizeChanged(int p0, int p1, int p2, int p3)
+        private void OnVideoSizeChanged(int width, int height, int sarNum, int sarDen)
         {
 
         }

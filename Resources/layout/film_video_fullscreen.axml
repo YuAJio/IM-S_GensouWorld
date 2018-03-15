@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rl_video"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/black">
+
+        <RelativeLayout
+            android:id="@+id/rl_wait"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/kuuhaku"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/iv_wait"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/icon_film_wait" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/icon_film_back" />
+
+        <RelativeLayout
+            android:id="@+id/rl_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:visibility="invisible">
+
+            <ImageView
+                android:id="@+id/iv_play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="18dp"
+                android:src="@drawable/selector_media_play_button" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_play"
+                android:layout_marginBottom="1dp">
+
+                <ImageView
+                    android:id="@+id/iv_full_screen"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="16dp"
+                    android:src="@mipmap/icon_film_full_screen" />
+
+                <TextView
+                    android:id="@+id/tv_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="8dp"
+                    android:background="#00FFFFFF"
+                    android:text="13:40 / 42:50"
+                    android:textColor="@color/snow"
+                    android:textSize="10sp" />
+
+                <SeekBar
+                    android:id="@+id/sb_progress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_toLeftOf="@id/iv_full_screen"
+                    android:layout_toRightOf="@id/tv_progress"
+                    android:maxHeight="2dp"
+                    android:minHeight="2dp"
+                    android:progressDrawable="@drawable/bg_film_diy_seekbar"
+                    android:thumb="@mipmap/icon_film_thumb" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_error"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:src="@mipmap/icon_ac_video_error" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="４０４　Not Found"
+                android:textColor="@color/firebrick"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tv_retry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
+                android:text="重试"
+                android:textColor="@drawable/textbg_retry"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

@@ -9,19 +9,15 @@
 //using Android.Runtime;
 //using Android.Views;
 //using Android.Widget;
-//using Com.Dou361.Ijkplayer.Widget;
 
 //namespace IdoMaster_GensouWorld.Film_Activitys
 //{
-//    [Activity(Label = "Film_Details_Activity_IJK")]
+//    /// <summary>
+//    /// 视频详情页面Ijk
+//    /// </summary>
+//    [Activity(Label = "Film_Details_Activity_IJK", Theme = "@style/Theme.PublicTheme")]
 //    public class Film_Details_Activity_IJK : BaseActivity
 //    {
-//        private VPView player;
-//        private Context mContext;
-//        /// <summary>
-//        /// 唤醒锁
-//        /// </summary>
-//        private PowerManager.WakeLock wakeLock;
 
 //        public override int A_GetContentViewId()
 //        {
@@ -30,9 +26,7 @@
 
 //        public override void B_BeforeInitView()
 //        {
-//            var pm = (PowerManager)GetSystemService(PowerService);
-//            wakeLock = pm.NewWakeLock(WakeLockFlags.ScreenBright, "liveTAG");
-//            wakeLock.Acquire();
+
 //        }
 
 //        public override void C_InitView()

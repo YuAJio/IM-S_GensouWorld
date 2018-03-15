@@ -163,6 +163,7 @@
     <Compile Include="Utils\GalTextUtils.cs" />
     <Compile Include="Utils\ImageLoaderHelper.cs" />
     <Compile Include="Utils\PopupWindowHelper.cs" />
+    <Compile Include="Utils\PopWindow_FullScreenPalyer.cs" />
     <Compile Include="Utils\ShakeDetector.cs" />
     <Compile Include="Utils\SoundEffectPlayer.cs" />
     <Compile Include="Utils\VersionInfoUtils.cs" />
@@ -228,12 +229,16 @@
     <AndroidResource Include="Resources\layout\film_item_film_episode.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\film_video_fullscreen.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <None Include="Services\Interfaces\MyBinder.aidl" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Resources\layout-land\" />
     <Folder Include="Resources\mipmap-mdpi\" />
     <Folder Include="Resources\mipmap-xhdpi\" />
     <Folder Include="Resources\mipmap-xxhdpi\" />
@@ -402,10 +407,6 @@
     <ProjectReference Include="IMAS.BaiduVocal\IMAS.BaiduVocal.csproj">
       <Project>{a1e62eb7-d49e-4589-9352-74f5d73d4336}</Project>
       <Name>IMAS.BaiduVocal</Name>
-    </ProjectReference>
-    <ProjectReference Include="IMAS.IJKPlayer\IMAS.IJKPlayer.csproj">
-      <Project>{5334fd3b-a783-4257-81f4-e1e5c7acfcc8}</Project>
-      <Name>IMAS.IJKPlayer</Name>
     </ProjectReference>
     <ProjectReference Include="IMAS.ImageLoader\IMAS.ImageLoader.csproj">
       <Project>{131AF8A7-6C21-44E2-B7EB-51DF893E9BA7}</Project>
@@ -577,6 +578,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap-hdpi\icon_ac_video_error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-hdpi\icon_video_play_big.png" />
   </ItemGroup>
   <Import Project="IMAS.Sqlite\IMAS.Sqlite.projitems" Label="Shared" />
   <Import Project="IMAS.Tips.Logic\IMAS.Tips.Logic.projitems" Label="Shared" />

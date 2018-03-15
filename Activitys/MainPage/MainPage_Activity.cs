@@ -92,6 +92,11 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
                     StartActivity(intent);
                     break;
                 case Resource.Id.bt_quite_game:
+#if DEBUG
+
+
+#else
+ 
                     //结束所有Activity
                     IMAS_Application.Sington?.OpenActivityList?.Clear();
                     //  APPManager.GetInstance().KillAllActivity();
@@ -99,6 +104,7 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
                     //关闭服务
                     ApplicationContext.StopService(new Intent(this, typeof(BackGroundMusicPlayer)));
                     this.Finish();
+#endif
                     break;
                 case Resource.Id.iv_film_into:
                     {
@@ -182,6 +188,10 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
                 ShowMsgLong("没有指纹识别权限");
                 return;
             }
+            if (mCancellationSignal != null)
+                if (mCancellationSignal.IsCanceled)
+                    mCancellationSignal = new CancellationSignal();
+
             fpManager.Authenticate(null, mCancellationSignal, FingerprintAuthenticationFlags.None, mSelfCancelled, null);
         }
 
