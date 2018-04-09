@@ -168,6 +168,10 @@ namespace IdoMaster_GensouWorld.Film_Activitys
 
 
         #region 金山云播放相关
+        private const int VIDEO_SCALING_MODE_SCALE_TO_FIT = 0;
+        private const int VIDEO_SCALING_MODE_NOSCALE_TO_FIT = 1;
+        private const int VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING = 2;
+
         /// <summary>
         /// 金山云播放器对象
         /// </summary>
@@ -333,7 +337,6 @@ namespace IdoMaster_GensouWorld.Film_Activitys
                         CoverUIControl(CoverFlag.Gone, iv_prepera);
                         //HideMenu(CoverFlag.Gone);
                         InitKSYPlayer();
-                        iv_play_or_stop.Selected = true;
                     }
                     break;
                 case Resource.Id.iv_full_screen:///全屏
@@ -522,10 +525,11 @@ namespace IdoMaster_GensouWorld.Film_Activitys
                     RequestedOrientation = ScreenOrientation.Landscape;
                 //HideOtherUiWidget(true);
                 rl_video.LayoutParameters = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
-                CoverUIControl(CoverFlag.Gone, ll_info, sv_fahter);
+                CoverUIControl(CoverFlag.Gone, sv_fahter);
                 CoverUIControl(CoverFlag.Visible, rl_fahter);
                 sv_fahter.RemoveView(rl_child);
                 rl_fahter.AddView(rl_child);
+                mVideoView.SetVideoScalingMode((int)MediaPlayerVideoScalingModeNotInUse.ScaleToFitWithCropping);
                 isFullScreenOrNot = true;
             }
             else
@@ -538,10 +542,11 @@ namespace IdoMaster_GensouWorld.Film_Activitys
                 //LinearLayout.LayoutParams lp = rl_video.LayoutParameters;
                 //HideOtherUiWidget(false);
                 rl_video.LayoutParameters = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, (int)Resources.GetDimension(Resource.Dimension.media_player_height));
-                CoverUIControl(CoverFlag.Visible, ll_info, sv_fahter);
+                CoverUIControl(CoverFlag.Visible, sv_fahter);
                 CoverUIControl(CoverFlag.Gone, rl_fahter);
                 rl_fahter.RemoveView(rl_child);
                 sv_fahter.AddView(rl_child);
+                mVideoView.SetVideoScalingMode((int)MediaPlayerVideoScalingModeNotInUse.ScaleToFitWithCropping);
                 isFullScreenOrNot = false;
             }
             //rl_video.AddView(mVideoView);
@@ -609,25 +614,21 @@ namespace IdoMaster_GensouWorld.Film_Activitys
                 rl_video.RemoveView(mVideoView);
             mVideoView = new KSYTextureView(this)
             {
-                //Id = IMAS_Constants.KsyTextureViewId,
                 KeepScreenOn = true,
                 BufferTimeMax = 2,
-                DataSource = rPath,
+                //DataSource = rPath,
+                DataSource = "rtmp://118.116.9.101:1935/live/bb44df4105464c61936e309a0d73c328-32",
             };
-            mVideoView.SetBufferSize(15);
+            mVideoView.SetBufferSize(100);
             mVideoView.SetTimeout(15, 30);
-            mVideoView.SetRotateDegree(90);
+            mVideoView.SetRotateDegree(0);
             mVideoView.SetVideoScalingMode(0);
             mVideoView.ShouldAutoPlay(false);//关闭自动开播功能
             mVideoView.PrepareAsync();
             KSYTextureViewManager.Instance.SetHardWareDecodeMode(mVideoView);
-            //KSYTextureViewManager.Instance.SetOnErrorListener(mVideoView, errorListennerImp);
             KSYTextureViewManager.Instance.SetAzEventListener(mVideoView, azEventCallBack);
             mVideoView.LayoutParameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
-            //SetFilmTouchEvent();
             rl_video.AddView(mVideoView, 0);
-            //mVideoView.SeekTo(5000);
-
         }
 
         /// <summary>
@@ -777,6 +778,7 @@ namespace IdoMaster_GensouWorld.Film_Activitys
         /// 总时长
         /// </summary>
         private long totalTime;
+        private long playTime;
 
         /// <summary>
         /// 设置初始进度信息
@@ -785,7 +787,7 @@ namespace IdoMaster_GensouWorld.Film_Activitys
         {
             var progrees = mVideoView.Duration;//获取视频总时长毫秒
             totalTime = progrees;
-            var jk = $"{00} : {00}/{FormatLongToTimeStr(progrees)}";
+            var jk = $"{00} : {00} / {FormatLongToTimeStr(progrees)}";
             tv_seek.Text = jk;
             sb_seek.Max = Convert.ToInt32(progrees);
         }
@@ -795,9 +797,13 @@ namespace IdoMaster_GensouWorld.Film_Activitys
         /// </summary>
         private void UpdateProgreedInfo()
         {
-            sb_seek.Progress = Convert.ToInt32(mVideoView.CurrentPosition);
+            var position = mVideoView.CurrentPosition;
+            //var js = (position / (double)totalTime) * 100;
+
+            sb_seek.Progress = Convert.ToInt32(position);
+            //sb_seek.ThumbOffset = Convert.ToInt32(position);
             var positionTime = mVideoView.CurrentPosition;
-            var jk = $"{FormatLongToTimeStr(positionTime)}/{FormatLongToTimeStr(totalTime)}";
+            var jk = $"{FormatLongToTimeStr(positionTime)} / {FormatLongToTimeStr(totalTime)}";
             tv_seek.Text = jk;
         }
 
@@ -812,19 +818,23 @@ namespace IdoMaster_GensouWorld.Film_Activitys
                 var jk = ts.Hours * 60;
                 if (s < 10)
                     str = $"{m * jk} : 0{s}";
-                if (m < 10)
+                else if (m < 10)
                     str = $"0{m * jk} : {s}";
-                if (s < 10 && m < 10)
+                else if (s < 10 && m < 10)
                     str = $"0{m * jk} : 0{s}";
+                else
+                    str = $"{m} : {s}";
             }
             else
             {
                 if (s < 10)
                     str = $"{m } : 0{s}";
-                if (m < 10)
+                else if (m < 10)
                     str = $"0{m} : {s}";
-                if (s < 10 && m < 10)
+                else if (s < 10 && m < 10)
                     str = $"0{m} : 0{s}";
+                else
+                    str = $"{m} : {s}";
                 //str = $"{ts.Minutes} : {ts.Seconds}";
             }
             return str;
@@ -842,7 +852,9 @@ namespace IdoMaster_GensouWorld.Film_Activitys
 
         private void OnStopTrackingTouch(SeekBar seekBar)
         {
-
+            var position = seekBar.Progress;
+            if (IsPlaying())
+                mVideoView.SeekTo(position);
         }
 
         #endregion
@@ -1019,7 +1031,9 @@ namespace IdoMaster_GensouWorld.Film_Activitys
 
         private void OnBufferingUpdate(int p0)
         {
-
+            var jk = Convert.ToDouble(p0);
+            var js = jk / 100 * totalTime;
+            sb_seek.SecondaryProgress = Convert.ToInt32(js);
         }
 
         private void OnCompletion()
@@ -1049,6 +1063,8 @@ namespace IdoMaster_GensouWorld.Film_Activitys
             SetProgreesInfo();
             StartPlayer();
             HideWaitAnime();
+            iv_play_or_stop.Selected = true;
+            mVideoView.SetVideoScalingMode(VIDEO_SCALING_MODE_NOSCALE_TO_FIT);
             HideMenu(CoverFlag.Visible);
         }
 

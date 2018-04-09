@@ -12,6 +12,7 @@ using Android.Support.V4.App;
 using Android;
 using Android.Content.PM;
 using Android.Runtime;
+using Android.Support.V4.Content;
 
 namespace IdoMaster_GensouWorld
 {
@@ -302,51 +303,32 @@ namespace IdoMaster_GensouWorld
             inputMethodManager.ToggleSoftInput(0, HideSoftInputFlags.NotAlways);
         }
         #endregion
-        #region 查看权限是否打开
-        private const int PermissionReuqestKey = 0x10020;
-        protected bool IsPermissionOpen(string permission)
+        #region 权限相关
+        /// <summary>
+        /// 用特殊办法检查权限
+        /// </summary>
+        /// <param name="permission"></param>
+        /// <returns></returns>
+        protected bool IsPermissionGranted(string permission)
         {
-            var returnBo = true;
+            bool result = true;
             if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
             {
-                if (ActivityCompat.ShouldShowRequestPermissionRationale(this, permission))
+                try
                 {
-                    //权限已有
-                    //onPermissionListener.OnClick(true);
-                    returnBo = true;
+                    var info = this.PackageManager.GetPackageInfo(this.PackageName, 0);
+                    var targetSdkVersion = info.ApplicationInfo.TargetSdkVersion;
+                    if (targetSdkVersion >= BuildVersionCodes.M)
+                        result = this.CheckSelfPermission(permission) == Permission.Granted;
+                    else
+                        result = PermissionChecker.CheckSelfPermission(this, permission) == PermissionChecker.PermissionGranted;
                 }
-                else
+                catch (PackageManager.NameNotFoundException e)
                 {
-                    //没有权限,申请一下
-                    ActivityCompat.RequestPermissions(this, new string[] { permission }, PermissionReuqestKey);
-                    returnBo = false;
-                }
-            }
-            return returnBo;
-        }
 
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
-        {
-            if (requestCode == PermissionReuqestKey)
-            {
-                if (grantResults[0] == Permission.Granted)
-                {
-                    //权限通过
-                    //if (onPermissionListener != null)
-                    //{
-                    //    onPermissionListener.OnClick(true);
-                    //}
-                }
-                else
-                {
-                    //验证拒绝
-                    //if (onPermissionListener != null)
-                    //{
-                    //    onPermissionListener.OnClick(false);
-                    //}
                 }
             }
-            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            return result;
         }
         #endregion
         #endregion

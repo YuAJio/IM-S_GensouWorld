@@ -13,6 +13,12 @@
     <item name="android:windowAnimationStyle">@style/default_animation</item>
   </style>
 
+  <!--界面通用的主题-->
+  <style name="Theme.PublicThemePlus" parent="Theme.AppCompat.DayNight">
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowAnimationStyle">@style/default_animation</item>
+  </style>
+  
 
   <!-- 默认Activity跳转动画 -->
   <style name="default_animation" mce_bogus="1" parent="@android:style/Animation.Activity">
@@ -48,5 +54,8 @@
     <item name="android:windowIsFloating">true</item>
   </style>
 
+  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+  <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
   
 </resources>

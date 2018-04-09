@@ -16,6 +16,10 @@ using IdoMaster_GensouWorld.Utils;
 using IMAS.Utils.Sp;
 using IMAS.CupCake.Extensions;
 using IMAS.Tips.Enums;
+using Android;
+using Android.Support.V4.App;
+using Android.Content.PM;
+using static IdoMaster_GensouWorld.Activitys.FlashScreen;
 
 namespace IdoMaster_GensouWorld.Activitys
 {
@@ -24,23 +28,29 @@ namespace IdoMaster_GensouWorld.Activitys
     /// </summary>
     [Activity(Label = "アイドルマスター", MainLauncher = true, Theme = "@style/Theme.Main", Icon = "@mipmap/icon", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     //[Activity(Label = "FlashScreen", MainLauncher = true)]
-    public class FlashScreen : Activity
+    public class FlashScreen : Activity, ActivityCompat.IOnRequestPermissionsResultCallback
     {
+        private AzPermissionManager permissionManager;
+        private List<string> list_Permission;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            InitApp();
 
+        }
+
+        private void InitApp()
+        {
             if (IsFirstOpenApp())
             {
                 AndroidPreferenceProvider.GetInstance().PutInt(IMAS_Constants.SpVersionKey, VersionInfoUtils.GetVersionCode());
                 InitAllData();
             }
             else
-            {
                 InitAllData(false);
-            }
-
         }
+
         /// <summary>
         /// 跳转到首页
         /// </summary>
@@ -648,5 +658,26 @@ namespace IdoMaster_GensouWorld.Activitys
             return await IMAS_ProAppDBManager.GetInstance().InsertBattleMapInfomation(list);
         }
         #endregion
+
+        #region 权限
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
+        {
+            permissionManager.CheckResult(requestCode, permissions, grantResults);
+
+            var granted = permissionManager.Status[0].Granted;
+            var denied = permissionManager.Status[0].Denied;
+            if (denied.Count == list_Permission.Count)
+            {
+                Toast.MakeText(this, "後悔しでやろ", ToastLength.Long).Show();
+            }
+            else
+            {
+                InitApp();
+            }
+        }
+
+        #endregion
+
     }
 }

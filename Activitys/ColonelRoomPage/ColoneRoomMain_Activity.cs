@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 using Android;
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.Graphics;
 using Android.OS;
 using Android.Provider;
 using Android.Runtime;
+using Android.Support.V4.App;
 using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
@@ -25,6 +27,7 @@ using IMAS.LocalDBManager.Models;
 using IMAS.Tips.Logic.LocalDBManager;
 using IMAS.Utils.Files;
 using IMAS.Utils.Sp;
+using Karan.Churi;
 using Newtonsoft.Json;
 
 namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
@@ -62,7 +65,10 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
         /// </summary>
         private ImageView iv_background;
         #endregion
+
         private Model_ProducerInfo info_Producer;
+        private AzPermissionManager permissionManager;
+        private List<string> list_Permission;
 
         public override int A_GetContentViewId()
         {
@@ -99,6 +105,15 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
 
         public override void E_InitData()
         {
+            list_Permission = new List<string>()
+            {
+                Manifest.Permission.Camera,
+                Manifest.Permission.ReadExternalStorage,
+                Manifest.Permission.WriteExternalStorage,
+            };
+            permissionManager = new AzPermissionManager(list_Permission);
+
+            permissionManager.CheckAndRequestPermissions(this);
             var bgPath = LoadBackGroundPicPath();
             if (!string.IsNullOrEmpty(bgPath))
             {
@@ -131,8 +146,19 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
                         ShowConfim("自室寫眞選択", "どちらにするの？",
                         (j, k) =>
                         {
-                            //从相机选择
-                            ToTakePhoto();
+                            //if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
+                            //{
+                            //    var checkpermisi = ContextCompat.CheckSelfPermission(this, Manifest.Permission.Camera);
+                            //    ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.Camera }, 222);
+                            //}
+                            //else
+
+                            if (IsPermissionGranted(Manifest.Permission.Camera))
+                                //从相机选择
+                                ToTakePhoto();
+                            else
+                                ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.Camera }, 10020);
+
                         },
                         (j, k) =>
                         {
@@ -236,10 +262,6 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
 
         private void ToTakePhoto()
         {
-            if (!IsPermissionOpen(Manifest.Permission.Camera))
-            {
-                return;
-            }
             Intent intent = new Intent(MediaStore.ActionImageCapture);
             intent.PutExtra(MediaStore.ExtraVideoQuality, 1);
             PicLastPath = GetPhotopath();
@@ -506,6 +528,14 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
         #endregion
 
 
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
+        {
+            permissionManager.CheckResult(requestCode, permissions, grantResults);
+
+            var granted = permissionManager.Status[0].Granted;
+            var denied = permissionManager.Status[0].Denied;
+        }
     }
 
 }

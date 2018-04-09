@@ -52,7 +52,7 @@ namespace IdoMaster_GensouWorld
             #endregion
 
             #region 初始化Log管理器
-            FileLogManager.GetInstance().Init("IMAS");
+            FileLogManager.GetInstance().Init("IMAS_Log");
             #endregion
 
             #region 初始化百度语音合成

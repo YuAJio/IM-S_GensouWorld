@@ -90,31 +90,6 @@ namespace IdoMaster_GensouWorld.Film_Activitys
         }
 
 
-        /// <summary>
-        /// 监听搜索框搜索
-        /// </summary>
-        /// <param name="v"></param>
-        /// <param name="keyCode"></param>
-        /// <param name="e"></param>
-        /// <returns></returns>
-        private bool OnKeyFunction(View v, [GeneratedEnum] Keycode keyCode, KeyEvent e)
-        {
-            if (keyCode == Keycode.Enter && e.Action == KeyEventActions.Down)
-            {
-                HideTheSoftKeybow();
-                var txt = et_Search.Text.Trim();
-                if (!string.IsNullOrEmpty(txt))
-                {
-                    SearchInfo(txt);
-                }
-                return false;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
         #region Http相关
         private void HttpGetSearchResult(string msg)
         {
@@ -155,5 +130,42 @@ namespace IdoMaster_GensouWorld.Film_Activitys
         }
 
         #endregion
+
+
+        /// <summary>
+        /// 监听搜索框搜索
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="keyCode"></param>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        private bool OnKeyFunction(View v, [GeneratedEnum] Keycode keyCode, KeyEvent e)
+        {
+            if (keyCode == Keycode.Enter && e.Action == KeyEventActions.Down)
+            {
+                HideTheSoftKeybow();
+                var txt = et_Search.Text.Trim();
+                if (!string.IsNullOrEmpty(txt))
+                {
+                    SearchInfo(txt);
+                }
+                return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public override void Finish()
+        {
+            if (!string.IsNullOrEmpty(et_Search.Text))
+            {
+                et_Search.Text = "";
+                HttpGetSearchResult("");
+            }
+            else
+                base.Finish();
+        }
+
     }
 }

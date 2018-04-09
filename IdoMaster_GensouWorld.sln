@@ -36,8 +36,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMAS.KSYPlayer", "IMAS.KSYP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMAS.IJKPlayer", "IMAS.IJKPlayer\IMAS.IJKPlayer.csproj", "{5334FD3B-A783-4257-81F4-E1E5C7ACFCC8}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AzPermission", "..\AzPermission\AzPermission.shproj", "{BA397BC3-914E-4812-A8F1-9F98769EFD17}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\AzPermission\AzPermission.projitems*{22164fba-8c04-42e7-b7b1-508a982334fb}*SharedItemsImports = 4
 		IMAS.BaiduAI_Manager\IMAS.BaiduAI_Manager.projitems*{22164fba-8c04-42e7-b7b1-508a982334fb}*SharedItemsImports = 4
 		IMAS.OkHttp\IMAS.OkHttp.projitems*{22164fba-8c04-42e7-b7b1-508a982334fb}*SharedItemsImports = 4
 		IMAS.Sqlite\IMAS.Sqlite.projitems*{22164fba-8c04-42e7-b7b1-508a982334fb}*SharedItemsImports = 4
@@ -45,6 +48,7 @@ Global
 		IMAS.Utils\IMAS.Utils.projitems*{22164fba-8c04-42e7-b7b1-508a982334fb}*SharedItemsImports = 4
 		IMAS.Utils\IMAS.Utils.projitems*{3ece2825-62c3-4e84-8d27-ba008f89638d}*SharedItemsImports = 13
 		IMAS.Sqlite\IMAS.Sqlite.projitems*{a3c480e5-d6c7-49b4-a145-f9a9c9eb944a}*SharedItemsImports = 13
+		..\AzPermission\AzPermission.projitems*{ba397bc3-914e-4812-a8f1-9f98769efd17}*SharedItemsImports = 13
 		IMAS.OkHttp\IMAS.OkHttp.projitems*{ca77a7f8-26b3-4773-9a49-1f6759820983}*SharedItemsImports = 13
 		IMAS.BaiduAI_Manager\IMAS.BaiduAI_Manager.projitems*{d914c314-a411-46c3-9151-59ef37bf0359}*SharedItemsImports = 13
 		IMAS.Tips.Logic\IMAS.Tips.Logic.projitems*{f09865fd-964c-4ae6-b405-aa3d37f72cfe}*SharedItemsImports = 13
@@ -105,6 +109,7 @@ Global
 		{D914C314-A411-46C3-9151-59EF37BF0359} = {C6714C72-EFE8-4CF8-8E71-678111DA0CCA}
 		{8D0BD710-014C-418A-94AA-75062F6ECCC6} = {C6714C72-EFE8-4CF8-8E71-678111DA0CCA}
 		{5334FD3B-A783-4257-81F4-E1E5C7ACFCC8} = {C6714C72-EFE8-4CF8-8E71-678111DA0CCA}
+		{BA397BC3-914E-4812-A8F1-9F98769EFD17} = {C6714C72-EFE8-4CF8-8E71-678111DA0CCA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {30173585-BE29-4734-A3D4-3D59EDC22B70}

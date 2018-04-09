@@ -25,6 +25,9 @@ using Android.Hardware.Fingerprints;
 using IdoMaster_GensouWorld.Listeners;
 using Android;
 using IMAS.CupCake.Data;
+using IdoMaster_GensouWorld.Utils;
+using Com.Andremion.Floatingnavigationview;
+using IdoMaster_GensouWorld.Activitys.Test;
 
 namespace IdoMaster_GensouWorld.Activitys.MainPage
 {
@@ -35,6 +38,10 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
         private Button bt_lode_game;
         private Button bt_quite;
         private TextView tv_version;
+
+        private AzPermissionManager permissionManager;
+        private List<string> list_Permission;
+
         public override int A_GetContentViewId()
         {
             return Resource.Layout.activity_main_main;
@@ -56,7 +63,6 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
             bt_lode_game = FindViewById<Button>(Resource.Id.bt_lode_game);
             bt_quite = FindViewById<Button>(Resource.Id.bt_quite_game);
             tv_version = FindViewById<TextView>(Resource.Id.tv_version_name);
-
         }
 
         public override void D_BindEvent()
@@ -71,6 +77,16 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
         {
             tv_version.Text = GetVersionName();
             InitFingerPrint();
+
+            list_Permission = new List<string>()
+            {
+                Manifest.Permission.Camera,
+                Manifest.Permission.ReadExternalStorage,
+                Manifest.Permission.WriteExternalStorage,
+            };
+            permissionManager = new AzPermissionManager(list_Permission);
+
+            permissionManager.CheckAndRequestPermissions(this);
         }
 
         private const string HASH_Eins = "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92";
@@ -93,8 +109,8 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
                     break;
                 case Resource.Id.bt_quite_game:
 #if DEBUG
-
-
+                    intent.SetClass(this, typeof(SlidActivity));
+                    StartActivity(intent);
 #else
  
                     //结束所有Activity
@@ -435,6 +451,15 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
         }
 
         #endregion
+
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
+        {
+            permissionManager.CheckResult(requestCode, permissions, grantResults);
+
+            var granted = permissionManager.Status[0].Granted;
+            var denied = permissionManager.Status[0].Denied;
+        }
 
         protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
         {
