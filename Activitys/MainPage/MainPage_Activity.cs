@@ -173,7 +173,8 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
             mCancellationSignal = new CancellationSignal();
             fpManager = (FingerprintManager)GetSystemService(FingerprintService);
             kgManager = (KeyguardManager)GetSystemService(KeyguardService);
-            InitFingerCallBack();
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
+                InitFingerCallBack();
         }
 
         /// <summary>

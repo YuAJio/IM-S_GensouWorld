@@ -5,15 +5,15 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A9B01731-5ED6-4359-9D6D-76E75147526C}</ProjectGuid>
+    <ProjectGuid>{8D0BD710-014C-418A-94AA-75062F6ECCC6}</ProjectGuid>
     <ProjectTypeGuids>{10368E6C-D01B-4462-8E8B-01FC667A7035};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IMAS_IOS_Alert</RootNamespace>
-    <AssemblyName>IMAS_IOS_Alert</AssemblyName>
+    <RootNamespace>IMAS.KSYPlayer</RootNamespace>
+    <AssemblyName>IMAS.KSYPlayer</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,14 +41,25 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedNativeLibrary Include="arm64-v8a\libksyplayer.so" />
+    <EmbeddedNativeLibrary Include="armeabi-v7a\libksyplayer.so" />
+    <EmbeddedNativeLibrary Include="armeabi\libksyplayer.so" />
     <None Include="Jars\AboutJars.txt" />
     <None Include="Additions\AboutAdditions.txt" />
-    <LibraryProjectZip Include="Jars\ios-alert-dialog.aar" />
   </ItemGroup>
   <ItemGroup>
     <TransformFile Include="Transforms\Metadata.xml" />
     <TransformFile Include="Transforms\EnumFields.xml" />
     <TransformFile Include="Transforms\EnumMethods.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedJar Include="Jars\libksyplayer.jar" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedJar Include="Jars\libksystat.jar" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedJar Include="Jars\kyslib.jar" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.Bindings.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -25,6 +25,7 @@ using IMAS.CupCake.Data;
 using IdoMaster_GensouWorld.Listeners;
 using Android.Support.V4.App;
 using Java.Lang;
+using Android.Support.Design.Widget;
 
 namespace IdoMaster_GensouWorld.Activitys.MainPage
 {
@@ -38,7 +39,7 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
 
         private ListView lv_history;
         #endregion
-
+        private TextInputLayout tl_input; 
 
         private SimpleHistorySearchAdapter adapter_history;
         private List<Model_SearchHistory> list_history;

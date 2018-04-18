@@ -45,17 +45,16 @@ namespace IdoMaster_GensouWorld
             //添加开启的Activity进入缓存列表
             IMAS_Application.Sington?.OpenActivityList?.Add(this);
             if (A_GetContentViewId() <= 0)
-            {
                 SetContentView(new LinearLayout(this));
-            }
             else
-            {
                 SetContentView(A_GetContentViewId());
-            }
+
             B_BeforeInitView();
             C_InitView();
             D_BindEvent();
             E_InitData();
+
+            ///asdasdsadsadsad
         }
 
         #region 封装方法
