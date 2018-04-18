@@ -56,6 +56,8 @@ namespace IdoMaster_GensouWorld
             C_InitView();
             D_BindEvent();
             E_InitData();
+
+            //Yurishisdhiashdasd
         }
 
         #region 封装方法
