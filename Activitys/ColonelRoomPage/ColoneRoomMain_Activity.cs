@@ -267,8 +267,10 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
             PicLastPath = GetPhotopath();
             PicLastPathTemp = GetPhotopathTemp();
             Java.IO.File outPhoto = new Java.IO.File(PicLastPathTemp);
-            //var uri = Android.Net.Uri.FromFile(outPhoto);
-            var uri = FileProvider.GetUriForFile(this, PackageName + ".fileprovider", outPhoto);
+            var uri = Android.Net.Uri.FromFile(outPhoto);
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
+                uri = FileProvider.GetUriForFile(this, PackageName + ".fileprovider", outPhoto);
+
             //获取拍照后未压缩的原图片,并保存在uri路径中
             intent.PutExtra(MediaStore.ExtraOutput, uri);
             this.StartActivityForResult(intent, IMAS_Constants.OnTakeAPictrueKey);
