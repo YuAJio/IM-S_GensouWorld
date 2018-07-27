@@ -32,7 +32,7 @@ namespace IdoMaster_GensouWorld.Activitys.ProductionPage
     /// <summary>
     /// 事务所主页
     /// </summary>
-    [Activity(Label = "ProductionHomeActivity", Theme = "@style/Theme.PublicTheme")]
+    [Activity(Label = "ProductionHomeActivity", Theme = "@style/Theme.PublicThemePlus")]
     public class ProductionHomeActivity : BaseActivity
     {
         #region UI控件
@@ -206,7 +206,7 @@ namespace IdoMaster_GensouWorld.Activitys.ProductionPage
                         var chatContent = chatContentList.Where(r => r.CharacterId == CharId).FirstOrDefault();
                         var ra = new Random();
                         var vocalText = chatContent.Touch_Serifu[ra.Next(chatContent.Touch_Serifu.Count - 1)];
-                        BaiduVocalManager.GetKagemusha().Speak(vocalText);
+                        //BaiduVocalManager.GetKagemusha().Speak(vocalText);
                     }
                     break;
             }

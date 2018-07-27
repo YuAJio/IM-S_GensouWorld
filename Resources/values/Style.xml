@@ -14,7 +14,7 @@
   </style>
 
   <!--界面通用的主题-->
-  <style name="Theme.PublicThemePlus" parent="Theme.AppCompat.DayNight">
+  <style name="Theme.PublicThemePlus" parent="Theme.AppCompat.Light.NoActionBar">
     <item name="android:windowNoTitle">true</item>
     <item name="android:windowAnimationStyle">@style/default_animation</item>
   </style>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+  <android.support.v7.widget.RecyclerView
+      android:id="@+id/rv_list"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_weight="9"
+      android:visibility="visible" />
+
+  <LinearLayout
+      android:id="@+id/ll_foot"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginTop="6dp"
+      android:background="#00FFFFFF"
+      android:gravity="center"
+      android:orientation="horizontal"
+      android:visibility="gone">
+
+    <ImageView
+        android:id="@+id/iv_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/icon_loading" />
+
+    <TextView
+        android:id="@+id/tv_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:text="少女祈祷中..."
+        android:textColor="@color/pink"
+        android:textSize="16sp" />
+  </LinearLayout>
+
+
+</LinearLayout>

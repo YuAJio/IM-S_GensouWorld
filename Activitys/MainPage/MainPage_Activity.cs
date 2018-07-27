@@ -24,14 +24,21 @@ using IdoMaster_GensouWorld.Film_Activitys;
 using Android.Hardware.Fingerprints;
 using IdoMaster_GensouWorld.Listeners;
 using Android;
-using IMAS.CupCake.Data;
 using IdoMaster_GensouWorld.Utils;
 using Com.Andremion.Floatingnavigationview;
 using IdoMaster_GensouWorld.Activitys.Test;
+using In.ShadowFax;
+using Hardware.Print;
+using ZXing.QrCode;
+using System.IO;
+using Android.Hardware;
+using Android.Graphics;
+using Com.Yurishi.Ysdialog;
+using IMAS_YsDialog.Listener;
 
 namespace IdoMaster_GensouWorld.Activitys.MainPage
 {
-    [Activity(Label = "MainPage_Activity", Theme = "@style/Theme.PublicTheme")]
+    [Activity(Label = "MainPage_Activity", Theme = "@style/Theme.PublicThemePlus")]
     public class MainPage_Activity : BaseActivity, ITextWatcher
     {
         private Button bt_new_game;
@@ -49,12 +56,14 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
 
         public override void B_BeforeInitView()
         {
+
 #if !DEBUG
+            
             var intent = new Intent(this, typeof(BackGroundMusicPlayer));
             intent.PutExtra(BackGroundMusicPlayer.MusicSelectKey, (int)BGM_Enumeration.Main_BGM);
             ApplicationContext.StartService(intent);
+             
 #endif
-
         }
 
         public override void C_InitView()
@@ -75,8 +84,9 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
 
         public override void E_InitData()
         {
+            YsDialogManager.Init(this);
+
             tv_version.Text = GetVersionName();
-            InitFingerPrint();
 
             list_Permission = new List<string>()
             {
@@ -94,6 +104,15 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
         private const string HASH_Drei = "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92";
         private const string HASH_Vier = "9d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92";
         private const string HASH_Fuenf = "sa89e4hgy132k13bv2b1ws9d87fwsey21h9fg84waser1cxvnbmhg87ii8w322e8";
+
+        private class JsoushiKousei
+        {
+            public string Name { get; set; }
+            public decimal Liang { get; set; }
+            public string Person { get; set; }
+            public string Canci { get; set; }
+            public DateTime DateTime { get; set; }
+        }
         public override void F_OnClickListener(View v, EventArgs e)
         {
             var intent = new Intent();
@@ -109,8 +128,26 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
                     break;
                 case Resource.Id.bt_quite_game:
 #if DEBUG
-                    intent.SetClass(this, typeof(SlidActivity));
-                    StartActivity(intent);
+                    {
+                        var strings = new string[] { "移花", "太白", "丐帮", "五毒", "神威" };
+                        var jk = YsDialogManager.BuildMdSingleChoose("标题", 2, strings, new YsMyItemDialogListener((j, k) =>
+                        {
+                            var js = YsDialogManager.BuildIosAlert($"选中的第{k}个", $"选的内容是{j}", new YsMyDialogListener()).Show();
+                        })).Show();
+                        //var jk = YsDialogManager.BuildMdAlert("这是标题", "这个是啥", new YsMyDialogListener(() =>
+                        //{
+                        //    ShowMsgLong("这个是第一个 第一个!");
+                        //}, () =>
+                        //{
+                        //    ShowMsgLong("这个是第二个 第二个!");
+                        //}, () =>
+                        //{
+                        //    ShowMsgLong("这个是第三个 第三个!");
+                        //}, () =>
+                        //{
+                        //    ShowMsgLong("这个是取消取消 取消取消!");
+                        //})).SetBtnText("我第一", "我第二", "我第三").Show();
+                    }
 #else
  
                     //结束所有Activity
@@ -122,25 +159,30 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
                     this.Finish();
 #endif
                     break;
-                case Resource.Id.iv_film_into:
-                    {
-                        var jk = IsFingerCanUse();
-                        if (jk.IsSuccess)
-                        {
-                            StartListening();
-                            ShowSureConfim(null, "指紋を入力してください", (j, k) =>
-                            {
-                                mCancellationSignal.Cancel();
-                            }, "キャンセル", false);
-                        }
-                        else
-                        {
-                            ShowMsgShort(jk.Message);
-                            IntoFilmActivity();
-                        }
-                    }
-                    break;
+                    //case Resource.Id.iv_film_into:
+                    //    {
+                    //        var jk = IsFingerCanUse();
+                    //        if (jk.IsSuccess)
+                    //        {
+                    //            StartListening();
+                    //            ShowSureConfim(null, "指紋を入力してください", (j, k) =>
+                    //            {
+                    //                mCancellationSignal.Cancel();
+                    //            }, "キャンセル", false);
+                    //        }
+                    //        else
+                    //        {
+                    //            ShowMsgShort(jk.Message);
+                    //            IntoFilmActivity();
+                    //        }
+                    //    }
+                    //    break;
             }
+        }
+
+        private void OnFirsetDialogClick()
+        {
+            ShowDiyToastLong("好呀好呀");
         }
 
         public override void G_OnAdapterItemClickListener(View v, AdapterView.ItemClickEventArgs e)
@@ -156,104 +198,106 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
             StartActivity(new Intent(this, typeof(Film_HomePage)));
         }
 
-        #region 指纹读取相关
-        private CancellationSignal mCancellationSignal;
-        private FingerprintManager fpManager;
-        private KeyguardManager kgManager;
-        private FingerAuthenticationCallback mSelfCancelled;
+        //#region 指纹读取相关
+        //private CancellationSignal mCancellationSignal;
+        //private FingerprintManager fpManager;
+        //private KeyguardManager kgManager;
+        //private FingerAuthenticationCallback mSelfCancelled;
 
 
-        private const string TAG = "finger_log";
+        //private const string TAG = "finger_log";
 
-        /// <summary>
-        /// 初始化指纹识别管理器
-        /// </summary>
-        private void InitFingerPrint()
-        {
-            mCancellationSignal = new CancellationSignal();
-            fpManager = (FingerprintManager)GetSystemService(FingerprintService);
-            kgManager = (KeyguardManager)GetSystemService(KeyguardService);
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
-                InitFingerCallBack();
-        }
+        ///// <summary>
+        ///// 初始化指纹识别管理器
+        ///// </summary>
+        //private void InitFingerPrint()
+        //{
+        //    mCancellationSignal = new CancellationSignal();
+        //    fpManager = (FingerprintManager)GetSystemService(FingerprintService);
+        //    kgManager = (KeyguardManager)GetSystemService(KeyguardService);
+        //    if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
+        //        InitFingerCallBack();
+        //}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        private Results IsFingerCanUse()
-        {
-            var result = new Results();
-            if (!fpManager.IsHardwareDetected)
-                return result.Error(message: "没有指纹识别模块");
-            if (!kgManager.IsKeyguardSecure)
-                return result.Error(message: "没有开启锁屏密码");
-            if (!fpManager.HasEnrolledFingerprints)
-                return result.Error(message: "没有录入指纹");
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <returns></returns>
+        //private Results IsFingerCanUse()
+        //{
+        //    var result = new Results();
+        //    if (fpManager != null)
+        //    {
+        //        if (!fpManager.IsHardwareDetected)
+        //            return result.Error(message: "没有指纹识别模块");
+        //        if (!kgManager.IsKeyguardSecure)
+        //            return result.Error(message: "没有开启锁屏密码");
+        //        if (!fpManager.HasEnrolledFingerprints)
+        //            return result.Error(message: "没有录入指纹");
+        //    }
+        //    return result.Success();
+        //}
 
-            return result.Success();
-        }
+        ///// <summary>
+        ///// 开始监听
+        ///// </summary>
+        //private void StartListening()
+        //{
+        //    //android studio 上，没有这个会报错
+        //    if (Android.Support.V4.Content.ContextCompat.CheckSelfPermission(this, Manifest.Permission.UseFingerprint) != Android.Content.PM.Permission.Granted)
+        //    {
+        //        ShowMsgLong("没有指纹识别权限");
+        //        return;
+        //    }
+        //    if (mCancellationSignal != null)
+        //        if (mCancellationSignal.IsCanceled)
+        //            mCancellationSignal = new CancellationSignal();
 
-        /// <summary>
-        /// 开始监听
-        /// </summary>
-        private void StartListening()
-        {
-            //android studio 上，没有这个会报错
-            if (Android.Support.V4.Content.ContextCompat.CheckSelfPermission(this, Manifest.Permission.UseFingerprint) != Android.Content.PM.Permission.Granted)
-            {
-                ShowMsgLong("没有指纹识别权限");
-                return;
-            }
-            if (mCancellationSignal != null)
-                if (mCancellationSignal.IsCanceled)
-                    mCancellationSignal = new CancellationSignal();
+        //    fpManager.Authenticate(null, mCancellationSignal, FingerprintAuthenticationFlags.None, mSelfCancelled, null);
+        //}
 
-            fpManager.Authenticate(null, mCancellationSignal, FingerprintAuthenticationFlags.None, mSelfCancelled, null);
-        }
+        //private void ShowAuthenticationScreen()
+        //{
+        //    var intent = kgManager.CreateConfirmDeviceCredentialIntent("finger", "测试指纹识别");
+        //    isCanBeCallBack = false;
+        //    if (intent != null)
+        //        StartActivityForResult(intent, IMAS_Constants.OnDeviceFingerCheckKey);
+        //}
 
-        private void ShowAuthenticationScreen()
-        {
-            var intent = kgManager.CreateConfirmDeviceCredentialIntent("finger", "测试指纹识别");
-            isCanBeCallBack = false;
-            if (intent != null)
-                StartActivityForResult(intent, IMAS_Constants.OnDeviceFingerCheckKey);
-        }
+        ///// <summary>
+        ///// 实现指纹验证回调
+        ///// </summary>
+        //private void InitFingerCallBack()
+        //{
+        //    mSelfCancelled = new FingerAuthenticationCallback((val) => { OnAuthenticationSucceeded(val); }, () => { OnAuthenticationFailed(); }, (j, k) => { OnAuthenticationError(j, k); }, (j, k) => { OnAuthenticationHelp(j, k); });
+        //}
 
-        /// <summary>
-        /// 实现指纹验证回调
-        /// </summary>
-        private void InitFingerCallBack()
-        {
-            mSelfCancelled = new FingerAuthenticationCallback((val) => { OnAuthenticationSucceeded(val); }, () => { OnAuthenticationFailed(); }, (j, k) => { OnAuthenticationError(j, k); }, (j, k) => { OnAuthenticationHelp(j, k); });
-        }
+        //#region 接口回调
+        //private bool isCanBeCallBack = true;
+        //private void OnAuthenticationSucceeded(FingerprintManager.AuthenticationResult result)
+        //{
+        //    ShowMsgLong("指纹验证成功");
 
-        #region 接口回调
-        private bool isCanBeCallBack = true;
-        private void OnAuthenticationSucceeded(FingerprintManager.AuthenticationResult result)
-        {
-            ShowMsgLong("指纹验证成功");
-
-            IntoFilmActivity();
-        }
-        private void OnAuthenticationFailed()
-        {
-            ShowMsgLong("指纹识别失败");
-        }
-        private void OnAuthenticationError(FingerprintState errorCode, ICharSequence errString)
-        {
-            if (!isCanBeCallBack)
-                return;
-            //但多次指纹密码验证错误后，进入此方法；并且，不能短时间内调用指纹验证
-            ShowMsgLong("指纹验证多次失败");
-            ShowAuthenticationScreen();
-        }
-        public void OnAuthenticationHelp(FingerprintState helpCode, ICharSequence helpString)
-        {
-            ShowMsgLong(helpString.ToString());
-        }
-        #endregion
-        #endregion
+        //    IntoFilmActivity();
+        //}
+        //private void OnAuthenticationFailed()
+        //{
+        //    ShowMsgLong("指纹识别失败");
+        //}
+        //private void OnAuthenticationError(FingerprintState errorCode, ICharSequence errString)
+        //{
+        //    if (!isCanBeCallBack)
+        //        return;
+        //    //但多次指纹密码验证错误后，进入此方法；并且，不能短时间内调用指纹验证
+        //    ShowMsgLong("指纹验证多次失败");
+        //    ShowAuthenticationScreen();
+        //}
+        //public void OnAuthenticationHelp(FingerprintState helpCode, ICharSequence helpString)
+        //{
+        //    ShowMsgLong(helpString.ToString());
+        //}
+        //#endregion
+        ////#endregion
 
         #region 开始新游戏弹出制作人信息弹出框
         private EditText et_input;
@@ -414,7 +458,7 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
         #region 监听返回键做APP退出
         private void CleanAllActivity(int count)
         {
-            for (int i = 0; i < count; i++)
+            for (int i = 0;i < count;i++)
             {
                 var activity = IMAS_Application.Sington.OpenActivityList[IMAS_Application.Sington.OpenActivityList.Count];
                 IMAS_Application.Sington.OpenActivityList.Remove(activity);
@@ -454,6 +498,30 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
         #endregion
 
 
+        private Bitmap CreatErWeiMa(string content)
+        {
+            var options = new QrCodeEncodingOptions();
+            options.CharacterSet = "UTF-8";
+            options.DisableECI = true;
+            options.ErrorCorrection = ZXing.QrCode.Internal.ErrorCorrectionLevel.H;
+            options.Width = 165;
+            options.Height = 165;
+            options.Margin = 1;
+
+            var writer = new ZXing.BarcodeWriter();
+            writer.Format = ZXing.BarcodeFormat.QR_CODE;
+            writer.Options = options;
+
+
+            var bmp = writer.Write("http://www.acfun.cn/");
+            return bmp;
+
+            //using (var bmp = writer.Write("http://www.acfun.cn/")) // Write 具备生成、写入两个功能
+            //{
+            //    return bmp;
+            //}
+        }
+
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
         {
             permissionManager.CheckResult(requestCode, permissions, grantResults);
@@ -466,7 +534,7 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
         {
             if (requestCode == IMAS_Constants.OnDeviceFingerCheckKey)
             {
-                isCanBeCallBack = true;
+                //isCanBeCallBack = true;
                 if (resultCode == Result.Ok)
                 {
                     ShowMsgLong("识别成功于ActivityResult");

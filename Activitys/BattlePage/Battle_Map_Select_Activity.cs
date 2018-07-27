@@ -20,7 +20,7 @@ namespace IdoMaster_GensouWorld.Activitys.BattlePage
     /// <summary>
     /// 选择战斗地图页面
     /// </summary>
-    [Activity(Label = "Battle_Map_Select_Activity", Theme = "@style/Theme.PublicTheme")]
+    [Activity(Label = "Battle_Map_Select_Activity", Theme = "@style/Theme.PublicThemePlus")]
     public class Battle_Map_Select_Activity : BaseActivity
     {
         #region UI控件

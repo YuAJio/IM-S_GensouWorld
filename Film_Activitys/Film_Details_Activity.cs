@@ -29,7 +29,7 @@ namespace IdoMaster_GensouWorld.Film_Activitys
     /// <summary>
     /// 播放视频页面
     /// </summary>
-    [Activity(Label = "Film_Details_Activity", Theme = "@style/Theme.PublicTheme", ConfigurationChanges =
+    [Activity(Label = "Film_Details_Activity", Theme = "@style/Theme.PublicThemePlus", ConfigurationChanges =
         Android.Content.PM.ConfigChanges.Orientation |
         Android.Content.PM.ConfigChanges.ScreenSize |
         Android.Content.PM.ConfigChanges.Keyboard |

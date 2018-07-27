@@ -26,7 +26,7 @@ namespace IdoMaster_GensouWorld.Activitys.GachaPage
     /// <summary>
     /// 扭蛋主页
     /// </summary>
-    [Activity(Label = "GachaMainPage_Activity", Theme = "@style/Theme.PublicTheme")]
+    [Activity(Label = "GachaMainPage_Activity", Theme = "@style/Theme.PublicThemePlus")]
     public class GachaMainPage_Activity : BaseActivity, ShakeDetector.IOnShakeListener
     {
         #region UI控件

@@ -29,7 +29,7 @@ using Android.Support.Design.Widget;
 
 namespace IdoMaster_GensouWorld.Activitys.MainPage
 {
-    [Activity(Label = "LoadGame_Activity", Theme = "@style/Theme.PublicTheme")]
+    [Activity(Label = "LoadGame_Activity", Theme = "@style/Theme.PublicThemePlus")]
     public class LoadGame_Activity : BaseActivity
     {
         #region UI控件

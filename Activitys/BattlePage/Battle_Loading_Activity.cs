@@ -16,7 +16,7 @@ using IMAS.Tips.Logic.LocalDBManager;
 
 namespace IdoMaster_GensouWorld.Activitys.BattlePage
 {
-    [Activity(Label = "Battle_Loading_Activity", Theme = "@style/Theme.PublicTheme")]
+    [Activity(Label = "Battle_Loading_Activity", Theme = "@style/Theme.PublicThemePlus")]
     public class Battle_Loading_Activity : BaseActivity
     {
         /// <summary>

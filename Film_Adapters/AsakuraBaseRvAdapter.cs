@@ -16,6 +16,7 @@ namespace IdoMaster_GensouWorld.Adapters
     public abstract class AsakuraBaseRvAdapter<Model> : RecyclerView.Adapter
     {
         public Action<View, int> onItemClickAct;
+        protected Context context; 
 
         /// <summary>
         /// 适配器数据列表

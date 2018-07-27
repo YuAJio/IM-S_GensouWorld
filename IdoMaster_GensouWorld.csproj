@@ -33,9 +33,11 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
+    <AndroidUseSharedRuntime>true</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
-    <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+    <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
+    <EnableProguard>true</EnableProguard>
+    <AndroidSupportedAbis>armeabi;armeabi-v7a;x86;x86_64</AndroidSupportedAbis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -56,6 +58,15 @@
     <Reference Include="AipSdk">
       <HintPath>IMAS.BaiduAI\aip-csharp-sdk-3.3.1\AipSdk.dll</HintPath>
     </Reference>
+    <Reference Include="FastAndroidCamera, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\FastAndroidCamera.2.0.0\lib\MonoAndroid403\FastAndroidCamera.dll</HintPath>
+    </Reference>
+    <Reference Include="FFImageLoading, Version=2.4.3.840, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Xamarin.FFImageLoading.2.4.3.840\lib\MonoAndroid10\FFImageLoading.dll</HintPath>
+    </Reference>
+    <Reference Include="FFImageLoading.Platform, Version=2.4.3.840, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Xamarin.FFImageLoading.2.4.3.840\lib\MonoAndroid10\FFImageLoading.Platform.dll</HintPath>
+    </Reference>
     <Reference Include="FloatingNavigationView, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Xam.Plugins.Android.FloatingNavigationView.1.0.0\lib\MonoAndroid\FloatingNavigationView.dll</HintPath>
     </Reference>
@@ -67,8 +78,18 @@
     <Reference Include="PermissionManager, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Karamunting.Android.PermissionManager.0.1.1\lib\monoandroid71\PermissionManager.dll</HintPath>
     </Reference>
+    <Reference Include="printLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>IMAS_Print\printLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="ProSwipeButton, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Karamunting.Android.Shadowfax.ProSwipeButton.1.0.1\lib\monoandroid70\ProSwipeButton.dll</HintPath>
+    </Reference>
     <Reference Include="ShimmerLayout, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Karamunting.Android.ShimmerLayout.0.4.0\lib\monoandroid71\ShimmerLayout.dll</HintPath>
+    </Reference>
+    <Reference Include="SpringView, Version=1.3.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Karamunting.Android.Liaoinstan.SpringView.1.3.2\lib\monoandroid71\SpringView.dll</HintPath>
     </Reference>
     <Reference Include="Square.OkHttp3, Version=3.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Square.OkHttp3.3.8.1\lib\MonoAndroid\Square.OkHttp3.dll</HintPath>
@@ -134,6 +155,24 @@
     <Reference Include="Xamarin.Android.Support.Vector.Drawable, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Xamarin.Android.Support.Vector.Drawable.26.1.0.1\lib\MonoAndroid80\Xamarin.Android.Support.Vector.Drawable.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin.Forms.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Xamarin.Forms.1.0.6188\lib\MonoAndroid10\Xamarin.Forms.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Platform.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Xamarin.Forms.1.0.6188\lib\MonoAndroid10\Xamarin.Forms.Platform.Android.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Xaml, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Xamarin.Forms.1.0.6188\lib\MonoAndroid10\Xamarin.Forms.Xaml.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.RecyclerView.SwipeMenu, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Xamarin.RecyclerView.SwipeMenu.1.0.0\lib\MonoAndroid\Xamarin.RecyclerView.SwipeMenu.dll</HintPath>
+    </Reference>
+    <Reference Include="ZKWeb.System.Drawing, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\ZKWeb.System.Drawing.4.0.0\lib\netstandard2.0\ZKWeb.System.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.monoandroid, Version=0.16.4.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>packages\ZXing.Net.0.16.4\lib\MonoAndroid\zxing.monoandroid.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activitys\BaseActivity.cs" />
@@ -146,14 +185,20 @@
     <Compile Include="Activitys\ColonelRoomPage\ColoneRoomMain_Activity.cs" />
     <Compile Include="Activitys\FlashScreen.cs" />
     <Compile Include="Activitys\GachaPage\GachaMainPage_Activity.cs" />
+    <Compile Include="Activitys\MainPage\AsakuraPrinterAssisted.cs" />
     <Compile Include="Activitys\MainPage\LoadGame_Activity.cs" />
     <Compile Include="Activitys\MainPage\MainPage_Activity.cs" />
     <Compile Include="Activitys\MainPage\NewGame_Activity.cs" />
+    <Compile Include="Activitys\MainPage\PrintTestActivity.cs" />
     <Compile Include="Activitys\Opening\Prologue_Activity.cs" />
     <Compile Include="Activitys\ProductionPage\ProductionHomeActivity.cs" />
     <Compile Include="Activitys\ShopPage\FragmentShopPage_Pager.cs" />
     <Compile Include="Activitys\ShopPage\ShopHomePage_Pager_Activity.cs" />
+    <Compile Include="Activitys\Test\AzuminItemTouchHelper.cs" />
+    <Compile Include="Activitys\Test\GaodeMapActivity.cs" />
+    <Compile Include="Activitys\Test\RefreshRecyclerView.cs" />
     <Compile Include="Activitys\Test\SlidActivity.cs" />
+    <Compile Include="Activitys\Test\TagView.cs" />
     <Compile Include="Film_Activitys\Film_Details_Activity.cs" />
     <Compile Include="Film_Activitys\Film_Details_Activity_IJK.cs" />
     <Compile Include="Film_Activitys\Film_HomePage.cs" />
@@ -182,6 +227,7 @@
     <Compile Include="Listeners\FingerAuthenticationCallback.cs" />
     <Compile Include="Listeners\KsyAzEventCallBack.cs" />
     <Compile Include="Listeners\YsOnkeyListener.cs" />
+    <Compile Include="Listeners\YsOnMarkerClickListener.cs" />
     <Compile Include="Listeners\YsSeekChangeListener.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -210,6 +256,8 @@
     <AndroidAsset Include="Assets\bd_etts_text.dat" />
     <AndroidAsset Include="Assets\bd_etts_speech_female.dat" />
     <AndroidAsset Include="Assets\bd_etts_speech_male.dat" />
+    <AndroidAsset Include="Assets\ncnn.bin" />
+    <AndroidAsset Include="Assets\ncnn.param.bin" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
@@ -268,6 +316,15 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\test_navigation_view_header.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\activity_print_test.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\z_refresh_foot.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\test_refreshlist.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <None Include="Services\Interfaces\MyBinder.aidl" />
@@ -444,9 +501,9 @@
     <AndroidResource Include="Resources\anim\shrink_fade_out_from_bottom.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="IMAS.BaiduVocal\IMAS.BaiduVocal.csproj">
-      <Project>{a1e62eb7-d49e-4589-9352-74f5d73d4336}</Project>
-      <Name>IMAS.BaiduVocal</Name>
+    <ProjectReference Include="..\IMAS.Squeezencnn\IMAS.Squeezencnn.csproj">
+      <Project>{51189ed4-fb80-47d8-9639-54e73595d00d}</Project>
+      <Name>IMAS.Squeezencnn</Name>
     </ProjectReference>
     <ProjectReference Include="IMAS.ImageLoader\IMAS.ImageLoader.csproj">
       <Project>{131AF8A7-6C21-44E2-B7EB-51DF893E9BA7}</Project>
@@ -460,6 +517,10 @@
       <Project>{85311a10-858b-4565-864d-ff3c69534352}</Project>
       <Name>IMAS.SQlite3</Name>
     </ProjectReference>
+    <ProjectReference Include="IMAS_Gaode\IMAS_Gaode.csproj">
+      <Project>{14ffe42d-a96e-46eb-a4ca-2101b95d6855}</Project>
+      <Name>IMAS_Gaode</Name>
+    </ProjectReference>
     <ProjectReference Include="IMAS_IOS_Alert\IMAS_IOS_Alert.csproj">
       <Project>{a9b01731-5ed6-4359-9d6d-76e75147526c}</Project>
       <Name>IMAS_IOS_Alert</Name>
@@ -467,6 +528,10 @@
     <ProjectReference Include="IMAS_Jimusho\IMAS_Jimusho.csproj">
       <Project>{fc7cadfa-d569-43b5-a749-cec90233ceee}</Project>
       <Name>IMAS_Jimusho</Name>
+    </ProjectReference>
+    <ProjectReference Include="IMAS_YsDialog\IMAS_YsDialog.csproj">
+      <Project>{a4f2fba5-5216-40e4-bcc9-3fa173061264}</Project>
+      <Name>IMAS_YsDialog</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -625,6 +690,23 @@
   <ItemGroup>
     <AndroidResource Include="Resources\menu\test_navigation_view.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-hdpi\icon_loading.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-hdpi\bg_acfun_refresh_head.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-hdpi\bg_acfun_refresh_foot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\labels.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\activity_gaodemap.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
   <Import Project="IMAS.Sqlite\IMAS.Sqlite.projitems" Label="Shared" />
   <Import Project="IMAS.Tips.Logic\IMAS.Tips.Logic.projitems" Label="Shared" />
   <Import Project="IMAS.OkHttp\IMAS.OkHttp.projitems" Label="Shared" />
@@ -656,6 +738,7 @@
     <Error Condition="!Exists('packages\Xamarin.Android.Support.Transition.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.Transition.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Xamarin.Android.Support.Transition.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.Transition.targets'))" />
     <Error Condition="!Exists('packages\Xamarin.Android.Support.v4.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.v4.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Xamarin.Android.Support.v4.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.v4.targets'))" />
     <Error Condition="!Exists('packages\Xamarin.Android.Support.Design.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.Design.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Xamarin.Android.Support.Design.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.Design.targets'))" />
+    <Error Condition="!Exists('packages\Xamarin.Forms.1.0.6188\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Xamarin.Forms.1.0.6188\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets'))" />
   </Target>
   <Import Project="packages\Xamarin.Android.Arch.Core.Common.1.0.0\build\MonoAndroid80\Xamarin.Android.Arch.Core.Common.targets" Condition="Exists('packages\Xamarin.Android.Arch.Core.Common.1.0.0\build\MonoAndroid80\Xamarin.Android.Arch.Core.Common.targets')" />
   <Import Project="packages\Xamarin.Android.Arch.Lifecycle.Common.1.0.1\build\MonoAndroid80\Xamarin.Android.Arch.Lifecycle.Common.targets" Condition="Exists('packages\Xamarin.Android.Arch.Lifecycle.Common.1.0.1\build\MonoAndroid80\Xamarin.Android.Arch.Lifecycle.Common.targets')" />
@@ -674,6 +757,7 @@
   <Import Project="packages\Xamarin.Android.Support.Transition.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.Transition.targets" Condition="Exists('packages\Xamarin.Android.Support.Transition.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.Transition.targets')" />
   <Import Project="packages\Xamarin.Android.Support.v4.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.v4.targets" Condition="Exists('packages\Xamarin.Android.Support.v4.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.v4.targets')" />
   <Import Project="packages\Xamarin.Android.Support.Design.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.Design.targets" Condition="Exists('packages\Xamarin.Android.Support.Design.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.Design.targets')" />
+  <Import Project="packages\Xamarin.Forms.1.0.6188\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets" Condition="Exists('packages\Xamarin.Forms.1.0.6188\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
 		Other similar extension points exist, see Microsoft.Common.targets.
 		<Target Name="BeforeBuild">

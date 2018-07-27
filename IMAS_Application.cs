@@ -56,7 +56,7 @@ namespace IdoMaster_GensouWorld
             #endregion
 
             #region 初始化百度语音合成
-            BaiduVocalManager.GetKagemusha().Init(ApplicationContext, null);
+            //BaiduVocalManager.GetKagemusha().Init(ApplicationContext, null);
             #endregion
         }
 

@@ -24,7 +24,7 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
     /// <summary>
     /// 开始游戏开场白
     /// </summary>
-    [Activity(Label = "NewGame_Activity", Theme = "@style/Theme.PublicTheme")]
+    [Activity(Label = "NewGame_Activity", Theme = "@style/Theme.PublicThemePlus")]
     public class NewGame_Activity : BaseActivity
     {
         private RelativeLayout rl_tv_father;

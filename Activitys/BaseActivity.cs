@@ -13,10 +13,11 @@ using Android;
 using Android.Content.PM;
 using Android.Runtime;
 using Android.Support.V4.Content;
+using Android.Support.V7.App;
 
 namespace IdoMaster_GensouWorld
 {
-    public abstract class BaseActivity : Activity
+    public abstract class BaseActivity : AppCompatActivity
     {
         protected int activityCloseEnterAnimation;
         protected int activityCloseExitAnimaiton;
@@ -25,9 +26,13 @@ namespace IdoMaster_GensouWorld
         /// </summary>
         protected ProgressDialog _WaitDialog;
         protected Dialog _ConfigDialog;
+
+        protected Bundle saveInstanceState { get; private set; }
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+            this.saveInstanceState = bundle;
             #region 动画效果
             var activityStyle = Theme.ObtainStyledAttributes(new int[] { Android.Resource.Attribute.WindowAnimationStyle });
             var windowAnimationStyleResid = activityStyle.GetResourceId(0, 0);
@@ -187,7 +192,7 @@ namespace IdoMaster_GensouWorld
         /// <param name="p2"></param>
         protected void ShowBigToast(string msg, string p1 = null, EventHandler<DialogClickEventArgs> p2 = null)
         {
-            var window = new AlertDialog.Builder(this, AlertDialog.ThemeDeviceDefaultLight);
+            var window = new Android.App.AlertDialog.Builder(this, Android.App.AlertDialog.ThemeDeviceDefaultLight);
             window = window.SetTitle(p1).SetMessage(msg).SetCancelable(true).SetPositiveButton("はい", p2);
             _ConfigDialog = window.Show();
         }
@@ -204,7 +209,7 @@ namespace IdoMaster_GensouWorld
         /// <param name="cancelble">是否可以取消</param>
         protected void ShowConfim(string title, string msg, EventHandler<DialogClickEventArgs> yesE, EventHandler<DialogClickEventArgs> cancelE, string yesBtnName = "はい", string cancelBtnName = "いいえ", bool cancelble = true)
         {
-            var window = new AlertDialog.Builder(this, AlertDialog.ThemeDeviceDefaultLight);
+            var window = new Android.App.AlertDialog.Builder(this, Android.App.AlertDialog.ThemeDeviceDefaultLight);
             window = window.SetTitle(title).SetMessage(msg).SetCancelable(cancelble).SetPositiveButton(yesBtnName, yesE).SetNegativeButton(cancelBtnName, cancelE);
             _ConfigDialog = window.Show();
         }
@@ -218,7 +223,7 @@ namespace IdoMaster_GensouWorld
         /// <param name="cancelble">是否可以取消</param>
         protected void ShowSureConfim(string title, string msg, EventHandler<DialogClickEventArgs> yesE, string yesBtnName = "はい", bool cancelble = false)
         {
-            var window = new AlertDialog.Builder(this, AlertDialog.ThemeDeviceDefaultLight);
+            var window = new Android.App.AlertDialog.Builder(this, Android.App.AlertDialog.ThemeDeviceDefaultLight);
             window = window.SetTitle(title).SetMessage(msg).SetCancelable(cancelble).SetPositiveButton(yesBtnName, yesE);
             _ConfigDialog = window.Show();
         }

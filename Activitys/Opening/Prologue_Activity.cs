@@ -21,7 +21,7 @@ namespace IdoMaster_GensouWorld.Activitys.Opening
     /// <summary>
     /// 序章
     /// </summary>
-    [Activity(Label = "Prologue_Activity", Theme = "@style/Theme.PublicTheme")]
+    [Activity(Label = "Prologue_Activity", Theme = "@style/Theme.PublicThemePlus")]
     public class Prologue_Activity : BaseActivity
     {
         #region UI控件

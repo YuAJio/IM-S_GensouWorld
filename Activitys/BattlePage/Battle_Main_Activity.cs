@@ -29,7 +29,7 @@ namespace IdoMaster_GensouWorld.Activitys.BattlePage
     /// <summary>
     /// 战斗主页面
     /// </summary>
-    [Activity(Label = "Battle_Main_Activity", Theme = "@style/Theme.PublicTheme")]
+    [Activity(Label = "Battle_Main_Activity", Theme = "@style/Theme.PublicThemePlus")]
     public class Battle_Main_Activity : BaseActivity, ViewTreeObserver.IOnGlobalLayoutListener
     {
         #region 状态枚举

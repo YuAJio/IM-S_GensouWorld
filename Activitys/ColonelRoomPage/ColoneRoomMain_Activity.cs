@@ -18,6 +18,7 @@ using Android.Views;
 using Android.Widget;
 using Baidu.Aip.Ocr;
 using Com.Nostra13.Universalimageloader.Core;
+using Com.Tencent.Squeezencnn;
 using IdoMaster_GensouWorld.Activitys.BattlePage;
 using IdoMaster_GensouWorld.Utils;
 using IMAS.BaiduAI;
@@ -27,6 +28,7 @@ using IMAS.LocalDBManager.Models;
 using IMAS.Tips.Logic.LocalDBManager;
 using IMAS.Utils.Files;
 using IMAS.Utils.Sp;
+using Java.IO;
 using Karan.Churi;
 using Newtonsoft.Json;
 
@@ -35,7 +37,7 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
     /// <summary>
     /// 制作人自室
     /// </summary>
-    [Activity(Label = "ColoneRoomMain_Activity", Theme = "@style/Theme.PublicTheme",
+    [Activity(Label = "ColoneRoomMain_Activity", Theme = "@style/Theme.PublicThemePlus",
         ConfigurationChanges =
      Android.Content.PM.ConfigChanges.Orientation |
      Android.Content.PM.ConfigChanges.ScreenSize |
@@ -105,6 +107,10 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
 
         public override void E_InitData()
         {
+            Com.Yurishi.Ysdialog.YsDialogManager.Init(this);
+
+            InitSqueezencnn();
+
             list_Permission = new List<string>()
             {
                 Manifest.Permission.Camera,
@@ -318,7 +324,7 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
                     var newOpts = new Android.Graphics.BitmapFactory.Options();
                     Bitmap bmp = null;
                     int scaleFactor = 1;
-                    using (FileStream ins = File.OpenRead(PicLastPathTemp))
+                    using (FileStream ins = System.IO.File.OpenRead(PicLastPathTemp))
                     {
                         var tempBmp = BitmapFactory.DecodeStream(ins, new Rect(), newOpts);
                         var oldW = newOpts.OutWidth;
@@ -326,7 +332,7 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
                         scaleFactor = oldW > oldH ? oldW / 1600 : oldH / 1600;
                         tempBmp.Recycle();
                     }
-                    using (FileStream ins = File.OpenRead(PicLastPathTemp))
+                    using (FileStream ins = System.IO.File.OpenRead(PicLastPathTemp))
                     {
                         newOpts.InSampleSize = scaleFactor;
                         bmp = BitmapFactory.DecodeStream(ins, new Rect(), newOpts);
@@ -339,7 +345,7 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
                     //回收
                     bmp.Recycle();
                     //删除临时文件
-                    File.Delete(PicLastPathTemp);
+                    System.IO.File.Delete(PicLastPathTemp);
 
                 }
             }
@@ -347,6 +353,33 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
             {
                 ShowMsgLong("エラー！" + e.Message);
             }
+        }
+
+
+        private Bitmap ProduceBitmap(string path)
+        {
+            Bitmap bmp = null;
+            var newOpts = new Android.Graphics.BitmapFactory.Options();
+            int scaleFactor = 1;
+            using (FileStream ins = System.IO.File.OpenRead(path))
+            {
+                var tempBmp = BitmapFactory.DecodeStream(ins, new Rect(), newOpts);
+                var oldW = newOpts.OutWidth;
+                var oldH = newOpts.OutHeight;
+                scaleFactor = oldW > oldH ? oldW / 1600 : oldH / 1600;
+                tempBmp.Recycle();
+            }
+            using (FileStream ins = System.IO.File.OpenRead(path))
+            {
+                newOpts.InSampleSize = scaleFactor;
+                bmp = BitmapFactory.DecodeStream(ins, new Rect(), newOpts);
+            }
+
+            //using (FileStream fs = new FileStream(path, FileMode.CreateNew))
+            //{
+            //    bmp.Compress(Bitmap.CompressFormat.Jpeg, 50, fs);//质量压缩方法,压缩质量0~100 (100代表不压缩),把压缩后的数据存放到baos
+            //}
+            return bmp;
         }
         #endregion
 
@@ -445,12 +478,34 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
                     case IMAS_Constants.OnSelectAIdCardPictrueKey:
                         {
                             var jk = FilePathManager.GetInstance().GetRealFilePath(this, data.Data);
-                            ToTakeHttpResult(jk);
+                            var bitmap = ProduceBitmap(jk);
+                            Bitmap rgba = bitmap.Copy(Bitmap.Config.Argb8888, true);
+                            yourSelectedImage = Bitmap.CreateScaledBitmap(rgba, 224, 224, false);
+                            var result = mangaer.Get_Instance().Detect(yourSelectedImage);
+                            //ToTakeHttpResult(jk);
+                            var js = Com.Yurishi.Ysdialog.YsDialogManager.BuildIosAlert("弟弟", $"识别的是{result}", new IMAS_YsDialog.Listener.YsMyDialogListener()).Show();
                         }
                         break;
                     case IMAS_Constants.OnTakeAIdCardPictrueKey:
                         {//验证身份证
-                            ToTakeHttpResult(PicLastPathTemp);
+                         //var jk = FilePathManager.GetInstance().GetRealFilePath(this, data.Data);
+                            ShowWaitDiaLog("しばらくお待ちください", false);
+                            Task.Run(() =>
+                            {
+                                SaveNewPic();
+                            }).ContinueWith(t =>
+                            {
+                                HideWaitDiaLog();
+                                imagePath = PicLastPath;
+                                var bitmap = ProduceBitmap(imagePath);
+                                Bitmap rgba = bitmap.Copy(Bitmap.Config.Argb8888, true);
+                                yourSelectedImage = Bitmap.CreateScaledBitmap(rgba, 224, 224, false);
+                                var result = mangaer.Get_Instance().Detect(yourSelectedImage);
+
+                                //ToTakeHttpResult(PicLastPathTemp);
+                                var js = Com.Yurishi.Ysdialog.YsDialogManager.BuildIosAlert("弟弟", $"识别的是{result}", new IMAS_YsDialog.Listener.YsMyDialogListener());
+                            }, TaskScheduler.FromCurrentSynchronizationContext());
+
                         }
                         break;
                         #endregion
@@ -538,6 +593,88 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
             var granted = permissionManager.Status[0].Granted;
             var denied = permissionManager.Status[0].Denied;
         }
+
+        #region 识别功能
+        private SqueezeManager mangaer = new SqueezeManager();
+        private Bitmap yourSelectedImage;
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        private void InitSqueezencnn()
+        {
+            byte[] param = default(byte[]);
+            byte[] bin = default(byte[]);
+            byte[] words = default(byte[]);
+
+            using (var memstream = new MemoryStream())
+            {
+                new StreamReader(Assets.Open("ncnn.param.bin")).BaseStream.CopyTo(memstream);
+                param = memstream.ToArray();
+            }
+            using (var memstream = new MemoryStream())
+            {
+                new StreamReader(Assets.Open("ncnn.bin")).BaseStream.CopyTo(memstream);
+                bin = memstream.ToArray();
+            }
+            using (var memstream = new MemoryStream())
+            {
+                new StreamReader(Assets.Open("labels.txt")).BaseStream.CopyTo(memstream);
+                words = memstream.ToArray();
+            }
+            ////using (StreamReader streamReader = )
+            ////{
+            ////    var jk = streamReader.ReadToEnd();
+            ////    var byts = new byte[jk.Length];
+            ////    assetsInputStream.Read(byts, 0, byts.Length);
+            ////    assetsInputStream.Close();
+            ////    param = byts;
+            ////}
+            //using (Stream assetsInputStream = Assets.Open("ncnn.bin"))
+            //{
+            //    using (StreamReader streamReader = new StreamReader(assetsInputStream))
+            //    {
+            //        var jk = streamReader.ReadToEnd();
+            //        var byts = new byte[jk.Length];
+            //        assetsInputStream.Read(byts, 0, byts.Length);
+            //        assetsInputStream.Close();
+            //        bin = byts;
+            //    }
+            //}
+            //using (Stream assetsInputStream = Assets.Open("labels.txt"))
+            //{
+            //    using (StreamReader streamReader = new StreamReader(assetsInputStream))
+            //    {
+            //        var jk = streamReader.ReadToEnd();
+            //        var byts = new byte[jk.Length];
+            //        assetsInputStream.Read(byts, 0, byts.Length);
+            //        assetsInputStream.Close();
+            //        words = byts;
+            //    }
+            //}
+            //InputStream assetsInputStream = getAssets().open("ncnn.bin");
+            //    int available = assetsInputStream.available();
+            //    bin = new byte[available];
+            //    int byteCode = assetsInputStream.read(bin);
+            //    assetsInputStream.close();
+            //    InputStream assetsInputStream = getAssets().open("labels.txt");
+            //    int available = assetsInputStream.available();
+            //    words = new byte[available];
+            //    int byteCode = assetsInputStream.read(words);
+            //    assetsInputStream.close();
+
+            try
+            {
+                mangaer.Get_Instance().InitSqueeze(param, bin, words);
+            }
+            catch (Exception e)
+            {
+
+            }
+
+        }
+
+        #endregion
+
     }
 
 }

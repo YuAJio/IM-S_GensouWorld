@@ -1,0 +1,34 @@
+﻿<metadata>
+  <!--
+  This sample removes the class: android.support.v4.content.AsyncTaskLoader.LoadTask:
+  <remove-node path="/api/package[@name='android.support.v4.content']/class[@name='AsyncTaskLoader.LoadTask']" />
+  
+  path="/api/package[@name='com.yurishi.ysdialog']/class[@name='YsDialogManager']/method[@name='buildBottomItemDialog' and count(parameter)=3 and parameter[1][@type='java.util.List&lt;java.lang.CharSequence&gt;'] and parameter[2][@type='java.lang.CharSequence'] and parameter[3][@type='com.yurishi.ysdialog.Dialog.interfaces.MyItemDialogListener']]"
+  This sample removes the method: android.support.v4.content.CursorLoader.loadInBackground:
+  <remove-node path="/api/package[@name='android.support.v4.content']/class[@name='CursorLoader']/method[@name='loadInBackground']" />
+  -->
+  <!--<remove-node path="/
+        api/
+        package[@name='com.yurishi.ysdialog']/
+        class[@name='YsDialogManager']/
+        method[@name='buildBottomItemDialog' and count(parameter)=3
+        and parameter[1][@type='System.Collections.Generic.IList&lt;string&gt;']
+        and parameter[2][@type='java.lang.CharSequence']
+        and parameter[3][@type='com.yurishi.ysdialog.Dialog.interfaces.MyItemDialogListener']]"/>
+
+
+  <attr
+    path="/
+        api/
+        package[@name='com.yurishi.ysdialog']/
+        class[@name='YsDialogManager']/
+        method[@name='buildBottomItemDialog' and count(parameter)=3
+        and parameter[1][@type='java.util.List&lt;java.lang.CharSequence&gt;']
+        and parameter[2][@type='java.lang.CharSequence']
+        and parameter[3][@type='com.yurishi.ysdialog.Dialog.interfaces.MyItemDialogListener']]/
+        parameter[1]"
+        name="managedType">
+    System.Collections.Generic.IList&lt;Java.Lang.ICharSequence&gt;
+  </attr>-->
+
+</metadata>

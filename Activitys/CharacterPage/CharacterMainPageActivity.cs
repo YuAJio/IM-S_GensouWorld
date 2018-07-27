@@ -29,7 +29,7 @@ namespace IdoMaster_GensouWorld.Activitys.CharacterPage
     /// <summary>
     /// 角色信息页面
     /// </summary>
-    [Activity(Label = "CharacterMainPageActivity", Theme = "@style/Theme.PublicTheme")]
+    [Activity(Label = "CharacterMainPageActivity", Theme = "@style/Theme.PublicThemePlus")]
     public class CharacterMainPageActivity : BaseActivity
     {
         #region UI控件

@@ -18,7 +18,7 @@ using IMAS.Tips.Logic.HttpRemoteManager;
 
 namespace IdoMaster_GensouWorld.Film_Activitys
 {
-    [Activity(Label = "Film_HomePage", Theme = "@style/Theme.PublicTheme")]
+    [Activity(Label = "Film_HomePage", Theme = "@style/Theme.PublicThemePlus")]
     public class Film_HomePage : BaseActivity
     {
         private EditText et_Search;

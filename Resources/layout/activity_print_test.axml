@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+  <com.liaoinstan.springview.widget.SpringView
+            android:id="@+id/sv_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+         >
+
+    <android.support.v7.widget.RecyclerView
+         android:id="@+id/rv_list"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:layout_below="@id/rl_title"
+         android:clipToPadding="false"
+         android:dividerHeight="6dp"
+         android:overScrollMode="never"
+         android:scrollbars="none" />
+
+  </com.liaoinstan.springview.widget.SpringView>
+
+
+
+</LinearLayout>

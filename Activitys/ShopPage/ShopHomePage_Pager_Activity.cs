@@ -18,7 +18,7 @@ using IMAS.Tips.Logic.LocalDBManager;
 
 namespace IdoMaster_GensouWorld.Activitys.ShopPage
 {
-    [Activity(Label = "ShopHomePage_Pager_Activity", Theme = "@style/Theme.PublicTheme")]
+    [Activity(Label = "ShopHomePage_Pager_Activity", Theme = "@style/Theme.PublicThemePlus")]
     public class ShopHomePage_Pager_Activity : BaseFragmentActivity
     {
         #region UI控件

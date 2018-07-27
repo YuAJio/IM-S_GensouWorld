@@ -15,7 +15,7 @@
 //    /// <summary>
 //    /// 视频详情页面Ijk
 //    /// </summary>
-//    [Activity(Label = "Film_Details_Activity_IJK", Theme = "@style/Theme.PublicTheme")]
+//    [Activity(Label = "Film_Details_Activity_IJK", Theme = "@style/Theme.PublicThemePlus")]
 //    public class Film_Details_Activity_IJK : BaseActivity
 //    {
 
