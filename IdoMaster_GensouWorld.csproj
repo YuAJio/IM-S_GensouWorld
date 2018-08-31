@@ -17,7 +17,6 @@
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-    <AndroidUseLatestPlatformSdk>true</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
@@ -71,9 +70,42 @@
       <HintPath>packages\Xam.Plugins.Android.FloatingNavigationView.1.0.0\lib\MonoAndroid\FloatingNavigationView.dll</HintPath>
     </Reference>
     <Reference Include="Java.Interop" />
+    <Reference Include="Microsoft.AspNetCore.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNetCore.Http.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNetCore.Http.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Features, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNetCore.Http.Features.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.WebUtilities, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNetCore.WebUtilities.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.WebUtilities.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.10.0.3\lib\netstandard1.3\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Microsoft.Extensions.Caching.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Caching.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Caching.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Caching.Memory, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Caching.Memory.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Caching.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.ObjectPool, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.ObjectPool.2.0.0\lib\netstandard2.0\Microsoft.Extensions.ObjectPool.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Options.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Primitives.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Net.Http.Headers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Net.Http.Headers.2.0.0\lib\netstandard2.0\Microsoft.Net.Http.Headers.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.11.0.2\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PermissionManager, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Karamunting.Android.PermissionManager.0.1.1\lib\monoandroid71\PermissionManager.dll</HintPath>
@@ -84,6 +116,18 @@
     </Reference>
     <Reference Include="ProSwipeButton, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Karamunting.Android.Shadowfax.ProSwipeButton.1.0.1\lib\monoandroid70\ProSwipeButton.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.CO2NET, Version=0.2.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Senparc.CO2NET.0.2.4\lib\netstandard2.0\Senparc.CO2NET.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.Weixin, Version=5.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Senparc.Weixin.5.1.4\lib\netstandard2.0\Senparc.Weixin.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.Weixin.MP, Version=15.1.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Senparc.Weixin.MP.15.1.3\lib\netstandard2.0\Senparc.Weixin.MP.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.Weixin.WxOpen, Version=2.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Senparc.Weixin.WxOpen.2.1.2\lib\netstandard2.0\Senparc.Weixin.WxOpen.dll</HintPath>
     </Reference>
     <Reference Include="ShimmerLayout, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Karamunting.Android.ShimmerLayout.0.4.0\lib\monoandroid71\ShimmerLayout.dll</HintPath>
@@ -98,8 +142,17 @@
       <HintPath>packages\Square.OkIO.1.13.0\lib\MonoAndroid\Square.OkIO.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.4.4.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Encodings.Web.4.4.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Mono.Android" />
@@ -199,6 +252,8 @@
     <Compile Include="Activitys\Test\RefreshRecyclerView.cs" />
     <Compile Include="Activitys\Test\SlidActivity.cs" />
     <Compile Include="Activitys\Test\TagView.cs" />
+    <Compile Include="Activitys\Test\WeChatTestActivity.cs" />
+    <Compile Include="Activitys\Test\WeChatTestClass.cs" />
     <Compile Include="Film_Activitys\Film_Details_Activity.cs" />
     <Compile Include="Film_Activitys\Film_Details_Activity_IJK.cs" />
     <Compile Include="Film_Activitys\Film_HomePage.cs" />
@@ -258,6 +313,7 @@
     <AndroidAsset Include="Assets\bd_etts_speech_male.dat" />
     <AndroidAsset Include="Assets\ncnn.bin" />
     <AndroidAsset Include="Assets\ncnn.param.bin" />
+    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
@@ -501,40 +557,6 @@
     <AndroidResource Include="Resources\anim\shrink_fade_out_from_bottom.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IMAS.Squeezencnn\IMAS.Squeezencnn.csproj">
-      <Project>{51189ed4-fb80-47d8-9639-54e73595d00d}</Project>
-      <Name>IMAS.Squeezencnn</Name>
-    </ProjectReference>
-    <ProjectReference Include="IMAS.ImageLoader\IMAS.ImageLoader.csproj">
-      <Project>{131AF8A7-6C21-44E2-B7EB-51DF893E9BA7}</Project>
-      <Name>IMAS.ImageLoader</Name>
-    </ProjectReference>
-    <ProjectReference Include="IMAS.KSYPlayer\IMAS.KSYPlayer.csproj">
-      <Project>{8d0bd710-014c-418a-94aa-75062f6eccc6}</Project>
-      <Name>IMAS.KSYPlayer</Name>
-    </ProjectReference>
-    <ProjectReference Include="IMAS.SQlite3\IMAS.SQlite3.csproj">
-      <Project>{85311a10-858b-4565-864d-ff3c69534352}</Project>
-      <Name>IMAS.SQlite3</Name>
-    </ProjectReference>
-    <ProjectReference Include="IMAS_Gaode\IMAS_Gaode.csproj">
-      <Project>{14ffe42d-a96e-46eb-a4ca-2101b95d6855}</Project>
-      <Name>IMAS_Gaode</Name>
-    </ProjectReference>
-    <ProjectReference Include="IMAS_IOS_Alert\IMAS_IOS_Alert.csproj">
-      <Project>{a9b01731-5ed6-4359-9d6d-76e75147526c}</Project>
-      <Name>IMAS_IOS_Alert</Name>
-    </ProjectReference>
-    <ProjectReference Include="IMAS_Jimusho\IMAS_Jimusho.csproj">
-      <Project>{fc7cadfa-d569-43b5-a749-cec90233ceee}</Project>
-      <Name>IMAS_Jimusho</Name>
-    </ProjectReference>
-    <ProjectReference Include="IMAS_YsDialog\IMAS_YsDialog.csproj">
-      <Project>{a4f2fba5-5216-40e4-bcc9-3fa173061264}</Project>
-      <Name>IMAS_YsDialog</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\bg_button_baltte_menu.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -707,12 +729,50 @@
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IMAS.Squeezencnn\IMAS.Squeezencnn.csproj">
+      <Project>{51189ed4-fb80-47d8-9639-54e73595d00d}</Project>
+      <Name>IMAS.Squeezencnn</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YsWeChatSDK\YsWeChatSDK.csproj">
+      <Project>{ee7efac8-1d88-4c06-a4f5-7d9f21a60d2d}</Project>
+      <Name>YsWeChatSDK</Name>
+    </ProjectReference>
+    <ProjectReference Include="IMAS.ImageLoader\IMAS.ImageLoader.csproj">
+      <Project>{131af8a7-6c21-44e2-b7eb-51df893e9ba7}</Project>
+      <Name>IMAS.ImageLoader</Name>
+    </ProjectReference>
+    <ProjectReference Include="IMAS.KSYPlayer\IMAS.KSYPlayer.csproj">
+      <Project>{8d0bd710-014c-418a-94aa-75062f6eccc6}</Project>
+      <Name>IMAS.KSYPlayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="IMAS.SQlite3\IMAS.SQlite3.csproj">
+      <Project>{85311a10-858b-4565-864d-ff3c69534352}</Project>
+      <Name>IMAS.SQlite3</Name>
+    </ProjectReference>
+    <ProjectReference Include="IMAS_Gaode\IMAS_Gaode.csproj">
+      <Project>{14ffe42d-a96e-46eb-a4ca-2101b95d6855}</Project>
+      <Name>IMAS_Gaode</Name>
+    </ProjectReference>
+    <ProjectReference Include="IMAS_IOS_Alert\IMAS_IOS_Alert.csproj">
+      <Project>{a9b01731-5ed6-4359-9d6d-76e75147526c}</Project>
+      <Name>IMAS_IOS_Alert</Name>
+    </ProjectReference>
+    <ProjectReference Include="IMAS_Jimusho\IMAS_Jimusho.csproj">
+      <Project>{fc7cadfa-d569-43b5-a749-cec90233ceee}</Project>
+      <Name>IMAS_Jimusho</Name>
+    </ProjectReference>
+    <ProjectReference Include="IMAS_YsDialog\IMAS_YsDialog.csproj">
+      <Project>{a4f2fba5-5216-40e4-bcc9-3fa173061264}</Project>
+      <Name>IMAS_YsDialog</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="..\AzPermission\AzPermission.projitems" Label="Shared" />
+  <Import Project="IMAS.BaiduAI_Manager\IMAS.BaiduAI_Manager.projitems" Label="Shared" />
+  <Import Project="IMAS.OkHttp\IMAS.OkHttp.projitems" Label="Shared" />
   <Import Project="IMAS.Sqlite\IMAS.Sqlite.projitems" Label="Shared" />
   <Import Project="IMAS.Tips.Logic\IMAS.Tips.Logic.projitems" Label="Shared" />
-  <Import Project="IMAS.OkHttp\IMAS.OkHttp.projitems" Label="Shared" />
   <Import Project="IMAS.Utils\IMAS.Utils.projitems" Label="Shared" />
-  <Import Project="IMAS.BaiduAI_Manager\IMAS.BaiduAI_Manager.projitems" Label="Shared" />
-  <Import Project="..\AzPermission\AzPermission.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="packages\Xamarin.Android.Support.Annotations.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.Annotations.targets" Condition="Exists('packages\Xamarin.Android.Support.Annotations.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.Annotations.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

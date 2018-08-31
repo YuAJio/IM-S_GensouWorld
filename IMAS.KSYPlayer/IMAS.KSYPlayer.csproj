@@ -12,7 +12,6 @@
     <RootNamespace>IMAS.KSYPlayer</RootNamespace>
     <AssemblyName>IMAS.KSYPlayer</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

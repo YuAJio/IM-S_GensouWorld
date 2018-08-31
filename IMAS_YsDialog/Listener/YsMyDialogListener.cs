@@ -33,10 +33,23 @@ namespace IMAS_YsDialog.Listener
             this.OnThirdAct = onThirdAct;
             this.OnCancelAct = onCancelAct;
         }
-
-        public YsMyDialogListener()
+        public YsMyDialogListener(Action onFirstAct, Action onSecondAct, Action onCancelAct)
         {
+            this.OnFirstAct = onFirstAct;
+            this.OnSecondAct = onSecondAct;
+            this.OnCancelAct = onCancelAct;
         }
+        public YsMyDialogListener(Action onFirstAct, Action onCancelAct)
+        {
+            this.OnFirstAct = onFirstAct;
+            this.OnCancelAct = onCancelAct;
+        }
+        public YsMyDialogListener(Action onFirstAct)
+        {
+            this.OnFirstAct = onFirstAct;
+        }
+
+        public YsMyDialogListener() { }
 
         public Action OnFirstAct { get; private set; }
         public Action OnSecondAct { get; private set; }

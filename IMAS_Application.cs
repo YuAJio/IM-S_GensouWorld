@@ -10,6 +10,7 @@ using IMAS.Utils.Logs;
 using Com.Nostra13.Universalimageloader.Cache.Disc.Impl;
 using Com.Nostra13.Universalimageloader.Core;
 using IMAS.BaiduAI.Vocal_Compound;
+using Com.Tencent.MM.Opensdk.Openapi;
 
 namespace IdoMaster_GensouWorld
 {
@@ -57,6 +58,11 @@ namespace IdoMaster_GensouWorld
 
             #region 初始化百度语音合成
             //BaiduVocalManager.GetKagemusha().Init(ApplicationContext, null);
+            #endregion
+
+            #region 初始化微信
+            var api = WXAPIFactory.CreateWXAPI(this, "", true);
+            api.RegisterApp("");
             #endregion
         }
 

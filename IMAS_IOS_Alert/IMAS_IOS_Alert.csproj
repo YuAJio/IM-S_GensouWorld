@@ -12,7 +12,6 @@
     <RootNamespace>IMAS_IOS_Alert</RootNamespace>
     <AssemblyName>IMAS_IOS_Alert</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

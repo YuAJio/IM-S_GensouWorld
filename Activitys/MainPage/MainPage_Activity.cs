@@ -129,11 +129,8 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
                 case Resource.Id.bt_quite_game:
 #if DEBUG
                     {
-                        var strings = new string[] { "移花", "太白", "丐帮", "五毒", "神威" };
-                        var jk = YsDialogManager.BuildMdSingleChoose("标题", 2, strings, new YsMyItemDialogListener((j, k) =>
-                        {
-                            var js = YsDialogManager.BuildIosAlert($"选中的第{k}个", $"选的内容是{j}", new YsMyDialogListener()).Show();
-                        })).Show();
+                        //StartActivity(new Intent(this, typeof(WeChatTestActivity)));
+                        //YsDialogManager.BuildIosSingleChoose(new List<string>() { "", "", "", "" }, new YsMyItemDialogListener((j, k) => { })).Show();
                         //var jk = YsDialogManager.BuildMdAlert("这是标题", "这个是啥", new YsMyDialogListener(() =>
                         //{
                         //    ShowMsgLong("这个是第一个 第一个!");
