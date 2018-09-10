@@ -147,7 +147,9 @@ namespace IdoMaster_GensouWorld.Activitys.GachaPage
                 rl_father.StartAnimation(anime);
 
                 var vibrator = (Vibrator)Application.GetSystemService(Service.VibratorService);
+#pragma warning disable CS0618 // 类型或成员已过时
                 vibrator.Vibrate(new long[] { 0, 300, 100, 500 }, -1);
+#pragma warning restore CS0618 // 类型或成员已过时
 
             }
             catch (Exception e)
