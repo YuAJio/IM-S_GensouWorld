@@ -33,8 +33,6 @@ using ZXing.QrCode;
 using System.IO;
 using Android.Hardware;
 using Android.Graphics;
-using Com.Yurishi.Ysdialog;
-using IMAS_YsDialog.Listener;
 
 namespace IdoMaster_GensouWorld.Activitys.MainPage
 {
@@ -84,7 +82,6 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
 
         public override void E_InitData()
         {
-            YsDialogManager.Init(this);
 
             tv_version.Text = GetVersionName();
 

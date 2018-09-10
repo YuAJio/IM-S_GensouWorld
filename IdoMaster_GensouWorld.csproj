@@ -730,14 +730,6 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IMAS.Squeezencnn\IMAS.Squeezencnn.csproj">
-      <Project>{51189ed4-fb80-47d8-9639-54e73595d00d}</Project>
-      <Name>IMAS.Squeezencnn</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\YsWeChatSDK\YsWeChatSDK.csproj">
-      <Project>{ee7efac8-1d88-4c06-a4f5-7d9f21a60d2d}</Project>
-      <Name>YsWeChatSDK</Name>
-    </ProjectReference>
     <ProjectReference Include="IMAS.ImageLoader\IMAS.ImageLoader.csproj">
       <Project>{131af8a7-6c21-44e2-b7eb-51df893e9ba7}</Project>
       <Name>IMAS.ImageLoader</Name>

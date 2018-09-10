@@ -18,7 +18,6 @@ using Android.Views;
 using Android.Widget;
 using Baidu.Aip.Ocr;
 using Com.Nostra13.Universalimageloader.Core;
-using Com.Tencent.Squeezencnn;
 using IdoMaster_GensouWorld.Activitys.BattlePage;
 using IdoMaster_GensouWorld.Utils;
 using IMAS.BaiduAI;
@@ -107,7 +106,6 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
 
         public override void E_InitData()
         {
-            Com.Yurishi.Ysdialog.YsDialogManager.Init(this);
 
             InitSqueezencnn();
 
@@ -481,9 +479,7 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
                             var bitmap = ProduceBitmap(jk);
                             Bitmap rgba = bitmap.Copy(Bitmap.Config.Argb8888, true);
                             yourSelectedImage = Bitmap.CreateScaledBitmap(rgba, 224, 224, false);
-                            var result = mangaer.Get_Instance().Detect(yourSelectedImage);
-                            //ToTakeHttpResult(jk);
-                            var js = Com.Yurishi.Ysdialog.YsDialogManager.BuildIosAlert("弟弟", $"识别的是{result}", new IMAS_YsDialog.Listener.YsMyDialogListener()).Show();
+                            ToTakeHttpResult(jk);
                         }
                         break;
                     case IMAS_Constants.OnTakeAIdCardPictrueKey:
@@ -500,10 +496,8 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
                                 var bitmap = ProduceBitmap(imagePath);
                                 Bitmap rgba = bitmap.Copy(Bitmap.Config.Argb8888, true);
                                 yourSelectedImage = Bitmap.CreateScaledBitmap(rgba, 224, 224, false);
-                                var result = mangaer.Get_Instance().Detect(yourSelectedImage);
 
-                                //ToTakeHttpResult(PicLastPathTemp);
-                                var js = Com.Yurishi.Ysdialog.YsDialogManager.BuildIosAlert("弟弟", $"识别的是{result}", new IMAS_YsDialog.Listener.YsMyDialogListener());
+                                ToTakeHttpResult(PicLastPathTemp);
                             }, TaskScheduler.FromCurrentSynchronizationContext());
 
                         }
@@ -595,7 +589,6 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
         }
 
         #region 识别功能
-        private SqueezeManager mangaer = new SqueezeManager();
         private Bitmap yourSelectedImage;
         /// <summary>
         /// 初始化
@@ -664,7 +657,6 @@ namespace IdoMaster_GensouWorld.Activitys.ColonelRoomPage
 
             try
             {
-                mangaer.Get_Instance().InitSqueeze(param, bin, words);
             }
             catch (Exception e)
             {
