@@ -767,7 +767,6 @@
       <Name>IMAS_YsDialog</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="..\AzPermission\AzPermission.projitems" Label="Shared" />
   <Import Project="IMAS.BaiduAI_Manager\IMAS.BaiduAI_Manager.projitems" Label="Shared" />
   <Import Project="IMAS.OkHttp\IMAS.OkHttp.projitems" Label="Shared" />
   <Import Project="IMAS.Sqlite\IMAS.Sqlite.projitems" Label="Shared" />
