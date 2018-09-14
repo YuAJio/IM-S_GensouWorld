@@ -387,6 +387,7 @@ namespace IdoMaster_GensouWorld.Activitys.CharacterPage
                 info_character.DefencePoint -= clickItem.DEFPromote;
                 //adapter_soubi[e.Position].IsSelect = false;
                 //adapter_soubi.NotifyDataSetChanged();
+                clickItem.IsSelect = false;
                 soubiDict[EnumDescription.GetFieldText(clickItem.ItemType)] = null;
             }
             else

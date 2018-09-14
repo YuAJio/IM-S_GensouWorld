@@ -126,7 +126,7 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
                 case Resource.Id.bt_quite_game:
 #if DEBUG
                     {
-                        //StartActivity(new Intent(this, typeof(WeChatTestActivity)));
+                        StartActivity(new Intent(this, typeof(LeftDiftClosActivity)));
                         //YsDialogManager.BuildIosSingleChoose(new List<string>() { "", "", "", "" }, new YsMyItemDialogListener((j, k) => { })).Show();
                         //var jk = YsDialogManager.BuildMdAlert("这是标题", "这个是啥", new YsMyDialogListener(() =>
                         //{
@@ -452,7 +452,7 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
         #region 监听返回键做APP退出
         private void CleanAllActivity(int count)
         {
-            for (int i = 0;i < count;i++)
+            for (int i = 0; i < count; i++)
             {
                 var activity = IMAS_Application.Sington.OpenActivityList[IMAS_Application.Sington.OpenActivityList.Count];
                 IMAS_Application.Sington.OpenActivityList.Remove(activity);

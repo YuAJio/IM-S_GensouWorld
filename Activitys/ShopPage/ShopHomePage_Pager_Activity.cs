@@ -329,12 +329,6 @@ namespace IdoMaster_GensouWorld.Activitys.ShopPage
         {
             Task.Run(async () =>
             {
-#if DEBUG
-                if (Producer_Money <= 2000)
-                {
-                    Producer_Money = 65535;
-                }
-#endif
                 var result = await IMAS_ProAppDBManager.GetInstance().UpdateProducerMoney(info_Producer.PkId, Producer_Money);
                 return result;
             }).ContinueWith(t =>

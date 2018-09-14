@@ -32,11 +32,12 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidUseSharedRuntime>true</AndroidUseSharedRuntime>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
-    <EnableProguard>true</EnableProguard>
+    <EnableProguard>false</EnableProguard>
     <AndroidSupportedAbis>armeabi;armeabi-v7a;x86;x86_64</AndroidSupportedAbis>
+    <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -220,6 +221,9 @@
     <Reference Include="Xamarin.RecyclerView.SwipeMenu, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Xamarin.RecyclerView.SwipeMenu.1.0.0\lib\MonoAndroid\Xamarin.RecyclerView.SwipeMenu.dll</HintPath>
     </Reference>
+    <Reference Include="Ys.BeLazy">
+      <HintPath>..\..\..\CODE\Z_第三方DLL\Ys.BeLazy.dll</HintPath>
+    </Reference>
     <Reference Include="ZKWeb.System.Drawing, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\ZKWeb.System.Drawing.4.0.0\lib\netstandard2.0\ZKWeb.System.Drawing.dll</HintPath>
     </Reference>
@@ -249,6 +253,7 @@
     <Compile Include="Activitys\ShopPage\ShopHomePage_Pager_Activity.cs" />
     <Compile Include="Activitys\Test\AzuminItemTouchHelper.cs" />
     <Compile Include="Activitys\Test\GaodeMapActivity.cs" />
+    <Compile Include="Activitys\Test\LeftDiftClosActivity.cs" />
     <Compile Include="Activitys\Test\RefreshRecyclerView.cs" />
     <Compile Include="Activitys\Test\SlidActivity.cs" />
     <Compile Include="Activitys\Test\TagView.cs" />

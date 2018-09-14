@@ -204,7 +204,6 @@ namespace IdoMaster_GensouWorld.Activitys.GachaPage
 
         #endregion
 
-
         #region 图片加载进度监听
         public void OnLoadingCancelled(string p0, View p1)
         {

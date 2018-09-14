@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using IMAS.Tips.Logic.LocalDBManager;
 using IdoMaster_GensouWorld.Adapters;
 using IMAS.CupCake.Extensions;
+using System.Threading;
 
 namespace IdoMaster_GensouWorld.Activitys.ShopPage
 {
@@ -371,6 +372,7 @@ namespace IdoMaster_GensouWorld.Activitys.ShopPage
         {
             Task.Run(async () =>
             {
+                Thread.Sleep(500);
                 var result = await IMAS_ProAppDBManager.GetInstance().QProducerItemDetails(info_Producer.PkId);
                 return result;
             }).ContinueWith(t =>
