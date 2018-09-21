@@ -3,10 +3,10 @@
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
     <HasSharedItems>true</HasSharedItems>
-    <SharedGUID>9b1544de-ce4b-428d-a768-2f6afce776be</SharedGUID>
+    <SharedGUID>2535abd3-affb-4ff6-b993-c553285a2250</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>IMAS.Utils</Import_RootNamespace>
+    <Import_RootNamespace>IMAS.HelpfulUtils</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Cryptographic\HashCryptographic.cs" />
@@ -16,10 +16,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)HardCodes\FingerPrintManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logs\FileLogManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SharedPreferences\AndroidPerFerenceProvider.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)IMAS.Utils.projitems" />
-    <None Include="$(MSBuildThisFileDirectory)IMAS.Utils.shproj" />
-    <None Include="$(MSBuildThisFileDirectory)IMAS.Utils.shproj.user" />
+    <Compile Include="$(MSBuildThisFileDirectory)Zatsu\CrashHandler.cs" />
   </ItemGroup>
 </Project>

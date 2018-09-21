@@ -59,6 +59,10 @@ namespace IdoMaster_GensouWorld
             //BaiduVocalManager.GetKagemusha().Init(ApplicationContext, null);
             #endregion
 
+            #region 初始化CrashHandler
+
+            #endregion
+
         }
 
         /// <summary>

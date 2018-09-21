@@ -39,12 +39,20 @@ namespace IdoMaster_GensouWorld.Activitys.Test
             bt.Click -= OnClickListner;
             bt.Click += OnClickListner;
 
+
+#if DEBUG
+            var jk = new List<string>();
+
+            var sj = jk[8];
+#endif
+
         }
 
         private void OnClickListner
             (object sender, EventArgs e)
         {
             StartActivity(new Intent(this, typeof(LeftDiftClosActivity)));
+
         }
 
         private View ProcessLayout()
