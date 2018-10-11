@@ -10,6 +10,8 @@ using IMAS.Utils.Logs;
 using Com.Nostra13.Universalimageloader.Cache.Disc.Impl;
 using Com.Nostra13.Universalimageloader.Core;
 using IMAS.BaiduAI.Vocal_Compound;
+using IMAS.HelpfulUtils.Zatsu;
+using IMAS.CupCake.Extensions;
 
 namespace IdoMaster_GensouWorld
 {
@@ -60,9 +62,18 @@ namespace IdoMaster_GensouWorld
             #endregion
 
             #region 初始化CrashHandler
-
+            InitCrashHandler();
             #endregion
 
+            #region 系统Task异常接收
+            System.Threading.Tasks.TaskScheduler.UnobservedTaskException -= TaskScheduler_UnobservedTaskException;
+            System.Threading.Tasks.TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+            #endregion
+
+            #region Android异常接收
+            AndroidEnvironment.UnhandledExceptionRaiser -= AndroidEnvironment_UnhandledExceptionRaiser;
+            AndroidEnvironment.UnhandledExceptionRaiser += AndroidEnvironment_UnhandledExceptionRaiser;
+            #endregion
         }
 
         /// <summary>
@@ -103,5 +114,54 @@ namespace IdoMaster_GensouWorld
             var dbPath = $"{path}/imasprodb.db";
             IMAS_ProAppDBManager.GetInstance().Init(this.ApplicationContext, dbPath);//初始化数据库管理器
         }
+
+        /// <summary>
+        /// 创建异常捕获
+        /// </summary>
+        private void InitCrashHandler()
+        {
+            CrashHandler.GetInstance().Init(ApplicationContext);
+
+            CrashHandler.GetInstance().ThrowableCallback -= ThrowableCallback;
+            CrashHandler.GetInstance().ThrowableCallback += ThrowableCallback;
+        }
+
+        #region 事件接收者
+        /// <summary>
+        /// 异常回调处理
+        /// </summary>
+        /// <param name="ex"></param>
+        private void ThrowableCallback(Java.Lang.Throwable ex)
+        {
+#if DEBUG
+            Console.WriteLine("异常：" + ex.Message);
+            //Com.Chteam.Agent.BuglyAgentHelper.PostCatchedException(ex);
+            //Com.Chteam.Agent.BuglyAgentHelper.TestJavaCrash();
+#else
+            Com.Chteam.Agent.BuglyAgentHelper.PostCatchedException(ex);
+#endif
+
+            FileLogManager.GetInstance().Log(LogLevel.Error, "Handler异常", ex.ToJson(true));
+        }
+        /// <summary>
+        /// task处理异常
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TaskScheduler_UnobservedTaskException(object sender, System.Threading.Tasks.UnobservedTaskExceptionEventArgs e)
+        {
+            FileLogManager.GetInstance().Log(LogLevel.Error, "task异常", e.Exception.ToJson(true));
+        }
+        /// <summary>
+        /// Android 运行时异常
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AndroidEnvironment_UnhandledExceptionRaiser(object sender, RaiseThrowableEventArgs e)
+        {
+            FileLogManager.GetInstance().Log(LogLevel.Error, "Android异常", e.Exception.ToJson(true));
+        }
+        #endregion
+
     }
 }

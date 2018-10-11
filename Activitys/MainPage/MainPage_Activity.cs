@@ -126,7 +126,7 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
                 case Resource.Id.bt_quite_game:
 #if DEBUG
                     {
-                        StartActivity(new Intent(this, typeof(LeftDiftClosActivity)));
+                        StartActivity(new Intent(this, typeof(WeekSleepControlActivity)));
                         //YsDialogManager.BuildIosSingleChoose(new List<string>() { "", "", "", "" }, new YsMyItemDialogListener((j, k) => { })).Show();
                         //var jk = YsDialogManager.BuildMdAlert("这是标题", "这个是啥", new YsMyDialogListener(() =>
                         //{

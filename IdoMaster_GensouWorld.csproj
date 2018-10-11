@@ -32,9 +32,9 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+    <AndroidUseSharedRuntime>true</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
-    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+    <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
     <EnableProguard>false</EnableProguard>
     <AndroidSupportedAbis>armeabi;armeabi-v7a;x86;x86_64</AndroidSupportedAbis>
     <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
@@ -259,6 +259,7 @@
     <Compile Include="Activitys\Test\TagView.cs" />
     <Compile Include="Activitys\Test\WeChatTestActivity.cs" />
     <Compile Include="Activitys\Test\WeChatTestClass.cs" />
+    <Compile Include="Activitys\Test\WeekSleepControlActivity.cs" />
     <Compile Include="Film_Activitys\Film_Details_Activity.cs" />
     <Compile Include="Film_Activitys\Film_Details_Activity_IJK.cs" />
     <Compile Include="Film_Activitys\Film_HomePage.cs" />
@@ -763,6 +764,11 @@
       <Project>{a4f2fba5-5216-40e4-bcc9-3fa173061264}</Project>
       <Name>IMAS_YsDialog</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\activity_week_sleep_control.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="IMAS.BaiduAI_Manager\IMAS.BaiduAI_Manager.projitems" Label="Shared" />
   <Import Project="IMAS.OkHttp\IMAS.OkHttp.projitems" Label="Shared" />

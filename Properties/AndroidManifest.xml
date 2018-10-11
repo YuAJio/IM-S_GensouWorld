@@ -19,6 +19,9 @@
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 	<uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+	<uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+	<uses-permission android:name="android.permission.DEVICE_POWER" />
 	<application android:allowBackup="true" android:label="アイゲンソウ" android:icon="@mipmap/icon" android:theme="@style/Theme.AppCompat">
 		<!-- Android 7.0以上需要使用文件权限提供者-->
 		<provider android:name="android.support.v4.content.FileProvider" android:authorities="IdoMaster_GensouWorld.IdoMaster_GensouWorld.fileprovider" android:grantUriPermissions="true" android:exported="false">
