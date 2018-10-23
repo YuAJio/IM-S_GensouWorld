@@ -420,10 +420,12 @@ namespace IdoMaster_GensouWorld.Activitys
         private Model_PlayerControllCharacter CreateCharacter_Eins()
         {
             #region 初始化角色装备
-            var dict = new Dictionary<string, Model_Items>();
-            dict.Add(EnumDescription.GetFieldText(ItemEnumeration.WeaponItems), null);
-            dict.Add(EnumDescription.GetFieldText(ItemEnumeration.EquipmentItems), null);
-            dict.Add(EnumDescription.GetFieldText(ItemEnumeration.OtherItems), null);
+            var dict = new Dictionary<string, Model_Items>
+            {
+                { EnumDescription.GetFieldText(ItemEnumeration.WeaponItems), null },
+                { EnumDescription.GetFieldText(ItemEnumeration.EquipmentItems), null },
+                { EnumDescription.GetFieldText(ItemEnumeration.OtherItems), null }
+            };
             #endregion
             var data = new Model_PlayerControllCharacter
             {

@@ -143,7 +143,7 @@ namespace IdoMaster_GensouWorld.Film_Activitys
         {
             if (keyCode == Keycode.Enter && e.Action == KeyEventActions.Down)
             {
-                HideTheSoftKeybow();
+                HideTheSoftKeybow(et_Search);
                 var txt = et_Search.Text.Trim();
                 if (!string.IsNullOrEmpty(txt))
                 {

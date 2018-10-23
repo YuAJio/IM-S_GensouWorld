@@ -301,10 +301,13 @@ namespace IdoMaster_GensouWorld
         /// <summary>
         /// 隐藏软键盘
         /// </summary>
-        protected void HideTheSoftKeybow()
+        protected void HideTheSoftKeybow(EditText et)
         {
-            var inputMethodManager = (InputMethodManager)Application.Context.GetSystemService(Context.InputMethodService);
-            inputMethodManager.ToggleSoftInput(0, HideSoftInputFlags.NotAlways);
+            var inputMethodManager = (InputMethodManager)this.GetSystemService(Context.InputMethodService);
+            if (inputMethodManager.IsActive)
+            {
+                inputMethodManager.HideSoftInputFromWindow(et.WindowToken, 0);
+            }
         }
         #endregion
         #region 权限相关

@@ -346,16 +346,30 @@ namespace IdoMaster_GensouWorld.Activitys.GachaPage
         {
             base.OnStart();
             Console.Write("===================OnStart===================");
-            shakeDetector.RegisterOnShakeListener(this);
-            shakeDetector.Start();
+            try
+            {
+                shakeDetector.RegisterOnShakeListener(this);
+                shakeDetector.Start();
+            }
+            catch (Exception e)
+            {
+            }
+       
         }
 
         protected override void OnStop()
         {
             base.OnStop();
             Console.Write("===================OnStop===================");
-            shakeDetector.Stop();
-            shakeDetector.UnRegisterOnShakeListener(this);
+            try
+            {
+                shakeDetector.Stop();
+                shakeDetector.UnRegisterOnShakeListener(this);
+            }
+            catch (Exception e)
+            {
+            }
+          
         }
         #endregion
 
