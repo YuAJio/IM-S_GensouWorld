@@ -96,6 +96,10 @@ namespace IdoMaster_GensouWorld
         /// 角色文本
         /// </summary>
         public const string Ass_ChatContent = "CCC_ChatList.json";
+        /// <summary>
+        /// 测试json文本
+        /// </summary>
+        public const string Ass_SensorDevice = "SensorDeviceType.json";
         #endregion
         #endregion
 
@@ -238,5 +242,6 @@ namespace IdoMaster_GensouWorld
         /// </summary>
         public const int KsyTextureViewId = 0x12534;
         #endregion
+
     }
 }

@@ -159,7 +159,7 @@ namespace IdoMaster_GensouWorld.Activitys.ProductionPage
                 case Resource.Id.iv_menu_attack:
                     //出击
                     {
-                        StartActivity(new Intent(this, typeof(Battle_Map_Select_Activity)));
+                        StartActivityForResult(new Intent(this, typeof(Battle_Map_Select_Activity)), IMAS_Constants.OnPageRefreshKey);
                     }
                     break;
                 case Resource.Id.iv_menu_lottery:

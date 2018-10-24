@@ -458,6 +458,7 @@ namespace IdoMaster_GensouWorld.Activitys.BattlePage
                                 }, LongTime(1.5));
                             }, (j, k) =>
                             {
+                                SetResult(Result.Ok);
                                 this.Finish();
                             }, "続く", "帰る");
                         }, LongTime(1.0));

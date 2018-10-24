@@ -33,6 +33,7 @@ using ZXing.QrCode;
 using System.IO;
 using Android.Hardware;
 using Android.Graphics;
+using IMAS.Utils.Files;
 
 namespace IdoMaster_GensouWorld.Activitys.MainPage
 {
@@ -126,7 +127,8 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
                 case Resource.Id.bt_quite_game:
 #if DEBUG
                     {
-                        StartActivity(new Intent(this, typeof(WeekSleepControlActivity)));
+
+                        //StartActivity(new Intent(this, typeof(WeekSleepControlActivity)));
                         //YsDialogManager.BuildIosSingleChoose(new List<string>() { "", "", "", "" }, new YsMyItemDialogListener((j, k) => { })).Show();
                         //var jk = YsDialogManager.BuildMdAlert("这是标题", "这个是啥", new YsMyDialogListener(() =>
                         //{
@@ -178,7 +180,32 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
         {
             ShowDiyToastLong("好呀好呀");
         }
-
+        /// <summary>
+        /// 电子秤校准传感器参数
+        /// </summary>
+        public class SensorDeviceParmas
+        {
+            ///// <summary>
+            ///// 是否是选中
+            ///// </summary>
+            //public bool IsSelected { get; set; }
+            /// <summary>
+            /// 传感器名称
+            /// </summary>
+            public string SensorName { get; set; }
+            /// <summary>
+            /// 传感器经度
+            /// </summary>
+            public int Jingdu { get; set; }
+            /// <summary>
+            /// 最大量程
+            /// </summary>
+            public int MaxWeight { get; set; }
+            /// <summary>
+            /// 传感器经度AD值
+            /// </summary>
+            public float JingduAD { get; set; }
+        }
         public override void G_OnAdapterItemClickListener(View v, AdapterView.ItemClickEventArgs e)
         {
 
