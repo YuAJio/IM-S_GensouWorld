@@ -12,6 +12,8 @@ using Com.Nostra13.Universalimageloader.Core;
 using IMAS.BaiduAI.Vocal_Compound;
 using IMAS.HelpfulUtils.Zatsu;
 using IMAS.CupCake.Extensions;
+using Com.Qiyukf.Unicorn.Api;
+using Android.Graphics;
 
 namespace IdoMaster_GensouWorld
 {
@@ -23,6 +25,23 @@ namespace IdoMaster_GensouWorld
         /// 打开的activity集合
         /// </summary>
         public List<Activity> OpenActivityList = null;
+
+        #region 点击消息事件相关
+        /// <summary>
+        /// 点击消息进入某个页面
+        /// </summary>
+        private StatusBarNotificationConfig mStatusBarNotificationConfig;
+
+        /// <summary>
+        /// 设置消息进入页面
+        /// </summary>
+        /// <param name="activity"></param>
+        public void SetServiceEntranceActivity(Activity activity)
+        {
+            mStatusBarNotificationConfig.NotificationEntrance = activity.Class;
+        }
+        #endregion
+
         /// <summary>
         /// 一定要写这个
         /// </summary>
@@ -36,6 +55,11 @@ namespace IdoMaster_GensouWorld
             base.OnCreate();
             Sington = this;
             OpenActivityList = new List<Activity>();
+
+            mStatusBarNotificationConfig = new StatusBarNotificationConfig
+            {
+                NotificationEntrance = Java.Lang.Class.FromType(typeof(Activitys.MainPage.MainPage_Activity))
+            };
 
             #region 初始化文件管理器
             FilePathManager.GetInstance().Init(ApplicationContext);
@@ -74,7 +98,12 @@ namespace IdoMaster_GensouWorld
             AndroidEnvironment.UnhandledExceptionRaiser -= AndroidEnvironment_UnhandledExceptionRaiser;
             AndroidEnvironment.UnhandledExceptionRaiser += AndroidEnvironment_UnhandledExceptionRaiser;
             #endregion
+
+            #region 初始化网易七鱼
+            Utils.Managers.NanaSakanaManager.GetInstance().InitNanaSakana(this);
+            #endregion
         }
+
 
         /// <summary>
         /// 初始化图片加载器

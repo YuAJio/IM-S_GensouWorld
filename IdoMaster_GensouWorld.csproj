@@ -255,6 +255,7 @@
     <Compile Include="Activitys\Test\GaodeMapActivity.cs" />
     <Compile Include="Activitys\Test\LeftDiftClosActivity.cs" />
     <Compile Include="Activitys\Test\RefreshRecyclerView.cs" />
+    <Compile Include="Activitys\Test\SevenFishPigActivity.cs" />
     <Compile Include="Activitys\Test\SlidActivity.cs" />
     <Compile Include="Activitys\Test\TagView.cs" />
     <Compile Include="Activitys\Test\WeChatTestActivity.cs" />
@@ -287,6 +288,7 @@
     <Compile Include="IMAS_Constants.cs" />
     <Compile Include="Listeners\FingerAuthenticationCallback.cs" />
     <Compile Include="Listeners\KsyAzEventCallBack.cs" />
+    <Compile Include="Listeners\UnicornImageLoader.cs" />
     <Compile Include="Listeners\YsOnkeyListener.cs" />
     <Compile Include="Listeners\YsOnMarkerClickListener.cs" />
     <Compile Include="Listeners\YsSeekChangeListener.cs" />
@@ -297,10 +299,11 @@
     <Compile Include="Threads\NormalRunnable.cs" />
     <Compile Include="Threads\YurishBaseiHandler.cs" />
     <Compile Include="Utils\AnimationHelper.cs" />
-    <Compile Include="Utils\AzPermissionManager.cs" />
+    <Compile Include="Utils\Managers\AzPermissionManager.cs" />
     <Compile Include="Utils\DisplayUtil.cs" />
     <Compile Include="Utils\GalTextUtils.cs" />
     <Compile Include="Utils\ImageLoaderHelper.cs" />
+    <Compile Include="Utils\Managers\NanaSakanaManager.cs" />
     <Compile Include="Utils\PopupWindowHelper.cs" />
     <Compile Include="Utils\PopWindow_FullScreenPalyer.cs" />
     <Compile Include="Utils\ShakeDetector.cs" />
@@ -760,6 +763,10 @@
       <Project>{fc7cadfa-d569-43b5-a749-cec90233ceee}</Project>
       <Name>IMAS_Jimusho</Name>
     </ProjectReference>
+    <ProjectReference Include="IMAS_NetsSevenFishAAR\IMAS_NetsSevenFishAAR.csproj">
+      <Project>{588bc8fa-deca-4f41-947a-d7056c721a36}</Project>
+      <Name>IMAS_NetsSevenFishAAR</Name>
+    </ProjectReference>
     <ProjectReference Include="IMAS_YsDialog\IMAS_YsDialog.csproj">
       <Project>{a4f2fba5-5216-40e4-bcc9-3fa173061264}</Project>
       <Name>IMAS_YsDialog</Name>
@@ -769,6 +776,9 @@
     <AndroidResource Include="Resources\layout\activity_week_sleep_control.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\activity_sevenfish_pigfactory_test.axml" />
   </ItemGroup>
   <Import Project="IMAS.BaiduAI_Manager\IMAS.BaiduAI_Manager.projitems" Label="Shared" />
   <Import Project="IMAS.OkHttp\IMAS.OkHttp.projitems" Label="Shared" />

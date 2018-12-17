@@ -528,17 +528,11 @@ namespace IdoMaster_GensouWorld.Activitys.BattlePage
                                             mHandler.PostDelayed(() =>
                                             {
                                                 if (item.HealingHealthPoint > 0)
-                                                {
                                                     AddBattleMsg($"{BattleCharacterInfo.Name}は {item.HealingHealthPoint} のHpを回復した");
-                                                }
                                                 else if (item.HealingManaPoint > 0)
-                                                {
                                                     AddBattleMsg($"{BattleCharacterInfo.Name}は {item.HealingManaPoint} のMpを回復した");
-                                                }
                                                 else if (item.HealingStaminaPoint > 0)
-                                                {
                                                     AddBattleMsg($"{BattleCharacterInfo.Name}は {item.HealingStaminaPoint} のSpを回復した");
-                                                }
                                             }, LongTime(2));
                                             var list_data = adapter_Item.DataList.ToList();
                                             list_data.Remove(item);

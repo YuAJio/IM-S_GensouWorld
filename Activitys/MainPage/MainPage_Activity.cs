@@ -34,6 +34,7 @@ using System.IO;
 using Android.Hardware;
 using Android.Graphics;
 using IMAS.Utils.Files;
+using Android.Preferences;
 
 namespace IdoMaster_GensouWorld.Activitys.MainPage
 {
@@ -127,6 +128,9 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
                 case Resource.Id.bt_quite_game:
 #if DEBUG
                     {
+                        StartActivity(new Intent(this, typeof(SevenFishPigActivity)));
+                        //Android.Provider.Settings.System.PutInt(ContentResolver, Android.Provider.Settings.System.ScreenOffTimeout,
+                        //    30 * 1000);
 
                         //StartActivity(new Intent(this, typeof(WeekSleepControlActivity)));
                         //YsDialogManager.BuildIosSingleChoose(new List<string>() { "", "", "", "" }, new YsMyItemDialogListener((j, k) => { })).Show();

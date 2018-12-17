@@ -3,7 +3,6 @@
   <remove-node path="/api/package[@name='com.nostra13.universalimageloader.core.assist.deque']/class[@name='LinkedBlockingDeque.DescendingItr']" />
   <remove-node path="/api/package[@name='com.nostra13.universalimageloader.core.assist.deque']/class[@name='LinkedBlockingDeque.Itr']" />
   <remove-node path="/api/package[@name='com.nostra13.universalimageloader.core.imageaware']/class[@name='ImageViewAware']" />
-
   <remove-node path="/api/package[@name='com.nostra13.universalimageloader.cache.memory']/interface[@name='MemoryCacheAware']/method[@name='keys' and count(parameter)=0]" />
 
    <!--C# can't covariance--> 
