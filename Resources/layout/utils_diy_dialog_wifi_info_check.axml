@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFFFF"
+    android:orientation="vertical"
+    android:padding="26dp">
+
+    <TextView
+        android:id="@+id/tv_Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="JasmineRaring"
+        android:textColor="#FF000000"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/ll_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/tv_Name">
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_Cut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingStart="10dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="8dp"
+	    android:background="@drawable/bg_textview_fakedialog"
+        android:text="断开"
+        android:textColor="@color/bg_textview_fakedialog_textcolor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_info" />
+
+    <TextView
+        android:id="@+id/tv_Cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
+        android:paddingStart="10dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="10dp"
+		android:background="@drawable/bg_textview_fakedialog"
+        android:paddingBottom="8dp"
+        android:text="取消"
+        android:textColor="@color/bg_textview_fakedialog_textcolor"
+        app:layout_constraintBottom_toBottomOf="@id/tv_Cut"
+        app:layout_constraintEnd_toStartOf="@id/tv_Cut" />
+
+</android.support.constraint.ConstraintLayout>

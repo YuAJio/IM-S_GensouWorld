@@ -12,8 +12,8 @@ using Com.Nostra13.Universalimageloader.Core;
 using IMAS.BaiduAI.Vocal_Compound;
 using IMAS.HelpfulUtils.Zatsu;
 using IMAS.CupCake.Extensions;
-using Com.Qiyukf.Unicorn.Api;
 using Android.Graphics;
+using Android.Views;
 
 namespace IdoMaster_GensouWorld
 {
@@ -27,19 +27,19 @@ namespace IdoMaster_GensouWorld
         public List<Activity> OpenActivityList = null;
 
         #region 点击消息事件相关
-        /// <summary>
-        /// 点击消息进入某个页面
-        /// </summary>
-        private StatusBarNotificationConfig mStatusBarNotificationConfig;
+        ///// <summary>
+        ///// 点击消息进入某个页面
+        ///// </summary>
+        //private StatusBarNotificationConfig mStatusBarNotificationConfig;
 
-        /// <summary>
-        /// 设置消息进入页面
-        /// </summary>
-        /// <param name="activity"></param>
-        public void SetServiceEntranceActivity(Activity activity)
-        {
-            mStatusBarNotificationConfig.NotificationEntrance = activity.Class;
-        }
+        ///// <summary>
+        ///// 设置消息进入页面
+        ///// </summary>
+        ///// <param name="activity"></param>
+        //public void SetServiceEntranceActivity(Activity activity)
+        //{
+        //    mStatusBarNotificationConfig.NotificationEntrance = activity.Class;
+        //}
         #endregion
 
         /// <summary>
@@ -56,10 +56,10 @@ namespace IdoMaster_GensouWorld
             Sington = this;
             OpenActivityList = new List<Activity>();
 
-            mStatusBarNotificationConfig = new StatusBarNotificationConfig
-            {
-                NotificationEntrance = Java.Lang.Class.FromType(typeof(Activitys.MainPage.MainPage_Activity))
-            };
+            //mStatusBarNotificationConfig = new StatusBarNotificationConfig
+            //{
+            //    NotificationEntrance = Java.Lang.Class.FromType(typeof(Activitys.MainPage.MainPage_Activity))
+            //};
 
             #region 初始化文件管理器
             FilePathManager.GetInstance().Init(ApplicationContext);
@@ -99,10 +99,33 @@ namespace IdoMaster_GensouWorld
             AndroidEnvironment.UnhandledExceptionRaiser += AndroidEnvironment_UnhandledExceptionRaiser;
             #endregion
 
-            #region 初始化网易七鱼
-            Utils.Managers.NanaSakanaManager.GetInstance().InitNanaSakana(this);
-            #endregion
+            //#region 初始化网易七鱼
+            //Unicorn.Init(this, ysfAppId(), ySFOptions(), new Listeners.UnicornImageLoader());
+            ////Utils.Managers.NanaSakanaManager.GetInstance().InitNanaSakana(this);
+            //#endregion
         }
+
+        #region FlowView相关
+        private WindowManagerLayoutParams wmParams = new WindowManagerLayoutParams();
+        public WindowManagerLayoutParams GetWindowManagerLayoutParams()
+        {
+            return wmParams;
+        }
+        #endregion
+        //#region 七鱼初始化相关
+        //private string ysfAppId()
+        //{
+        //    return "9c761972343819f684df4efd0a010996";
+        //}
+
+        //private YSFOptions ySFOptions()
+        //{
+        //    var options = new YSFOptions();
+        //    options.StatusBarNotificationConfig = new StatusBarNotificationConfig();
+        //    options.StatusBarNotificationConfig.NotificationSmallIconId = Resource.Drawable.notification_template_icon_bg;
+        //    return options;
+        //}
+        //#endregion
 
 
         /// <summary>

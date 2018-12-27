@@ -15,7 +15,6 @@ using Android.Runtime;
 using Android.Support.V4.Content;
 using Android.Support.V7.App;
 using Android.Preferences;
-using Com.Qiyukf.Nimlib.Sdk;
 
 namespace IdoMaster_GensouWorld
 {
@@ -52,7 +51,7 @@ namespace IdoMaster_GensouWorld
             //添加开启的Activity进入缓存列表
             IMAS_Application.Sington?.OpenActivityList?.Add(this);
             //添加点击消息进入某页
-            ((IMAS_Application)Application).SetServiceEntranceActivity(this);
+            //((IMAS_Application)Application).SetServiceEntranceActivity(this);
 
             if (A_GetContentViewId() <= 0)
                 SetContentView(new LinearLayout(this));
@@ -64,7 +63,6 @@ namespace IdoMaster_GensouWorld
             D_BindEvent();
             E_InitData();
 
-            ///asdasdsadsadsad
         }
 
         #region 封装方法
@@ -344,20 +342,28 @@ namespace IdoMaster_GensouWorld
         }
         #endregion
         #region 杂项
-        /// <summary>
-        /// 七鱼
-        /// </summary>
-        private void ParseIntent()
-        {
-            var intent = Intent;
-            if (intent.HasExtra(NimIntent.ExtraNotifyContent))
-            {
-                Utils.Managers.NanaSakanaManager.GetInstance().
-                     OpenCsPage(this);
-                //清理掉Intent,防止堆栈恢复时又打开客服窗口
-                Intent = new Intent();
-            }
-        }
+        ///// <summary>
+        ///// 七鱼
+        ///// </summary>
+        //private void ParseIntent()
+        //{
+        //    var intent = Intent;
+        //    if (intent.HasExtra(NimIntent.ExtraNotifyContent))
+        //    {
+        //        if (Utils.Managers.NanaSakanaManager.GetInstance().
+        //             OpenCsPage(this))
+        //        {  //清理掉Intent,防止堆栈恢复时又打开客服窗口
+        //            Intent = new Intent();
+        //        }
+        //        else
+        //        {//打开客服APP失败,没有该APP
+        //            ShowMsgLong("打开客服APP失败,没有该APP");
+        //        }
+
+
+
+        //    }
+        //}
         #endregion
         #endregion
         #region 抽象方法
@@ -410,12 +416,12 @@ namespace IdoMaster_GensouWorld
 
         #endregion
         #region 重写方法
-        protected override void OnNewIntent(Intent intent)
-        {
-            ///七鱼操作
-            Intent = intent;
-            ParseIntent();
-        }
+        //protected override void OnNewIntent(Intent intent)
+        //{
+        //    ///七鱼操作
+        //    Intent = intent;
+        //    ParseIntent();
+        //}
         #endregion
     }
 }

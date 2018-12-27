@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/sw_wifi"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:text="关闭"
+        android:textColor="#E7E7E7" />
+
+    <TextView
+        android:id="@+id/tv_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/sw_wifi"
+        android:gravity="center"
+        android:text="要查看可用网络,请打开 W I F I"
+        android:textColor="#7E7E7E" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_wifi"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/sw_wifi" />
+
+</RelativeLayout>

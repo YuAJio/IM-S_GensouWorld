@@ -128,7 +128,7 @@ namespace IdoMaster_GensouWorld.Activitys.MainPage
                 case Resource.Id.bt_quite_game:
 #if DEBUG
                     {
-                        StartActivity(new Intent(this, typeof(SevenFishPigActivity)));
+                        StartActivity(new Intent(this, typeof(OtherToolsMainActivity)));
                         //Android.Provider.Settings.System.PutInt(ContentResolver, Android.Provider.Settings.System.ScreenOffTimeout,
                         //    30 * 1000);
 

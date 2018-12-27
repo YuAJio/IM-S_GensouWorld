@@ -305,4 +305,9 @@
   <!-- 海军色 -->
   <color name="black">#000000</color>
   <!-- 黑色 -->
+  
+  <!--wifi密码输入颜色需要-->
+  <color name="dialog_button_enabled">#a942DBBC</color>
+  <color name="dialog_button_normal">#FF1AB394</color>
+  <color name="dialog_button_press">#FFFFFFFF</color>
 </resources>

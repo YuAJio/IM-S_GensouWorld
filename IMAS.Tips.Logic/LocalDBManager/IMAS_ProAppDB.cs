@@ -36,7 +36,7 @@ namespace IMAS.Tips.Logic.LocalDBManager
                     Console.WriteLine("创建数据库表异常：" + t.Exception.Message);
                 }
 
-            }, TaskScheduler.FromCurrentSynchronizationContext());
+            });
         }
 
         /// <summary>
