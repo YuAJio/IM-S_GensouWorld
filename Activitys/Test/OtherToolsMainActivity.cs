@@ -11,6 +11,7 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using IdoMaster_GensouWorld.Activitys.Test.OtherToooooools;
+using IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.SettingsActivitys;
 using IdoMaster_GensouWorld.Adapters;
 using Ys.BeLazy;
 
@@ -53,7 +54,8 @@ namespace IdoMaster_GensouWorld.Activitys.Test
         {
             var list = new List<Moudle_Menu>
             {
-                new Moudle_Menu() { Title = "获取WIFI列表", Path = typeof(WifiFunctionActivity) }
+                new Moudle_Menu() { Title = "获取WIFI列表", Path = typeof(WifiFunctionActivity) },
+                new Moudle_Menu() { Title = "自定义设置页面", Path = typeof(YsSettingActivity) }
             };
 
             adapter_1.SetDataList(list);
@@ -104,7 +106,8 @@ namespace IdoMaster_GensouWorld.Activitys.Test
 
             protected override RecyclerView.ViewHolder AbOnCreateViewHolder(ViewGroup parent, int viewType)
             {
-                return new ViewHolder(View.Inflate(context, Resource.Layout.item_other_tools_main, null));
+                var jk = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.item_other_tools_main, parent, false);
+                return new ViewHolder(jk);
             }
             private class ViewHolder : RecyclerView.ViewHolder
             {

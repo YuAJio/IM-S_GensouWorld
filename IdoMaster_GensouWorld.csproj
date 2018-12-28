@@ -255,7 +255,8 @@
     <Reference Include="Xamarin.RecyclerView.SwipeMenu, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Xamarin.RecyclerView.SwipeMenu.1.0.0\lib\MonoAndroid\Xamarin.RecyclerView.SwipeMenu.dll</HintPath>
     </Reference>
-    <Reference Include="Ys.BeLazy">
+    <Reference Include="Ys.BeLazy, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\CODE\Z_第三方DLL\Ys.BeLazy.dll</HintPath>
     </Reference>
     <Reference Include="ZKWeb.System.Drawing, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -289,7 +290,10 @@
     <Compile Include="Activitys\Test\GaodeMapActivity.cs" />
     <Compile Include="Activitys\Test\LeftDiftClosActivity.cs" />
     <Compile Include="Activitys\Test\OtherToolsMainActivity.cs" />
+    <Compile Include="Activitys\Test\OtherToooooools\SettingsActivitys\Frg_Screen.cs" />
+    <Compile Include="Activitys\Test\OtherToooooools\SettingsActivitys\Frg_UChengAccount.cs" />
     <Compile Include="Activitys\Test\OtherToooooools\WifiFunctionActivity.cs" />
+    <Compile Include="Activitys\Test\OtherToooooools\SettingsActivitys\YsSettingActivity.cs" />
     <Compile Include="Activitys\Test\RefreshRecyclerView.cs" />
     <Compile Include="Activitys\Test\SevenFishPigActivity.cs" />
     <Compile Include="Activitys\Test\SlidActivity.cs" />
@@ -299,6 +303,8 @@
     <Compile Include="Activitys\Test\WeekSleepControlActivity.cs" />
     <Compile Include="CustomControl\Dialogs\WifiLinkDialog.cs" />
     <Compile Include="CustomControl\FloatView.cs" />
+    <Compile Include="CustomControl\RunHorseLanternTextView.cs" />
+    <Compile Include="CustomControl\YsSettingMenuView.cs" />
     <Compile Include="Film_Activitys\Film_Details_Activity.cs" />
     <Compile Include="Film_Activitys\Film_Details_Activity_IJK.cs" />
     <Compile Include="Film_Activitys\Film_HomePage.cs" />
@@ -337,6 +343,7 @@
     <Compile Include="Threads\NormalRunnable.cs" />
     <Compile Include="Threads\YurishBaseiHandler.cs" />
     <Compile Include="Utils\AnimationHelper.cs" />
+    <Compile Include="Utils\DPChangeUtils.cs" />
     <Compile Include="Utils\Managers\AzPermissionManager.cs" />
     <Compile Include="Utils\DisplayUtil.cs" />
     <Compile Include="Utils\GalTextUtils.cs" />
@@ -441,7 +448,6 @@
   <ItemGroup>
     <Folder Include="Resources\layout-land\" />
     <Folder Include="Resources\mipmap-mdpi\" />
-    <Folder Include="Resources\mipmap-xhdpi\" />
     <Folder Include="Resources\mipmap-xxhdpi\" />
     <Folder Include="Resources\mipmap-xxxhdpi\" />
   </ItemGroup>
@@ -869,6 +875,37 @@
   <ItemGroup>
     <AndroidResource Include="Resources\layout\utils_diy_dialog_wifi_info_check.axml">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\activity_ys_setting.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-v24\bg_textview_fakedialog.xml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-v24\bg_textview_setting_menu.xml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\bg_textview_setting_menu.xml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-xhdpi\bg_working.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\frg_ucheng_account.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
