@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_Uninstall"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_textview_setting_menu"
+        android:gravity="center"
+        android:maxLines="1"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:singleLine="true"
+        android:text="卸载"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <View
+        android:id="@+id/v_non1"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        android:background="@color/black"
+        app:layout_constraintEnd_toEndOf="@id/tv_Uninstall"
+        app:layout_constraintStart_toStartOf="@id/tv_Uninstall"
+        app:layout_constraintTop_toBottomOf="@id/tv_Uninstall" />
+
+    <TextView
+        android:id="@+id/tv_AddQuick"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_textview_setting_menu"
+        android:gravity="center"
+        android:maxLines="1"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:singleLine="true"
+        android:text="添加快捷"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/v_non1" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        android:background="@color/black"
+        app:layout_constraintEnd_toEndOf="@id/tv_Uninstall"
+        app:layout_constraintStart_toStartOf="@id/tv_Uninstall"
+        app:layout_constraintTop_toBottomOf="@id/tv_AddQuick" />
+</android.support.constraint.ConstraintLayout>

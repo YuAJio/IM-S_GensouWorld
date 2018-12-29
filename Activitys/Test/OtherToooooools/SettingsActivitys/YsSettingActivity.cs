@@ -57,19 +57,26 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.SettingsActivitys
 
         public override void D_BindEvent()
         {
+            iv_Back.Click += OnClickListener;
+        }
+
+        public override void E_InitData()
+        {
             ll_Menu.AddView(CreatMenuView(0x101, true, title: "WIFI设置"));
             ll_Menu.AddView(CreatMenuView(0x102, true, title: "显示设置"));
             ll_Menu.AddView(CreatMenuView(0x103, true));
         }
 
-        public override void E_InitData()
-        {
-
-        }
-
         public override void F_OnClickListener(View v, EventArgs e)
         {
-
+            switch (v.Id)
+            {
+                case Resource.Id.iv_back:
+                    {
+                        this.Finish();
+                    }
+                    break;
+            }
         }
 
         private void OnMenuClickListner(object sender, EventArgs eventArgse)

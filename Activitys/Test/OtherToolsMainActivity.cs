@@ -10,7 +10,9 @@ using Android.Runtime;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using IdoMaster_GensouWorld.Activitys.MainPage;
 using IdoMaster_GensouWorld.Activitys.Test.OtherToooooools;
+using IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable;
 using IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.SettingsActivitys;
 using IdoMaster_GensouWorld.Adapters;
 using Ys.BeLazy;
@@ -39,7 +41,7 @@ namespace IdoMaster_GensouWorld.Activitys.Test
         public override void C_InitView()
         {
             rv_list = FindViewById<RecyclerView>(Resource.Id.rv_menu);
-            rv_list.SetLayoutManager(new LinearLayoutManager(this));
+            rv_list.SetLayoutManager(new GridLayoutManager(this, 2));
 
         }
 
@@ -55,7 +57,9 @@ namespace IdoMaster_GensouWorld.Activitys.Test
             var list = new List<Moudle_Menu>
             {
                 new Moudle_Menu() { Title = "获取WIFI列表", Path = typeof(WifiFunctionActivity) },
-                new Moudle_Menu() { Title = "自定义设置页面", Path = typeof(YsSettingActivity) }
+                new Moudle_Menu() { Title = "自定义设置页面", Path = typeof(YsSettingActivity) },
+                new Moudle_Menu() { Title = "自定义系统桌面", Path = typeof(Acty_FakeDesktable) },
+                new Moudle_Menu() { Title = "上拉刷新下拉加载", Path = typeof(PrintTestActivity) }
             };
 
             adapter_1.SetDataList(list);

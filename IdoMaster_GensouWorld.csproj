@@ -290,6 +290,7 @@
     <Compile Include="Activitys\Test\GaodeMapActivity.cs" />
     <Compile Include="Activitys\Test\LeftDiftClosActivity.cs" />
     <Compile Include="Activitys\Test\OtherToolsMainActivity.cs" />
+    <Compile Include="Activitys\Test\OtherToooooools\FakeDesktable\Acty_FakeDesktable.cs" />
     <Compile Include="Activitys\Test\OtherToooooools\SettingsActivitys\Frg_Screen.cs" />
     <Compile Include="Activitys\Test\OtherToooooools\SettingsActivitys\Frg_UChengAccount.cs" />
     <Compile Include="Activitys\Test\OtherToooooools\WifiFunctionActivity.cs" />
@@ -303,6 +304,7 @@
     <Compile Include="Activitys\Test\WeekSleepControlActivity.cs" />
     <Compile Include="CustomControl\Dialogs\WifiLinkDialog.cs" />
     <Compile Include="CustomControl\FloatView.cs" />
+    <Compile Include="CustomControl\HightFoucesBackImageView.cs" />
     <Compile Include="CustomControl\RunHorseLanternTextView.cs" />
     <Compile Include="CustomControl\YsSettingMenuView.cs" />
     <Compile Include="Film_Activitys\Film_Details_Activity.cs" />
@@ -343,6 +345,7 @@
     <Compile Include="Threads\NormalRunnable.cs" />
     <Compile Include="Threads\YurishBaseiHandler.cs" />
     <Compile Include="Utils\AnimationHelper.cs" />
+    <Compile Include="Utils\DefaultItemTouchHelper.cs" />
     <Compile Include="Utils\DPChangeUtils.cs" />
     <Compile Include="Utils\Managers\AzPermissionManager.cs" />
     <Compile Include="Utils\DisplayUtil.cs" />
@@ -448,7 +451,6 @@
   <ItemGroup>
     <Folder Include="Resources\layout-land\" />
     <Folder Include="Resources\mipmap-mdpi\" />
-    <Folder Include="Resources\mipmap-xxhdpi\" />
     <Folder Include="Resources\mipmap-xxxhdpi\" />
   </ItemGroup>
   <ItemGroup>
@@ -906,6 +908,24 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\frg_ucheng_account.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\activity_fake_desktable.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\item_fake_desktable_app.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-xxhdpi\bg_fakedesktable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\popwin_item_fake_appmenu.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
