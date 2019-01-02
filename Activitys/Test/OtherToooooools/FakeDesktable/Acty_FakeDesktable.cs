@@ -26,6 +26,7 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
     {
         #region UI控件
         private HightFoucesBackImageView iv_Back;
+        private EditText et_Search;
         private RecyclerView rv_app;
         #endregion
 
@@ -33,6 +34,10 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
         /// App适配器
         /// </summary>
         private AppAdapter adapter_App;
+        /// <summary>
+        /// APK列表
+        /// </summary>
+        private List<Md_Applicaiotn> list_Apk;
 
         public override int A_GetContentViewId()
         {
@@ -42,15 +47,17 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
         public override void B_BeforeInitView()
         {
             adapter_App = new AppAdapter(this);
+            list_Apk = new List<Md_Applicaiotn>();
         }
 
         public override void C_InitView()
         {
             iv_Back = FindViewById<HightFoucesBackImageView>(Resource.Id.iv_back);
             rv_app = FindViewById<RecyclerView>(Resource.Id.rv_app);
+            et_Search = FindViewById<AppCompatEditText>(Resource.Id.et_search);
 
-            rv_app.SetLayoutManager(new GridLayoutManager(this, 4));
-            rv_app.AddItemDecoration(new Z_RecyclerViewAsGrid_Spacing(4, 10, true));
+            rv_app.SetLayoutManager(new GridLayoutManager(this, 6));
+            rv_app.AddItemDecoration(new Z_RecyclerViewAsGrid_Spacing(6, 16, true));
             rv_app.SetAdapter(adapter_App);
 
             #region 滑动拖拽事件绑定
@@ -64,6 +71,10 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
         public override void D_BindEvent()
         {
             iv_Back.Click += OnClickListener;
+            et_Search.TextChanged -= OnSeaechTextChange;
+            et_Search.TextChanged += OnSeaechTextChange;
+            et_Search.EditorAction -= OnSearchAction;
+            et_Search.EditorAction += OnSearchAction;
         }
 
         public override void E_InitData()
@@ -107,6 +118,38 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
             ShowMsgShort(position + "");
         }
 
+        /// <summary>
+        /// 搜索栏文字变动
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnSeaechTextChange(object sender, Android.Text.TextChangedEventArgs e)
+        {
+            var txt = e.Text.ToString();
+            if (string.IsNullOrEmpty(txt))
+                if (adapter_App.ItemCount != list_Apk.Count)
+                    adapter_App.SetDataList(list_Apk);
+            var searchContent = adapter_App.DataList.Where(x => x.Name.Contains(txt));
+            if (searchContent == null || !searchContent.Any())
+            {//没有搜索的内容
+                adapter_App.SetDataList(null);
+            }
+            else
+            {//有搜索的内容
+                adapter_App.SetDataList(searchContent.ToList());
+            }
+        }
+
+        /// <summary>
+        /// 点击软键盘搜索键
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnSearchAction(object sender, TextView.EditorActionEventArgs e)
+        {
+            HideTheSoftKeybow(et_Search);
+
+        }
 
         /// <summary>
         /// 获取系统的APP列表
@@ -137,6 +180,8 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
             //    PackageName = x.ActivityInfo.PackageName
             //}).ToList();
 
+            list_Apk.Clear();
+            list_Apk.AddRange(adapterData);
             adapter_App.SetDataList(adapterData);
         }
 
@@ -174,7 +219,7 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
         private PopupWindowHelper popHelper;
         private void ShowPopAsLocation(View view)
         {
-            var popView = LayoutInflater.From(this).Inflate(Resource.Layout.popwin_item_illustrate, null);
+            var popView = LayoutInflater.From(this).Inflate(Resource.Layout.popwin_item_fake_appmenu, null);
             #region 绑定点击事件
             var tv_Uninstall = popView.FindViewById<TextView>(Resource.Id.tv_Uninstall);
             var tv_AddQuick = popView.FindViewById<TextView>(Resource.Id.tv_AddQuick);
@@ -185,7 +230,10 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
             tv_AddQuick.Click += OnPopItemClickLisnter;
             #endregion
             popHelper = new PopupWindowHelper(popView);
-            popHelper.ShowAsDropDown(view, 0, -10);
+            var jk = new int[2];
+            view.GetLocationOnScreen(jk);
+            var father = FindViewById<Android.Support.Constraints.ConstraintLayout>(Resource.Id.cl_father);
+            popHelper.ShowAtLocation(father, GravityFlags.Start, jk[0], jk[1]);
         }
 
         private void OnPopItemClickLisnter(object sender, EventArgs eventArgs)

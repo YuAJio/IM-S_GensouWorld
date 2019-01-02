@@ -328,6 +328,7 @@
     <Compile Include="Film_Adapters\AsakuraBaseRvAdapter.cs" />
     <Compile Include="Film_Adapters\Film_FilmEpisodes_Adapter.cs" />
     <Compile Include="Film_Adapters\Film_FilmSearchList_Adapter.cs" />
+    <Compile Include="Film_Adapters\Z_GridLayoutManager.cs" />
     <Compile Include="Film_Adapters\Z_RecyclerViewAsGrid_Spacing.cs" />
     <Compile Include="Film_Adapters\Z_RecyclerViewAsStaggered_Spacing.cs" />
     <Compile Include="IMAS_Application.cs" />
@@ -928,6 +929,12 @@
     <AndroidResource Include="Resources\layout\popwin_item_fake_appmenu.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\sel_fake_desktable_app.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-hdpi\ico_search_app.png" />
   </ItemGroup>
   <Import Project="IMAS.BaiduAI_Manager\IMAS.BaiduAI_Manager.projitems" Label="Shared" />
   <Import Project="IMAS.OkHttp\IMAS.OkHttp.projitems" Label="Shared" />

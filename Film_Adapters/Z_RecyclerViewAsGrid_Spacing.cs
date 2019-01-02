@@ -51,5 +51,6 @@ namespace IdoMaster_GensouWorld.Film_Adapters
                     outRect.Top = spanCount;
             }
         }
+
     }
 }

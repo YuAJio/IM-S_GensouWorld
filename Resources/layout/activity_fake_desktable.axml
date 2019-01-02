@@ -1,20 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cl_father"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/bg_fakedesktable"
     android:orientation="vertical">
 
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/et_search"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="12dp"
+        android:background="@null"
+        android:gravity="center_horizontal"
+        android:hint="搜索应用"
+        android:imeOptions="actionSearch"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textColorHint="@color/dialog_button_normal"
+        android:textCursorDrawable="@color/dialog_button_normal"
+        app:layout_constraintBottom_toTopOf="@+id/rv_app"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/dialog_button_normal"
+        app:layout_constraintEnd_toEndOf="@id/et_search"
+        app:layout_constraintStart_toStartOf="@id/et_search"
+        app:layout_constraintTop_toBottomOf="@id/et_search" />
+
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_app"
+        android:id="@id/rv_app"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:padding="26dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/et_search" />
 
     <IdoMaster_GensouWorld.CustomControl.HightFoucesBackImageView
         android:id="@+id/iv_back"
