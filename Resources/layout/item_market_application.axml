@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sel_fake_desktable_app">
+
+        <ProgressBar
+            android:id="@+id/pb_download"
+            style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:max="100"
+            android:progressDrawable="@drawable/progess_app_market"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/iv_Icon"
+            android:layout_width="82dp"
+            android:layout_height="82dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ico_appmark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="3dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/iv_Icon"
+            app:layout_constraintTop_toTopOf="@id/iv_Icon" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_Maker"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dialog_button_normal"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/tv_Name"
+            app:layout_constraintTop_toBottomOf="@id/tv_Name"
+            app:layout_constraintWidth_percent="0.2" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_Intro"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:maxLines="2"
+            android:textColor="@color/dimgray"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/tv_Name"
+            app:layout_constraintTop_toBottomOf="@id/tv_Maker"
+            app:layout_constraintWidth_percent="0.3" />
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.constraint.ConstraintLayout>

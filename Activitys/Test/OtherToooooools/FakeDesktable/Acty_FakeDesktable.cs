@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V4.Content;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using IdoMaster_GensouWorld.Adapters;
 using IdoMaster_GensouWorld.CustomControl;
 using IdoMaster_GensouWorld.Film_Adapters;
 using IdoMaster_GensouWorld.Utils;
@@ -24,6 +26,10 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
     [Activity(Label = "Acty_FakeDesktable", Theme = "@style/Theme.PublicThemePlus")]
     public class Acty_FakeDesktable : Ys.BeLazy.YsBaseActivity, DefautItemTouchHelpCallback.IOnItemTouchCallbackEvent
     {
+        /// <summary>
+        /// 应用市场包名
+        /// </summary>
+        private const string MarketPackageName = "Not.In.Town";
         #region UI控件
         private HightFoucesBackImageView iv_Back;
         private EditText et_Search;
@@ -47,7 +53,7 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
         public override void B_BeforeInitView()
         {
             adapter_App = new AppAdapter(this);
-            list_Apk = new List<Md_Applicaiotn>();
+            list_Apk = new List<Md_Applicaiotn>() { };
         }
 
         public override void C_InitView()
@@ -75,12 +81,14 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
             et_Search.TextChanged += OnSeaechTextChange;
             et_Search.EditorAction -= OnSearchAction;
             et_Search.EditorAction += OnSearchAction;
+
+
         }
 
         public override void E_InitData()
         {
-            adapter_App.onItemClickAct -= OnItemClick;
-            adapter_App.onItemClickAct += OnItemClick;
+            adapter_App.clickAciton -= OnItemClick;
+            adapter_App.clickAciton += OnItemClick;
 
             adapter_App.longClickAciton -= OnItemLongClick;
             adapter_App.longClickAciton += OnItemLongClick;
@@ -113,11 +121,109 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
         }
 
 
-        private void OnItemClick(View view, int position)
+        private void OnItemClick(string packNage, View view)
         {
-            ShowMsgShort(position + "");
+            switch (packNage)
+            {
+                case MarketPackageName:
+                    {//应用市场
+                        StartActivityForResult(new Intent(this, typeof(Acty_UChengMarket)), 0x114);
+                    }
+                    break;
+                default:
+                    {//其他应用
+                        if (!string.IsNullOrEmpty(packNage))
+                            OpenApk(packNage);
+                    }
+                    break;
+            }
+        }
+        #region 方法池
+
+        /// <summary>
+        /// 打开APK
+        /// </summary>
+        /// <param name="packageName"></param>
+        /// <param name="name"></param>
+        private void OpenApk(string packageName)
+        {
+            var intent = PackageManager.GetLaunchIntentForPackage(packageName);
+            if (intent != null)
+            {
+                Task.Run(() =>
+            {
+                System.Threading.Thread.Sleep(200);
+            }).ContinueWith(x =>
+            {
+                intent.SetFlags(ActivityFlags.NewTask);
+                this.StartActivity(intent);
+            }, TaskScheduler.FromCurrentSynchronizationContext());
+            }
+        }      /// <summary>
+               /// 获取系统的APP列表
+               /// </summary>
+        private void GetSystemAppList()
+        {
+            var packages = PackageManager.GetInstalledPackages(Android.Content.PM.PackageInfoFlags.Activities);
+            var adapterData = packages.Where(
+                x =>
+                !x.ApplicationInfo.Flags.HasFlag(Android.Content.PM.ApplicationInfoFlags.System) &&
+                !x.ApplicationInfo.Flags.HasFlag(Android.Content.PM.ApplicationInfoFlags.Debuggable) &&
+                !x.PackageName.StartsWith("Mono.Android"))
+                .Select(x => new Md_Applicaiotn()
+                {
+                    Name = x.ApplicationInfo.LoadLabel(PackageManager).ToString(),
+                    PackageName = x.PackageName,
+                    NameForOpen = x.ApplicationInfo.Name,
+                    IconResource = x.ApplicationInfo.LoadIcon(PackageManager)
+                }).ToList();
+
+            //var intent = new Intent(Intent.ActionMain, null);
+            //intent.AddCategory(Intent.CategoryLauncher);
+            //var mApps = this.PackageManager.QueryIntentActivities(intent, Android.Content.PM.PackageInfoFlags.Activities);
+            //var listMaaps = mApps.ToList();
+            //var adapterDatass = listMaaps.Select(x => new Md_Applicaiotn()
+            //{
+            //    Name = x.ActivityInfo.Name,
+            //    NameForOpen=x.ActivityInfo.Name,
+            //    PackageName = x.ActivityInfo.PackageName
+            //}).ToList();
+
+            list_Apk.Clear();
+            list_Apk.Add(GetApkMarketMoudle());
+            list_Apk.InsertRange(0, adapterData);
+            adapter_App.SetDataList(list_Apk);
         }
 
+        /// <summary>
+        /// 获取某个包名在列表中的哪里
+        /// </summary>
+        /// <param name="packageName"></param>
+        /// <returns></returns>
+        private int GetIndexOfPackageName(string packageName)
+        {
+            var jk = adapter_App.DataList.Where(x => x.PackageName == packageName).FirstOrDefault();
+            return jk == null ? 0 : adapter_App.DataList.IndexOf(jk);
+        }
+
+        /// <summary>
+        /// 获取应用市场APP
+        /// </summary>
+        /// <returns></returns>
+        private Md_Applicaiotn GetApkMarketMoudle()
+        {
+            var md = new Md_Applicaiotn() { };
+            md.IconResource = ContextCompat.GetDrawable(this, Resource.Mipmap.ico_appmark);
+            md.PackageName = MarketPackageName;
+            md.Name = "U称商城";
+            return md;
+        }
+
+        #endregion
+
+
+
+        #region EventHanlder
         /// <summary>
         /// 搜索栏文字变动
         /// </summary>
@@ -150,51 +256,7 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
             HideTheSoftKeybow(et_Search);
 
         }
-
-        /// <summary>
-        /// 获取系统的APP列表
-        /// </summary>
-        private void GetSystemAppList()
-        {
-            var packages = PackageManager.GetInstalledPackages(Android.Content.PM.PackageInfoFlags.Activities);
-            var adapterData = packages.Where(
-                x =>
-                !x.ApplicationInfo.Flags.HasFlag(Android.Content.PM.ApplicationInfoFlags.System) &&
-                !x.ApplicationInfo.Flags.HasFlag(Android.Content.PM.ApplicationInfoFlags.Debuggable) &&
-                !x.PackageName.StartsWith("Mono.Android"))
-                .Select(x => new Md_Applicaiotn()
-                {
-                    Name = x.ApplicationInfo.LoadLabel(PackageManager).ToString(),
-                    PackageName = x.PackageName,
-                    IconResource = x.ApplicationInfo.LoadIcon(PackageManager)
-                }).ToList();
-
-            //var intent = new Intent(Intent.ActionMain, null);
-            //intent.AddCategory(Intent.CategoryLauncher);
-            //var mApps = this.PackageManager.QueryIntentActivities(intent, Android.Content.PM.PackageInfoFlags.Activities);
-            //var listMaaps = mApps.ToList();
-            //var adapterData = listMaaps.Select(x => new Md_Applicaiotn()
-            //{
-            //    Name = x.ActivityInfo.Name,
-            //    IconResource = x.ActivityInfo.IconResource,
-            //    PackageName = x.ActivityInfo.PackageName
-            //}).ToList();
-
-            list_Apk.Clear();
-            list_Apk.AddRange(adapterData);
-            adapter_App.SetDataList(adapterData);
-        }
-
-        /// <summary>
-        /// 获取某个包名在列表中的哪里
-        /// </summary>
-        /// <param name="packageName"></param>
-        /// <returns></returns>
-        private int GetIndexOfPackageName(string packageName)
-        {
-            var jk = adapter_App.DataList.Where(x => x.PackageName == packageName).FirstOrDefault();
-            return jk == null ? 0 : adapter_App.DataList.IndexOf(jk);
-        }
+        #endregion
 
         #region 控件拖动接口回调
         private string popingAppPackageName;
@@ -229,11 +291,18 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
             tv_AddQuick.Click -= OnPopItemClickLisnter;
             tv_AddQuick.Click += OnPopItemClickLisnter;
             #endregion
+            //判断是否是应用市场长按
+            if (popingAppPackageName == MarketPackageName)
+            {
+                tv_Uninstall.Enabled = false;
+                tv_Uninstall.SetTextColor(ContextCompat.GetColorStateList(this, Resource.Color.gray));
+            }
+
             popHelper = new PopupWindowHelper(popView);
             var jk = new int[2];
             view.GetLocationOnScreen(jk);
             var father = FindViewById<Android.Support.Constraints.ConstraintLayout>(Resource.Id.cl_father);
-            popHelper.ShowAtLocation(father, GravityFlags.Start, jk[0], jk[1]);
+            popHelper.ShowAtLocation(father, GravityFlags.NoGravity, jk[0], jk[1]);
         }
 
         private void OnPopItemClickLisnter(object sender, EventArgs eventArgs)
@@ -274,13 +343,22 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
         /// <summary>
         /// APP列表适配器
         /// </summary>
-        private class AppAdapter : Ys.BeLazy.YsBaseRvAdapter<Md_Applicaiotn>
+        private class AppAdapter : AsakuraBaseRvAdapter<Md_Applicaiotn>
         {
             public Action<string, View> longClickAciton;
+            public Action<string, View> clickAciton;
 
             public AppAdapter(Context context)
             {
                 this.context = context;
+            }
+            /// <summary>
+            /// 适配数据
+            /// </summary>
+            /// <param name="list"></param>
+            public void SetDataList(List<Md_Applicaiotn> list)
+            {
+                SetContainerList(list);
             }
 
             public override Md_Applicaiotn this[int position] { get { return list_data[position]; } }
@@ -288,6 +366,9 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
             protected override void AbOnBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
             {
                 var holder = viewHolder as ViewHolder;
+                if (viewHolder == null)
+                    return;
+
                 var data = list_data[position];
 
                 holder.tv_name.Text = data.Name;
@@ -295,9 +376,12 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
                 holder.iv_icon.SetBackgroundDrawable(data.IconResource);
 #pragma warning restore CS0618 // 类型或成员已过时
 
-                #region 设置长按监听
+                #region 设置长按监听和点击监听
                 holder.ItemView.Tag = data.PackageName;
+                holder.ItemView.LongClick -= ItemLongClickListner;
                 holder.ItemView.LongClick += ItemLongClickListner;
+                holder.ItemView.Click -= ItemClickListner;
+                holder.ItemView.Click += ItemClickListner;
                 #endregion
             }
 
@@ -307,6 +391,17 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
                 try
                 {
                     longClickAciton?.Invoke(v.Tag.ToString(), v);
+                }
+                catch (Exception)
+                {
+                }
+            }
+            private void ItemClickListner(object sender, EventArgs e)
+            {
+                var v = sender as View;
+                try
+                {
+                    clickAciton?.Invoke(v.Tag.ToString(), v);
                 }
                 catch (Exception)
                 {
@@ -385,11 +480,26 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
             /// </summary>
             public string PackageName { get; set; }
             /// <summary>
+            /// Class名(打开所需)
+            /// </summary>
+            public string NameForOpen { get; set; }
+            /// <summary>
             /// 图标资源
             /// </summary>
             public Drawable IconResource { get; set; }
         }
         #endregion
+
+        protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
+        {
+            base.OnActivityResult(requestCode, resultCode, data);
+            if (requestCode == 0x114)
+                if (resultCode == Result.Ok)
+                {//市场访问后
+                    GetSystemAppList();
+                }
+
+        }
 
     }
 }
