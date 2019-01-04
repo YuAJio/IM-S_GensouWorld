@@ -23,6 +23,7 @@ namespace IMAS.OkHttp.Download
         private ICall call;
         public NotificationCompat.Builder Builder { get; private set; }
         public int Id { get; private set; }
+        public string Tag { get; private set; }
 
         /// <summary>
         /// 总大小
@@ -41,16 +42,17 @@ namespace IMAS.OkHttp.Download
 
         public long StartPoint { get; private set; }
 
-        public ProgressDownloader(string url, string destinationPath, IProgressListener progressListener)
+        public ProgressDownloader(string url, string tag, string destinationPath, IProgressListener progressListener)
         {
             this.Url = url;
+            this.Tag = tag;
             this.destination = new Java.IO.File(destinationPath);
             this.progressListener = progressListener;
             //在下载、暂停后的继续下载中可复用同一个client对象
             client = GetProgressClient();
         }
 
-        public ProgressDownloader(int id, NotificationCompat.Builder builder , string url, string destinationPath, IProgressListener progressListener)
+        public ProgressDownloader(int id, NotificationCompat.Builder builder, string url, string destinationPath, IProgressListener progressListener)
         {
             this.Id = id;
             this.Builder = builder;
@@ -120,6 +122,7 @@ namespace IMAS.OkHttp.Download
                 //Chanel NIO中的用法，由于RandomAccessFile没有使用缓存策略，直接使用会使得下载速度变慢，亲测缓存下载3.3秒的文件，用普通的RandomAccessFile需要20多秒。
                 channelOut = randomAccessFile.Channel;
                 // 内存映射，直接使用RandomAccessFile，是用其seek方法指定下载的起始位置，使用缓存下载，在这里指定下载位置。
+                GC.Collect();
                 MappedByteBuffer mappedBuffer = channelOut.Map(FileChannel.MapMode.ReadWrite, startsPoint, body.ContentLength());
                 byte[] buffer = new byte[1024];
                 int len = -1;

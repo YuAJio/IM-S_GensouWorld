@@ -64,6 +64,7 @@ namespace IMAS.OkHttp.Models
     /// </summary>
     public class DownLoadFileInfo
     {
+
         /// <summary>
         /// 地址
         /// @网络请求地址
@@ -101,6 +102,10 @@ namespace IMAS.OkHttp.Models
         /// </summary>
         public long Length { get; set; }
 
+        /// <summary>
+        /// 下载标识
+        /// </summary>
+        public string DownLoadTag { get; set; }
     }
 
 }

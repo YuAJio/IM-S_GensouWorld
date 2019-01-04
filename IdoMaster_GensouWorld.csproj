@@ -292,6 +292,7 @@
     <Compile Include="Activitys\Test\OtherToolsMainActivity.cs" />
     <Compile Include="Activitys\Test\OtherToooooools\FakeDesktable\Acty_FakeDesktable.cs" />
     <Compile Include="Activitys\Test\OtherToooooools\FakeDesktable\Acty_UChengMarket.cs" />
+    <Compile Include="Activitys\Test\OtherToooooools\FakeDesktable\Serv_DownLoadApk.cs" />
     <Compile Include="Activitys\Test\OtherToooooools\SettingsActivitys\Frg_Screen.cs" />
     <Compile Include="Activitys\Test\OtherToooooools\SettingsActivitys\Frg_UChengAccount.cs" />
     <Compile Include="Activitys\Test\OtherToooooools\WifiFunctionActivity.cs" />

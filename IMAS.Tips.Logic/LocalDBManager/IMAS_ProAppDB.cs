@@ -1,4 +1,5 @@
 ﻿using IMAS.LocalDBManager.Models;
+using IMAS.OkHttp.Models;
 using SQLite;
 using System;
 using System.Threading.Tasks;
@@ -51,7 +52,8 @@ namespace IMAS.Tips.Logic.LocalDBManager
                 typeof(Model_SearchHistory),
                 typeof(Model_TodaySellGoods),
                 typeof(Model_PlayerControllCharacter),
-                typeof(Model_BattleMap)
+                typeof(Model_BattleMap),
+                typeof(DownLoadFileInfo)
                 );
 
         }

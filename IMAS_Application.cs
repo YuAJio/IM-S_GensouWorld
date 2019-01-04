@@ -99,6 +99,10 @@ namespace IdoMaster_GensouWorld
             AndroidEnvironment.UnhandledExceptionRaiser += AndroidEnvironment_UnhandledExceptionRaiser;
             #endregion
 
+            #region 初始化下载APK文件夹
+            InitApkDownloadPath();
+            #endregion
+
             //#region 初始化网易七鱼
             //Unicorn.Init(this, ysfAppId(), ySFOptions(), new Listeners.UnicornImageLoader());
             ////Utils.Managers.NanaSakanaManager.GetInstance().InitNanaSakana(this);
@@ -127,6 +131,14 @@ namespace IdoMaster_GensouWorld
         //}
         //#endregion
 
+        /// <summary>
+        /// 初始化下载APK文件夹
+        /// </summary>
+        private void InitApkDownloadPath()
+        {
+            var downloadPath = $"{FilePathManager.GetInstance().GetPrivateRootDirPath()}/DownLoadApk";
+            FilePathManager.GetInstance().CreateDir(downloadPath);
+        }
 
         /// <summary>
         /// 初始化图片加载器
@@ -177,6 +189,13 @@ namespace IdoMaster_GensouWorld
             CrashHandler.GetInstance().ThrowableCallback -= ThrowableCallback;
             CrashHandler.GetInstance().ThrowableCallback += ThrowableCallback;
         }
+
+        #region 方法池
+        public void YsInstallApk(string path)
+        {
+
+        }
+        #endregion
 
         #region 事件接收者
         /// <summary>

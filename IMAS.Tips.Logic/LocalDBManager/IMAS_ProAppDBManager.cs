@@ -9,6 +9,7 @@ using IMAS.LocalDBManager.Models;
 using IMAS.Tips.Enums;
 using IMAS.Utils.Cryptographic;
 using IMAS.CupCake.Extensions;
+using IMAS.OkHttp.Models;
 
 namespace IMAS.Tips.Logic.LocalDBManager
 {
@@ -782,6 +783,148 @@ namespace IMAS.Tips.Logic.LocalDBManager
         }
 
         #endregion
+        #region 下载文件相关
+        /// <summary>
+        /// 插入数据
+        /// </summary>
+        /// <param name="url">请求网络地址</param>
+        /// <param name="tempFilePath">临时本地地址</param>
+        /// <param name="filePath">本地文件</param>
+        /// <returns></returns>
+        public async Task<Results> InsertDownLoadFileInfo(string url, string tempFilePath, string filePath, string downloadTag = "")
+        {
+            var result = new Results();
+
+            if (string.IsNullOrWhiteSpace(url))
+            {
+                return result.Error();
+            }
+
+            var oldInfo = await dbInstance.FindAsync<DownLoadFileInfo>(url);
+            if (oldInfo != null)
+            {
+                return result.Success();
+            }
+
+            var info = new DownLoadFileInfo
+            {
+                FileUrl = url,
+                TempLocalPath = tempFilePath,
+                LocalPath = filePath,
+                DownLoadTag = downloadTag
+            };
+
+            var count = await dbInstance.InsertAsync(info);
+            if (count <= 0)
+            {
+                return result.Error(message: "插入数据失败 ");
+            }
+
+            return result.Success();
+        }
+
+        /// <summary>
+        /// 更新进度
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="breakPoints"></param>
+        /// <returns></returns>
+        public async Task<Results> UpdateDownLoadFileInfo(string url, long breakPoints)
+        {
+            var result = new Results();
+
+            if (string.IsNullOrWhiteSpace(url))
+            {
+                return result.Error();
+            }
+            var dict = new Dictionary<string, object>();
+            dict.Add("Now", breakPoints);
+
+            var count = await dbInstance.UpdateAsync<DownLoadFileInfo>(url, dict);
+            if (count <= 0)
+            {
+                return result.Error(message: "更新进度失败");
+            }
+
+            return result.Success();
+        }
+
+        /// <summary>
+        /// 更新总大小
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="len"></param>
+        /// <returns></returns>
+        public async Task<Results> UpdateDownLoadFileInfoToLen(string url, long len)
+        {
+            var result = new Results();
+
+            if (string.IsNullOrWhiteSpace(url))
+            {
+                return result.Error();
+            }
+            var dict = new Dictionary<string, object>();
+            dict.Add("Length", len);
+            dict.Add("DownLoadState", DownLoadState.Downloading);
+
+            var count = await dbInstance.UpdateAsync<DownLoadFileInfo>(url, dict);
+            if (count <= 0)
+            {
+                return result.Error(message: "更新总大小失败");
+            }
+
+            return result.Success();
+        }
+
+        /// <summary>
+        /// 更新总大小
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="len"></param>
+        /// <returns></returns>
+        public async Task<Results> UpdateDownLoadFileInfoState(string url, DownLoadState state)
+        {
+            var result = new Results();
+
+            if (string.IsNullOrWhiteSpace(url))
+            {
+                return result.Error();
+            }
+            var dict = new Dictionary<string, object>();
+            dict.Add("DownLoadState", state);
+
+            var count = await dbInstance.UpdateAsync<DownLoadFileInfo>(url, dict);
+            if (count <= 0)
+            {
+                return result.Error(message: "更新总大小失败");
+            }
+
+            return result.Success();
+        }
+
+
+        /// <summary>
+        /// 获取数据失败
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public async Task<Result<DownLoadFileInfo>> GetDownLoadFileInfo(string url)
+        {
+            var result = new Result<DownLoadFileInfo>();
+            if (string.IsNullOrWhiteSpace(url))
+            {
+                return result.Error();
+            }
+
+            var info = await dbInstance.FindAsync<DownLoadFileInfo>(url);
+            if (info == null)
+            {
+                return result.Error(message: "获取数据失败");
+            }
+
+            return result.Success(info);
+        }
+        #endregion
 
         #region 生成随机字符串帐号
         ///<summary>
@@ -810,6 +953,6 @@ namespace IMAS.Tips.Logic.LocalDBManager
             }
             return s;
         }
+        #endregion
     }
-    #endregion
 }
