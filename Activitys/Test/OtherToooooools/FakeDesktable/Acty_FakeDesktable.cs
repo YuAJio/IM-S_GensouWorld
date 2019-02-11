@@ -127,7 +127,10 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
             {
                 case MarketPackageName:
                     {//应用市场
-                        StartActivityForResult(new Intent(this, typeof(Acty_UChengMarket)), 0x114);
+                        var apkPackageNames = list_Apk.Select(x => x.PackageName).ToJson();
+                        var intent = new Intent(this, typeof(Acty_UChengMarket));
+                        intent.PutExtra("packagenames", apkPackageNames);
+                        StartActivityForResult(intent, 0x114);
                     }
                     break;
                 default:
@@ -220,8 +223,6 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
         }
 
         #endregion
-
-
 
         #region EventHanlder
         /// <summary>

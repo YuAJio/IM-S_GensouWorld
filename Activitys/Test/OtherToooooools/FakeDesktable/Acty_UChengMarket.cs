@@ -24,6 +24,7 @@ using IMAS.Tips.Logic.LocalDBManager;
 using IdoMaster_GensouWorld.Threads;
 using Android;
 using Android.Support.V4.App;
+using IMAS.CupCake.Extensions;
 
 namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
 {
@@ -54,7 +55,10 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
         /// </summary>
         private MarkerAppApdater adapter_market;
 
-
+        /// <summary>
+        /// 本地已存在的应用包名集合
+        /// </summary>
+        private List<string> list_PackageNames;
 
 
         public override int A_GetContentViewId()
@@ -68,6 +72,10 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
             mHandler = new YurishBaseiHandler();
             mHandler.handlerAction -= DownloadHandMessageAction;
             mHandler.handlerAction += DownloadHandMessageAction;
+
+            var jk = Intent.GetStringExtra("packagenames");
+            var data = jk.ToObject<List<string>>();
+            list_PackageNames = data ?? new List<string>();
         }
 
         public override void C_InitView()
@@ -110,8 +118,17 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
                     break;
                 case Resource.Id.iv_Download:
                     {//下载app
-                        SaveApkDownLoadFile();
-                        popWindow.Dismiss();
+                        var flag = Convert.ToInt32(v.Tag);
+                        if (flag == 0)
+                        {//下载
+                            SaveApkDownLoadFile();
+                            popWindow.Dismiss();
+                        }
+                        else
+                        {//打开
+
+                        }
+
                     }
                     break;
             }
@@ -273,9 +290,18 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
             popView.FindViewById<AppCompatTextView>(Resource.Id.tv_Name).Text = data.Name;
             popView.FindViewById<AppCompatTextView>(Resource.Id.tv_Maker).Text = data.Maker;
             popView.FindViewById<AppCompatImageView>(Resource.Id.iv_Download).Click += OnClickListener;
-            var iv = popView.FindViewById<AppCompatImageView>(Resource.Id.iv_Icon);
+            var iv_Img = popView.FindViewById<AppCompatImageView>(Resource.Id.iv_Icon);
+            var iv_func = popView.FindViewById<AppCompatImageView>(Resource.Id.iv_Download);
 
-            ImageLoader.Instance.DisplayImage(data.PicPath, iv, ImageLoaderHelper.GeneralImageOption());
+            iv_func.Click -= OnClickListener;
+            iv_func.Click += OnClickListener;
+
+            var flag = (list_PackageNames.Where(x => x == data.PackageName).FirstOrDefault()) == null ? 0 : 1;
+
+            iv_func.Tag = flag;
+            iv_func.SetImageResource(flag == 0 ? Resource.Mipmap.ico_app_download : Resource.Mipmap.ico_app_open);
+
+            ImageLoader.Instance.DisplayImage(data.PicPath, iv_Img, ImageLoaderHelper.GeneralImageOption());
             v_Mask.Visibility = ViewStates.Visible;
             var metrics = Resources.DisplayMetrics;
             int width = metrics.WidthPixels;
@@ -379,11 +405,12 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
 
             private class ViewHolder : RecyclerView.ViewHolder
             {
-                public AppCompatTextView tv_Name { get; set; }
-                public AppCompatTextView tv_Maker { get; set; }
-                public AppCompatTextView tv_Intro { get; set; }
-                public AppCompatImageView iv_Icon { get; set; }
-                public ProgressBar pb_Progress { get; set; }
+                public AppCompatTextView tv_Name;
+                public AppCompatTextView tv_Maker;
+                public AppCompatTextView tv_Intro;
+                public AppCompatImageView iv_Icon;
+                public ProgressBar pb_Progress;
+
                 public ViewHolder(View itemView) : base(itemView)
                 {
                     tv_Name = ItemView.FindViewById<AppCompatTextView>(Resource.Id.tv_Name);
@@ -420,6 +447,10 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
             /// 下载地址
             /// </summary>
             public string DownLoadPath { get; set; }
+            /// <summary>
+            /// 包名
+            /// </summary>
+            public string PackageName { get; set; }
         }
 
         #endregion
@@ -448,6 +479,7 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
                     Intro = "我也是个广东人,所以我们是老乡",
                     PicPath = "https://img.moegirl.org/common/thumb/6/6b/Ef376e17406d8d612ae0003742137a4cfd7aaa7f.jpg/250px-Ef376e17406d8d612ae0003742137a4cfd7aaa7f.jpg"
                     ,DownLoadPath="http://ccapkg.cancanan.cn/EScales/1.0.12.12.apk"
+                    ,PackageName="com.yg366.droid.xccloud.manage"
                 },
                 new Md_MarketApk()
                 {
@@ -675,7 +707,8 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
                     {
                         var index = adapter_market.DataList.IndexOf(adapterData);
                         var pb_progress = rv_MarketApp.GetChildAt(index).FindViewById<ProgressBar>(Resource.Id.pb_download);
-                        pb_progress.Visibility = ViewStates.Visible;
+                        if (pb_progress.Visibility == ViewStates.Invisible)
+                            pb_progress.Visibility = ViewStates.Visible;
                         pb_progress.Progress = Convert.ToInt32(jk * 100);
                     }
                 }

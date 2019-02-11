@@ -49,7 +49,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="centerInside"
-        android:src="@mipmap/icon_film_full_screen"
+        android:src="@mipmap/ico_app_download"
         app:layout_constraintBottom_toBottomOf="@id/iv_Icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.06"

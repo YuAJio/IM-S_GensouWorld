@@ -936,9 +936,6 @@
     <AndroidResource Include="Resources\drawable\sel_fake_desktable_app.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\ico_search_app.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\mipmap-hdpi\ico_appmark.png" />
   </ItemGroup>
   <ItemGroup>
@@ -958,6 +955,15 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\progess_app_market.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-hdpi\ico_app_open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-hdpi\ico_app_download.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-hdpi\ico_app_search.png" />
   </ItemGroup>
   <Import Project="IMAS.BaiduAI_Manager\IMAS.BaiduAI_Manager.projitems" Label="Shared" />
   <Import Project="IMAS.OkHttp\IMAS.OkHttp.projitems" Label="Shared" />
