@@ -134,10 +134,6 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
             }
         }
 
-        public override void G_SomethingElse()
-        {
-
-        }
 
         #region 计时器相关
         private A_Timer ysTimer;

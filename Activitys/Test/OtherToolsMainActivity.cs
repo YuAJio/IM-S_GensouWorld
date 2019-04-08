@@ -59,8 +59,10 @@ namespace IdoMaster_GensouWorld.Activitys.Test
                 new Moudle_Menu() { Title = "获取WIFI列表", Path = typeof(WifiFunctionActivity) },
                 new Moudle_Menu() { Title = "自定义设置页面", Path = typeof(YsSettingActivity) },
                 new Moudle_Menu() { Title = "自定义系统桌面", Path = typeof(Acty_FakeDesktable) },
-                new Moudle_Menu() { Title = "上拉刷新下拉加载", Path = typeof(PrintTestActivity) }
-            };
+                new Moudle_Menu() { Title = "上拉刷新下拉加载", Path = typeof(PrintTestActivity) },
+                new Moudle_Menu() { Title = "弹幕弹出测试", Path = typeof(DanmakuActivity) },
+                new Moudle_Menu() { Title = "Gilde测试", Path = typeof(GildeTestActivity) },
+            }; 
 
             adapter_1.SetDataList(list);
         }

@@ -241,5 +241,18 @@ namespace IMAS.Utils.Sp
 
         #endregion
 
+        #region 删除数据
+        /// <summary>
+        /// 删除某条数据
+        /// </summary>
+        /// <param name="key"></param>
+        public void Remove(string key, string loginKey = "")
+        {
+            var edit = GetEditor(loginKey);
+            edit.Remove(key);
+            edit.Commit();
+        }
+
+        #endregion
     }
 }

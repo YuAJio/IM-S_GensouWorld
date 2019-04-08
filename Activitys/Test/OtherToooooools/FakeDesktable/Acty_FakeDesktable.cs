@@ -108,10 +108,6 @@ namespace IdoMaster_GensouWorld.Activitys.Test.OtherToooooools.FakeDesktable
             }
         }
 
-        public override void G_SomethingElse()
-        {
-
-        }
 
         private void OnItemLongClick(string packNage, View view)
         {

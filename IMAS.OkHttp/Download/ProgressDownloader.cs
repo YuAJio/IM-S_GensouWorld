@@ -51,6 +51,14 @@ namespace IMAS.OkHttp.Download
             //在下载、暂停后的继续下载中可复用同一个client对象
             client = GetProgressClient();
         }
+        public ProgressDownloader(string url,  string destinationPath, IProgressListener progressListener)
+        {
+            this.Url = url;
+            this.destination = new Java.IO.File(destinationPath);
+            this.progressListener = progressListener;
+            //在下载、暂停后的继续下载中可复用同一个client对象
+            client = GetProgressClient();
+        }
 
         public ProgressDownloader(int id, NotificationCompat.Builder builder, string url, string destinationPath, IProgressListener progressListener)
         {
