@@ -37,7 +37,7 @@
     <AndroidLinkMode>None</AndroidLinkMode>
     <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
     <EnableProguard>false</EnableProguard>
-    <AndroidSupportedAbis>armeabi;armeabi-v7a;x86;x86_64</AndroidSupportedAbis>
+    <AndroidSupportedAbis>armeabi-v7a;x86;x86_64</AndroidSupportedAbis>
     <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -73,6 +73,9 @@
     </Reference>
     <Reference Include="FormsViewGroup, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Xamarin.Forms.3.4.0.1008975\lib\MonoAndroid10\FormsViewGroup.dll</HintPath>
+    </Reference>
+    <Reference Include="IMAS_YsDialog">
+      <HintPath>..\..\..\CODE\Z_Third_DLL_File\IMAS_YsDialog.dll</HintPath>
     </Reference>
     <Reference Include="Java.Interop" />
     <Reference Include="Microsoft.AspNetCore.Http, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
@@ -471,9 +474,6 @@
     <AndroidResource Include="Resources\mipmap-hdpi\bg_battle_monster_name.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\bg_flash_screen.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\mipmap-hdpi\bg_hp_progreesbar.png" />
   </ItemGroup>
   <ItemGroup>
@@ -823,10 +823,6 @@
       <Project>{fc7cadfa-d569-43b5-a749-cec90233ceee}</Project>
       <Name>IMAS_Jimusho</Name>
     </ProjectReference>
-    <ProjectReference Include="IMAS_YsDialog\IMAS_YsDialog.csproj">
-      <Project>{a4f2fba5-5216-40e4-bcc9-3fa173061264}</Project>
-      <Name>IMAS_YsDialog</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_week_sleep_control.axml">
@@ -986,19 +982,16 @@
     <AndroidResource Include="Resources\layout\include_title_normal.axml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout-port\activity_flash.axml" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\layout-port\film_activity_film_details.axml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\bg_flash_land.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout-land\activity_flash.axml" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\layout-land\film_activity_film_details.axml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-land\bg_flash_screen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-port\bg_flash_screen.jpg" />
   </ItemGroup>
   <Import Project="IMAS.BaiduAI_Manager\IMAS.BaiduAI_Manager.projitems" Label="Shared" />
   <Import Project="IMAS.OkHttp\IMAS.OkHttp.projitems" Label="Shared" />

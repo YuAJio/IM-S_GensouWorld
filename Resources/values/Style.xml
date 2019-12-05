@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--主题-->
   <style name="Theme.Main" parent="android:Theme">
-    <item name="android:windowBackground">@mipmap/bg_flash_screen</item>
+    <item name="android:windowBackground">@drawable/bg_flash_screen</item>
     <item name="android:windowNoTitle">true</item>
     <item name="android:windowFullscreen">true</item>
   </style>

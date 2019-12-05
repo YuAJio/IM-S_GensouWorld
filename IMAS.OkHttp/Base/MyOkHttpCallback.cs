@@ -32,12 +32,10 @@ namespace IMAS.OkHttp.Bases
             this.onFailure = onFailure;
         }
 
-        public void OnFailure(ICall call, IOException ex)
+        public void OnFailure(ICall p0, IOException p1)
         {
             if (onFailure != null)
-            {
-                onFailure(call.Request(), ex);
-            }
+                onFailure(p0.Request(), p1);
         }
 
         public void OnResponse(ICall call, Response response)

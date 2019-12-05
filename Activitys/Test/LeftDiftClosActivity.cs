@@ -19,12 +19,18 @@ namespace IdoMaster_GensouWorld.Activitys.Test
     [Activity(Label = "LeftDiftClosActivity", Theme = "@style/JK.SwipeBack.Transparent.Theme")]
     public class LeftDiftClosActivity : Ys.BeLazy.AdvanceWithTheTimes.BaseSwipeBackActivity
     {
-        protected override void OnCreate(Bundle savedInstanceState)
+        public override int A_GetContentViewId()
         {
-            base.OnCreate(savedInstanceState);
+            return -1;
+        }
 
+        public override void B_BeforeInitView()
+        {
             this.SetContentView(ProcessLayout());
+        }
 
+        public override void C_InitView()
+        {
             var rl = this.FindViewById<RelativeLayout>(0x12);
 
             var bt = this.FindViewById<Button>(0x123);
@@ -38,15 +44,21 @@ namespace IdoMaster_GensouWorld.Activitys.Test
 
             bt.Click -= OnClickListner;
             bt.Click += OnClickListner;
+        }
 
+        public override void D_BindEvent()
+        {
+        }
 
-#if DEBUG
-            var jk = new List<string>();
+        public override void E_InitData()
+        {
+        }
 
-            var sj = jk[8];
-#endif
+        public override void F_OnClickListener(View v, EventArgs e)
+        {
 
         }
+
 
         private void OnClickListner
             (object sender, EventArgs e)
